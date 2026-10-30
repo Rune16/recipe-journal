@@ -17,9 +17,2717 @@
   <meta property="og:title" content="食谱集 · 今天，做点好吃的" />
   <meta property="og:description" content="按菜系挑选精选菜谱、查看分步做法、记录并上传自己的菜品图片。" />
 
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/layout.css" />
+  <style>
+/* ===== base.css ===== */
+/* ==========================================================================
+   食谱集 · base.css
+   设计令牌 / Reset / 全局排版 / 工具类
+   ========================================================================== */
+
+:root {
+  /* ---- 主色（淡紫 / 天蓝 / 淡紫罗兰）---- */
+  --c-lavender: #dbc4fd;
+  --c-sky: #99caf0;
+  --c-periwinkle: #b6bcec;
+
+  /* ---- 背景（暖奶油 / 暖粉 / 淡紫）---- */
+  --c-bg: #fffbf5;
+  --c-bg-blush: #fff0f0;
+  --c-bg-lilac: #f7e7f9;
+
+  /* ---- 高光与纯白 ---- */
+  --c-pink: #fbbcf3;
+  --c-pink-soft: #fcd6ff;
+  --c-white: #ffffff;
+
+  /* ---- 功能色 ---- */
+  --c-mint: #dbf5e0;
+  --c-rose: #eec8c8;
+  --c-violet-soft: #c6c0e8;
+  --c-blue-soft: #cce1f5;
+
+  /* ---- 派生文字色：在浅色底上保证对比度（AA 级）---- */
+  --c-ink: #33284a;
+  --c-ink-2: #6f6684;
+  --c-ink-3: #a49daf;
+  --c-ink-on-dark: #fffdf9;
+
+  /* ---- 徽章功能色 ---- */
+  --c-easy-bg: var(--c-mint);
+  --c-easy-fg: #2f6b45;
+  --c-mid-bg: var(--c-blue-soft);
+  --c-mid-fg: #2b5a7d;
+  --c-hard-bg: var(--c-rose);
+  --c-hard-fg: #8a3b3b;
+  --c-danger: #c2565c;
+  --c-danger-soft: #fbe6e8;
+
+  /* ---- 线条与表面 ---- */
+  --c-line: #f0e7f1;
+  --c-line-strong: #e2d5e6;
+  --c-surface: rgba(255, 255, 255, 0.78);
+  --c-surface-solid: #ffffff;
+
+  /* ---- 渐变 ---- */
+  --g-primary: linear-gradient(135deg, #dbc4fd 0%, #b6bcec 48%, #99caf0 100%);
+  --g-warm: linear-gradient(135deg, #fffbf5 0%, #f7e7f9 55%, #eef4fd 100%);
+  --g-blush: linear-gradient(135deg, #ffe9f3 0%, #fff0f0 55%, #f3ebff 100%);
+
+  /* ---- 圆角 ---- */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --r-full: 999px;
+
+  /* ---- 阴影 ---- */
+  --sh-1: 0 2px 10px -5px rgba(94, 78, 150, 0.20);
+  --sh-2: 0 14px 30px -16px rgba(94, 78, 150, 0.32);
+  --sh-3: 0 26px 56px -22px rgba(94, 78, 150, 0.40);
+  --sh-glow: 0 16px 38px -18px rgba(182, 188, 236, 0.90);
+
+  /* ---- 间距 ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 22px;
+  --sp-6: 30px;
+  --sp-7: 42px;
+  --sp-8: 60px;
+
+  /* ---- 字体 ---- */
+  --font-sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Georgia, serif;
+
+  /* ---- 动效 ---- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast: 150ms;
+  --t-base: 260ms;
+  --t-slow: 420ms;
+
+  /* ---- 布局 ---- */
+  --page-max: 1200px;
+  --nav-h: 68px;
+}
+
+/* --------------------------------------------------------------------------
+   Reset
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--c-ink);
+  background-color: var(--c-bg);
+  /* 柔和的暖色调光晕，营造杂志质感 */
+  background-image:
+    radial-gradient(900px 460px at 8% -6%, rgba(219, 196, 253, 0.42), transparent 62%),
+    radial-gradient(760px 420px at 96% 2%, rgba(153, 202, 240, 0.34), transparent 60%),
+    radial-gradient(680px 420px at 50% 108%, rgba(251, 188, 243, 0.26), transparent 62%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--c-ink);
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-periwinkle);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--c-lavender);
+  color: var(--c-ink);
+}
+
+/* --------------------------------------------------------------------------
+   滚动条（桌面端）
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(182, 188, 236, 0.55);
+  border: 3px solid transparent;
+  border-radius: var(--r-full);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(160, 156, 224, 0.85);
+  background-clip: content-box;
+}
+
+/* --------------------------------------------------------------------------
+   工具类
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.text-soft {
+  color: var(--c-ink-2);
+}
+
+.text-faint {
+  color: var(--c-ink-3);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* 渐变文字标题 */
+.grad-text {
+  background: linear-gradient(120deg, #8d7fd8 0%, #6b81d6 42%, #6fa8d8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 卡片式面板 */
+.panel {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* 分区标题 */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.section-sub {
+  font-size: 13px;
+  color: var(--c-ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   入场动画
+   -------------------------------------------------------------------------- */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -220% 0;
+  }
+  100% {
+    background-position: 220% 0;
+  }
+}
+
+.rise-in {
+  animation: riseIn var(--t-slow) var(--ease) both;
+}
+
+.fade-in {
+  animation: fadeIn var(--t-base) var(--ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ===== components.css ===== */
+/* ==========================================================================
+   食谱集 · components.css
+   按钮 / 卡片 / 胶囊标签 / 徽章 / 表单 / 上传区 / 步骤时间轴 / Toast / 弹窗 / 灯箱
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 按钮
+   -------------------------------------------------------------------------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: var(--r-full);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-base) var(--ease),
+    background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease);
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.btn__icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.btn__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 主按钮：粉紫渐变 + 深色文字，兼顾美感与对比度 */
+.btn--primary {
+  background: var(--g-primary);
+  color: var(--c-ink);
+  box-shadow: var(--sh-glow);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px -18px rgba(153, 202, 240, 1);
+}
+
+/* 次按钮 */
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: var(--c-line-strong);
+  color: var(--c-ink);
+}
+
+.btn--ghost:hover {
+  background: var(--c-white);
+  border-color: var(--c-periwinkle);
+  transform: translateY(-2px);
+  box-shadow: var(--sh-2);
+}
+
+/* 文字按钮 */
+.btn--text {
+  min-height: 36px;
+  padding: 0 12px;
+  background: transparent;
+  color: var(--c-ink-2);
+}
+
+.btn--text:hover {
+  color: var(--c-ink);
+  background: rgba(219, 196, 253, 0.22);
+}
+
+/* 危险按钮 */
+.btn--danger {
+  background: var(--c-danger-soft);
+  border-color: rgba(194, 86, 92, 0.28);
+  color: var(--c-danger);
+}
+
+.btn--danger:hover {
+  background: var(--c-danger);
+  border-color: var(--c-danger);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -16px rgba(194, 86, 92, 0.9);
+}
+
+.btn--sm {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn[disabled] {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* 圆形图标按钮 */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-full);
+  color: var(--c-ink-2);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--c-line);
+  transition: all var(--t-fast) var(--ease);
+}
+
+.icon-btn:hover {
+  color: var(--c-ink);
+  background: var(--c-white);
+  border-color: var(--c-periwinkle);
+  transform: translateY(-2px);
+  box-shadow: var(--sh-1);
+}
+
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   2. 胶囊标签 / 徽章
+   -------------------------------------------------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 18px;
+  border-radius: var(--r-full);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--c-ink-2);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--c-line-strong);
+  transition: all var(--t-fast) var(--ease);
+  user-select: none;
+}
+
+.chip:hover {
+  color: var(--c-ink);
+  border-color: var(--c-periwinkle);
+  transform: translateY(-2px);
+  box-shadow: var(--sh-1);
+}
+
+.chip.is-active {
+  background: var(--g-primary);
+  border-color: transparent;
+  color: var(--c-ink);
+  font-weight: 700;
+  box-shadow: var(--sh-glow);
+}
+
+.chip__count {
+  font-size: 12px;
+  opacity: 0.62;
+  font-variant-numeric: tabular-nums;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 11px;
+  border-radius: var(--r-full);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+.badge--easy {
+  background: var(--c-easy-bg);
+  color: var(--c-easy-fg);
+}
+
+.badge--medium {
+  background: var(--c-mid-bg);
+  color: var(--c-mid-fg);
+}
+
+.badge--hard {
+  background: var(--c-hard-bg);
+  color: var(--c-hard-fg);
+}
+
+.badge--category {
+  background: rgba(219, 196, 253, 0.5);
+  color: var(--c-ink);
+}
+
+.badge--custom {
+  background: var(--c-pink-soft);
+  color: #8b4a86;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--r-full);
+  font-size: 12px;
+  color: var(--c-ink-2);
+  background: rgba(204, 225, 245, 0.5);
+  border: 1px solid rgba(153, 202, 240, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   3. 图片与占位图
+   -------------------------------------------------------------------------- */
+.media {
+  position: relative;
+  overflow: hidden;
+  background: var(--c-bg-lilac);
+}
+
+/* 图片叠在占位层之上，加载成功后淡入；失败时该节点会被移除，露出占位层 */
+.media > img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: transform var(--t-slow) var(--ease), opacity var(--t-base) var(--ease);
+}
+
+.media.is-loaded > img {
+  opacity: 1;
+}
+
+.media--4x3 {
+  aspect-ratio: 4 / 3;
+}
+
+.media--16x9 {
+  aspect-ratio: 16 / 9;
+}
+
+.media--square {
+  aspect-ratio: 1 / 1;
+}
+
+/* 无图 / 加载失败时的内联占位图（离线可用，不产生破图）*/
+.media-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--g-blush);
+  color: var(--c-ink);
+}
+
+.media-fallback::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 22% 24%, rgba(255, 255, 255, 0.85), transparent 42%),
+    radial-gradient(circle at 82% 78%, rgba(153, 202, 240, 0.55), transparent 46%);
+  pointer-events: none;
+}
+
+.media-fallback__emoji {
+  font-size: 46px;
+  line-height: 1;
+  filter: drop-shadow(0 6px 12px rgba(94, 78, 150, 0.22));
+}
+
+.media-fallback__text {
+  position: relative;
+  z-index: 1;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--c-ink);
+  opacity: 0.72;
+}
+
+.media-fallback--sm .media-fallback__emoji {
+  font-size: 30px;
+}
+
+.media-fallback--sm .media-fallback__text {
+  font-size: 11px;
+}
+
+.media-fallback--lg .media-fallback__emoji {
+  font-size: 88px;
+}
+
+.media-fallback--lg .media-fallback__text {
+  font-size: 15px;
+  letter-spacing: 0.16em;
+}
+
+/* 图片缩略图（步骤图）*/
+.thumb {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-line);
+  background: var(--c-bg-lilac);
+  cursor: zoom-in;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-base) var(--ease);
+}
+
+.thumb:hover img {
+  transform: scale(1.04);
+}
+
+/* --------------------------------------------------------------------------
+   4. 菜谱卡片
+   -------------------------------------------------------------------------- */
+.recipe-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: var(--c-surface-solid);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--sh-2);
+  transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease);
+}
+
+.recipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sh-3);
+  border-color: rgba(182, 188, 236, 0.7);
+}
+
+.recipe-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.recipe-card__media {
+  aspect-ratio: 4 / 3;
+}
+
+.recipe-card:hover .recipe-card__media > img {
+  transform: scale(1.06);
+}
+
+.recipe-card__time {
+  position: absolute;
+  z-index: 2;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 11px;
+  border-radius: var(--r-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-ink);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--sh-1);
+}
+
+.recipe-card__time svg {
+  width: 13px;
+  height: 13px;
+}
+
+.recipe-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 18px 20px;
+  flex: 1;
+}
+
+.recipe-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recipe-card__desc {
+  font-size: 13px;
+  color: var(--c-ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 44px;
+}
+
+.recipe-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.recipe-card__steps-hint {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--c-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   5. 表单控件
+   -------------------------------------------------------------------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-ink-2);
+}
+
+.field__req {
+  color: var(--c-danger);
+  font-size: 13px;
+}
+
+.field__hint {
+  font-size: 12px;
+  color: var(--c-ink-3);
+}
+
+.field__error {
+  display: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-danger);
+}
+
+.field.has-error .field__error {
+  display: block;
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 14px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-line-strong);
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 14px;
+  color: var(--c-ink);
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease),
+    background-color var(--t-fast) var(--ease);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--c-ink-3);
+}
+
+.input:hover,
+.textarea:hover,
+.select:hover {
+  border-color: var(--c-periwinkle);
+  background: var(--c-white);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  background: var(--c-white);
+  border-color: var(--c-periwinkle);
+  box-shadow: 0 0 0 4px rgba(219, 196, 253, 0.45);
+}
+
+.textarea {
+  min-height: 96px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.select {
+  appearance: none;
+  padding-right: 38px;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236f6684' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+.field.has-error .input,
+.field.has-error .textarea,
+.field.has-error .select {
+  border-color: var(--c-danger);
+  background: var(--c-danger-soft);
+}
+
+/* 搜索输入框 */
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box svg {
+  position: absolute;
+  left: 18px;
+  width: 20px;
+  height: 20px;
+  color: var(--c-ink-3);
+  pointer-events: none;
+}
+
+.search-box .input {
+  min-height: 58px;
+  padding-left: 52px;
+  padding-right: 52px;
+  border-radius: var(--r-full);
+  font-size: 15px;
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--sh-2);
+}
+
+.search-box .input:focus {
+  box-shadow: var(--sh-3), 0 0 0 4px rgba(219, 196, 253, 0.5);
+}
+
+.search-box__clear {
+  position: absolute;
+  right: 10px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-full);
+  color: var(--c-ink-2);
+  transition: all var(--t-fast) var(--ease);
+}
+
+.search-box__clear:hover {
+  background: rgba(219, 196, 253, 0.35);
+  color: var(--c-ink);
+}
+
+.search-box__clear svg {
+  position: static;
+  width: 16px;
+  height: 16px;
+  pointer-events: auto;
+}
+
+.search-box.is-filled .search-box__clear {
+  display: inline-flex;
+}
+
+.search-box--sm .input {
+  min-height: 42px;
+  padding-left: 40px;
+  font-size: 13px;
+}
+
+.search-box--sm svg {
+  left: 14px;
+  width: 16px;
+  height: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   6. 图片上传区
+   -------------------------------------------------------------------------- */
+.uploader {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 150px;
+  padding: 20px;
+  border-radius: var(--r-lg);
+  border: 2px dashed var(--c-line-strong);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--c-ink-2);
+  text-align: center;
+  transition: all var(--t-base) var(--ease);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.uploader:hover,
+.uploader.is-dragover {
+  border-color: var(--c-periwinkle);
+  background: rgba(219, 196, 253, 0.2);
+  color: var(--c-ink);
+  transform: translateY(-2px);
+}
+
+.uploader svg {
+  width: 26px;
+  height: 26px;
+  color: var(--c-ink-3);
+}
+
+.uploader__placeholder {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: opacity var(--t-base) var(--ease);
+}
+
+.uploader.is-loading .uploader__placeholder {
+  opacity: 0.45;
+}
+
+.uploader__title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.uploader__hint {
+  font-size: 12px;
+  color: var(--c-ink-3);
+}
+
+.uploader__preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.uploader__remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-full);
+  color: #fff;
+  background: rgba(51, 40, 74, 0.66);
+  backdrop-filter: blur(6px);
+  transition: all var(--t-fast) var(--ease);
+}
+
+.uploader__remove:hover {
+  background: var(--c-danger);
+  transform: scale(1.06);
+}
+
+.uploader__remove svg {
+  width: 14px;
+  height: 14px;
+  color: #fff;
+}
+
+.uploader.has-image {
+  border-style: solid;
+  border-color: transparent;
+  padding: 0;
+}
+
+.uploader.has-image .uploader__placeholder {
+  display: none;
+}
+
+.uploader.has-image .uploader__remove {
+  display: inline-flex;
+}
+
+.uploader.is-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  background-size: 220% 100%;
+  animation: shimmer 1.1s linear infinite;
+  pointer-events: none;
+}
+
+/* 步骤图小上传区 */
+.uploader--mini {
+  min-height: 104px;
+  padding: 12px;
+  border-radius: var(--r-md);
+}
+
+.uploader--mini svg {
+  width: 20px;
+  height: 20px;
+}
+
+.uploader--mini .uploader__title {
+  font-size: 13px;
+}
+
+.uploader--mini .uploader__hint {
+  display: none;
+}
+
+/* 图标封面选择器 */
+.emoji-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.emoji-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-md);
+  font-size: 22px;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--c-line-strong);
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t-base) var(--ease),
+    border-color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+
+.emoji-option:hover {
+  transform: translateY(-2px);
+  border-color: var(--c-periwinkle);
+  box-shadow: var(--sh-1);
+}
+
+.emoji-option.is-active {
+  background: var(--g-primary);
+  border-color: transparent;
+  box-shadow: var(--sh-glow);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   7. 动态行（用料 / 步骤）
+   -------------------------------------------------------------------------- */
+.dynamic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ingredient-row {
+  display: grid;
+  grid-template-columns: 1fr 130px 42px;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--c-line);
+  transition: all var(--t-fast) var(--ease);
+}
+
+.ingredient-row:hover {
+  border-color: var(--c-line-strong);
+  background: var(--c-white);
+}
+
+.ingredient-row .input {
+  min-height: 40px;
+  background: transparent;
+  border-color: transparent;
+}
+
+.ingredient-row .input:hover,
+.ingredient-row .input:focus {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--c-line-strong);
+}
+
+.ingredient-row__index {
+  display: none;
+}
+
+/* 删除行按钮 */
+.row-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r-md);
+  color: var(--c-ink-3);
+  transition: all var(--t-fast) var(--ease);
+}
+
+.row-remove:hover {
+  color: var(--c-danger);
+  background: var(--c-danger-soft);
+}
+
+.row-remove svg {
+  width: 16px;
+  height: 16px;
+}
+
+.step-row {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 14px;
+  padding: 16px;
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid var(--c-line);
+  transition: all var(--t-fast) var(--ease);
+}
+
+.step-row:hover {
+  border-color: var(--c-line-strong);
+  background: var(--c-white);
+  box-shadow: var(--sh-1);
+}
+
+.step-row__index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-full);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-ink);
+  background: var(--g-primary);
+  box-shadow: var(--sh-1);
+}
+
+.step-row__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.step-row__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.step-row__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-ink-2);
+}
+
+.step-row__tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-row .uploader--mini {
+  max-width: 260px;
+}
+
+/* --------------------------------------------------------------------------
+   8. 步骤时间轴（详情页）
+   -------------------------------------------------------------------------- */
+.steps-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.step-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: var(--sp-4);
+}
+
+.step-card__rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-card__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-full);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-ink);
+  background: var(--g-primary);
+  box-shadow: var(--sh-glow);
+  flex: none;
+}
+
+.step-card:not(:last-child) .step-card__rail::after {
+  content: "";
+  flex: 1;
+  width: 2px;
+  margin-top: 8px;
+  border-radius: var(--r-full);
+  background: linear-gradient(180deg, rgba(219, 196, 253, 0.9), rgba(153, 202, 240, 0.15));
+}
+
+.step-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 20px 20px;
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--sh-1);
+  transition: box-shadow var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+  min-width: 0;
+}
+
+.step-card__body:hover {
+  box-shadow: var(--sh-2);
+  transform: translateY(-2px);
+}
+
+.step-card__text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--c-ink);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.step-card__media {
+  width: min(100%, 420px);
+  aspect-ratio: 4 / 3;
+}
+
+/* --------------------------------------------------------------------------
+   9. 用料清单
+   -------------------------------------------------------------------------- */
+.ingredient-table {
+  width: 100%;
+  font-size: 14px;
+}
+
+.ingredient-table tr:nth-child(odd) {
+  background: rgba(219, 196, 253, 0.14);
+}
+
+.ingredient-table td {
+  padding: 12px 16px;
+}
+
+.ingredient-table td:first-child {
+  border-top-left-radius: var(--r-sm);
+  border-bottom-left-radius: var(--r-sm);
+  color: var(--c-ink);
+  font-weight: 500;
+}
+
+.ingredient-table td:last-child {
+  border-top-right-radius: var(--r-sm);
+  border-bottom-right-radius: var(--r-sm);
+  text-align: right;
+  color: var(--c-ink-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   10. 元信息条
+   -------------------------------------------------------------------------- */
+.meta-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: rgba(240, 231, 241, 0.7);
+  border: 1px solid var(--c-line);
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 10px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.meta-item__label {
+  font-size: 12px;
+  color: var(--c-ink-3);
+  letter-spacing: 0.04em;
+}
+
+.meta-item__value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+/* --------------------------------------------------------------------------
+   11. Toast
+   -------------------------------------------------------------------------- */
+.toast-host {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(92vw, 460px);
+  padding: 12px 20px;
+  border-radius: var(--r-full);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--c-ink-on-dark);
+  background: rgba(51, 40, 74, 0.93);
+  box-shadow: var(--sh-3);
+  backdrop-filter: blur(10px);
+  animation: riseIn 240ms var(--ease) both;
+}
+
+.toast--success {
+  background: rgba(47, 107, 69, 0.94);
+}
+
+.toast--error {
+  background: rgba(163, 62, 68, 0.94);
+}
+
+.toast.is-leaving {
+  animation: fadeIn 200ms var(--ease) reverse both;
+}
+
+/* --------------------------------------------------------------------------
+   12. 遮罩弹窗 / 确认框
+   -------------------------------------------------------------------------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-5);
+  background: rgba(51, 40, 74, 0.46);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.overlay.is-open {
+  display: flex;
+  animation: fadeIn 180ms var(--ease) both;
+}
+
+.dialog {
+  width: min(100%, 420px);
+  padding: 26px;
+  border-radius: var(--r-xl);
+  background: var(--c-bg);
+  box-shadow: var(--sh-3);
+  animation: popIn 240ms var(--ease) both;
+  text-align: center;
+}
+
+.dialog__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 14px;
+  border-radius: var(--r-full);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+}
+
+.dialog__icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.dialog__title {
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.dialog__text {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  margin-bottom: 22px;
+}
+
+.dialog__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.dialog__actions .btn {
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   13. 灯箱
+   -------------------------------------------------------------------------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-5);
+  background: rgba(38, 29, 56, 0.86);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: zoom-out;
+}
+
+.lightbox.is-open {
+  display: flex;
+  animation: fadeIn 200ms var(--ease) both;
+}
+
+.lightbox img {
+  max-width: min(94vw, 1000px);
+  max-height: 86vh;
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-3);
+  animation: popIn 260ms var(--ease) both;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-full);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  transition: all var(--t-fast) var(--ease);
+}
+
+.lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.lightbox__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   14. 空状态
+   -------------------------------------------------------------------------- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 70px 24px 80px;
+  text-align: center;
+}
+
+.empty-state__art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 108px;
+  height: 108px;
+  border-radius: var(--r-full);
+  font-size: 46px;
+  background: var(--g-blush);
+  box-shadow: var(--sh-2);
+}
+
+.empty-state__title {
+  font-size: 20px;
+}
+
+.empty-state__text {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  max-width: 40ch;
+}
+
+/* --------------------------------------------------------------------------
+   15. 骨架屏
+   -------------------------------------------------------------------------- */
+.skeleton {
+  border-radius: var(--r-md);
+  background: linear-gradient(
+    100deg,
+    rgba(240, 231, 241, 0.75) 20%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(240, 231, 241, 0.75) 80%
+  );
+  background-size: 220% 100%;
+  animation: shimmer 1.3s linear infinite;
+}
+
+/* --------------------------------------------------------------------------
+   16. 轮播图（首页精选菜谱）
+   结构：#carousel > .carousel__progress + .carousel__viewport > .carousel__track
+         + .carousel__nav ×2 + .carousel__toggle + .carousel__dots
+   -------------------------------------------------------------------------- */
+@keyframes carouselProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.carousel {
+  position: relative;
+  isolation: isolate;
+}
+
+/* 自动播放进度条：贴在图卡顶部内侧，暂停/减弱动效时隐藏 */
+.carousel__progress {
+  position: absolute;
+  top: 18px;
+  left: 26px;
+  right: 26px;
+  z-index: 6;
+  height: 3px;
+  border-radius: var(--r-full);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(51, 40, 74, 0.06);
+  opacity: 0;
+  transition: opacity var(--t-base) var(--ease);
+  pointer-events: none;
+}
+
+.carousel.is-playing .carousel__progress {
+  opacity: 1;
+}
+
+.carousel__progress-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: var(--r-full);
+  background: var(--g-primary);
+}
+
+.carousel.is-playing .carousel__progress-bar {
+  animation: carouselProgress var(--carousel-duration, 5200ms) linear;
+}
+
+.carousel.is-playing.is-paused .carousel__progress-bar {
+  animation-play-state: paused;
+}
+
+.carousel__viewport {
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-3);
+}
+
+.carousel__track {
+  display: flex;
+  will-change: transform;
+  transition: transform var(--t-slow) var(--ease);
+}
+
+.carousel__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.carousel__link {
+  display: block;
+}
+
+.carousel__media {
+  aspect-ratio: 21 / 9;
+  width: 100%;
+}
+
+/* 底部深色渐变遮罩，承载文字与按钮 */
+.carousel__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(38, 29, 56, 0.86) 0%,
+    rgba(38, 29, 56, 0.44) 46%,
+    rgba(38, 29, 56, 0.04) 82%
+  );
+  pointer-events: none;
+}
+
+.carousel__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 9px;
+  padding: 40px 46px 64px;
+  color: var(--c-ink-on-dark);
+}
+
+.carousel__badge {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--c-ink);
+}
+
+.carousel__title {
+  font-size: clamp(22px, 3.2vw, 38px);
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(38, 29, 56, 0.35);
+}
+
+.carousel__desc {
+  max-width: 58ch;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.88);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.carousel__meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.carousel__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.carousel__meta-item svg {
+  width: 15px;
+  height: 15px;
+}
+
+.carousel__cta {
+  margin-top: 8px;
+}
+
+.carousel__cta svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 左右切换箭头 */
+.carousel__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-top: -23px;
+  border-radius: var(--r-full);
+  color: var(--c-ink);
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: var(--sh-2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease),
+    box-shadow var(--t-base) var(--ease);
+}
+
+.carousel__nav:hover {
+  background: var(--c-white);
+  transform: scale(1.08);
+  box-shadow: var(--sh-3);
+}
+
+.carousel__nav svg {
+  width: 20px;
+  height: 20px;
+}
+
+.carousel__nav--prev {
+  left: 20px;
+}
+
+.carousel__nav--next {
+  right: 20px;
+}
+
+/* 播放 / 暂停 */
+.carousel__toggle {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r-full);
+  color: var(--c-ink);
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+
+.carousel__toggle:hover {
+  background: var(--c-white);
+  transform: scale(1.08);
+}
+
+.carousel__toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 指示点 */
+.carousel__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transform: translateX(-50%);
+}
+
+.carousel__dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(51, 40, 74, 0.08);
+  transition: width var(--t-base) var(--ease), background-color var(--t-base) var(--ease);
+}
+
+.carousel__dot:hover {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.carousel__dot.is-active {
+  width: 26px;
+  background: var(--c-white);
+}
+
+/* 只有一张时不出控件 */
+.carousel.is-single .carousel__progress,
+.carousel.is-single .carousel__nav,
+.carousel.is-single .carousel__toggle,
+.carousel.is-single .carousel__dots {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel.is-playing .carousel__progress {
+    opacity: 0;
+  }
+
+  .carousel.is-playing .carousel__progress-bar {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   17. 菜谱分类卡片
+   -------------------------------------------------------------------------- */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-4);
+}
+
+.category-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  overflow: hidden;
+  padding: 18px 20px;
+  text-align: left;
+  border-radius: var(--r-lg);
+  background: var(--c-surface-solid);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--sh-1);
+  transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease), background-color var(--t-base) var(--ease);
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-2);
+  border-color: rgba(182, 188, 236, 0.75);
+}
+
+.category-card.is-active {
+  background: var(--g-primary);
+  border-color: transparent;
+  box-shadow: var(--sh-glow);
+}
+
+.category-card__icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: var(--r-md);
+  color: var(--c-ink);
+  background: linear-gradient(135deg, rgba(219, 196, 253, 0.6), rgba(153, 202, 240, 0.55));
+  transition: background var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+}
+
+.category-card:hover .category-card__icon {
+  transform: scale(1.06);
+}
+
+.category-card.is-active .category-card__icon {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.category-card__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.category-card__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.category-card__name {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.category-card__count {
+  font-size: 12px;
+  color: var(--c-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.category-card.is-active .category-card__count {
+  color: rgba(51, 40, 74, 0.68);
+}
+
+/* 右上方极低透明度的菜品水印 */
+.category-card__watermark {
+  position: absolute;
+  top: -14px;
+  right: 6px;
+  font-size: 58px;
+  line-height: 1;
+  opacity: 0.14;
+  pointer-events: none;
+  user-select: none;
+}
+
+.category-card.is-active .category-card__watermark {
+  opacity: 0.2;
+}
+
+
+/* ===== layout.css ===== */
+/* ==========================================================================
+   食谱集 · layout.css
+   导航 / 首页区块 / 网格 / 详情布局 / 表单布局 / 页脚 / 响应式
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   顶部导航
+   -------------------------------------------------------------------------- */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  height: var(--nav-h);
+  background: rgba(255, 251, 245, 0.72);
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  transition: border-color var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease),
+    background-color var(--t-base) var(--ease);
+}
+
+.site-nav.is-scrolled {
+  border-bottom-color: var(--c-line);
+  background: rgba(255, 251, 245, 0.92);
+  box-shadow: 0 10px 30px -22px rgba(94, 78, 150, 0.5);
+}
+
+.site-nav__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  height: 100%;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+
+.brand__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 13px;
+  font-size: 19px;
+  background: var(--g-primary);
+  box-shadow: var(--sh-glow);
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand__name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.brand__sub {
+  font-size: 11px;
+  color: var(--c-ink-3);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.site-nav__search {
+  flex: 1;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.site-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  margin-left: auto;
+}
+
+/* 详情页导航 */
+.detail-nav__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-ink-2);
+  max-width: 40vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-nav__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   首页区块（轮播图 / 菜谱分类 / 热门菜谱）
+   -------------------------------------------------------------------------- */
+.home-section {
+  padding-bottom: var(--sp-7);
+}
+
+.home-section--carousel {
+  padding-top: var(--sp-5);
+}
+
+.home-section--recipes {
+  padding-bottom: var(--sp-8);
+}
+
+.home-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.home-section__head-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.home-section__dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: var(--r-full);
+  background: var(--g-primary);
+  box-shadow: var(--sh-glow);
+}
+
+.home-section__title {
+  font-size: 22px;
+}
+
+.home-section__badge {
+  padding: 3px 12px;
+  border-radius: var(--r-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-ink-2);
+  background: rgba(219, 196, 253, 0.32);
+  border: 1px solid var(--c-line);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.home-section__sub {
+  margin-bottom: var(--sp-4);
+  font-size: 13px;
+  color: var(--c-ink-2);
+}
+
+.home-section__reset {
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   菜谱网格
+   -------------------------------------------------------------------------- */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-5);
+}
+
+.recipe-grid > * {
+  animation: riseIn var(--t-slow) var(--ease) both;
+}
+
+/* --------------------------------------------------------------------------
+   页脚
+   -------------------------------------------------------------------------- */
+.site-footer {
+  margin-top: var(--sp-6);
+  padding: var(--sp-7) 0 var(--sp-6);
+  border-top: 1px solid var(--c-line);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.site-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.site-footer__text {
+  font-size: 13px;
+  color: var(--c-ink-2);
+}
+
+.site-footer__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   详情页
+   -------------------------------------------------------------------------- */
+.detail-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-3);
+  background: var(--c-bg-lilac);
+  isolation: isolate;
+}
+
+.detail-hero__media {
+  aspect-ratio: 16 / 7;
+  cursor: zoom-in;
+}
+
+.detail-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(38, 29, 56, 0.82) 0%,
+    rgba(38, 29, 56, 0.34) 42%,
+    rgba(38, 29, 56, 0.02) 78%
+  );
+}
+
+.detail-hero__content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 30px 34px;
+  color: var(--c-ink-on-dark);
+}
+
+.detail-hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.detail-hero__meta .badge {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--c-ink);
+}
+
+.detail-hero__title {
+  font-size: clamp(26px, 4vw, 40px);
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.detail-hero__desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.86);
+  max-width: 62ch;
+}
+
+.detail-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--sp-6);
+  align-items: start;
+  padding: var(--sp-6) 0 var(--sp-8);
+}
+
+.detail-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  min-width: 0;
+}
+
+.detail-side {
+  position: sticky;
+  top: calc(var(--nav-h) + 20px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.detail-block {
+  padding: 24px 26px 26px;
+  border-radius: var(--r-xl);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--sh-2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.detail-block__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  margin-bottom: 18px;
+}
+
+.detail-block__title .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--r-full);
+  background: var(--g-primary);
+  flex: none;
+}
+
+.detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-actions .btn {
+  width: 100%;
+}
+
+.detail-note {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--c-ink-3);
+  text-align: center;
+}
+
+.detail-note:empty {
+  display: none;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   表单页
+   -------------------------------------------------------------------------- */
+.form-page {
+  padding: var(--sp-6) 0 var(--sp-8);
+}
+
+.form-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--sp-6);
+  align-items: start;
+}
+
+.form-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.form-side {
+  position: sticky;
+  top: calc(var(--nav-h) + 20px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.form-card {
+  padding: 24px 26px 26px;
+  border-radius: var(--r-xl);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--sh-2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.form-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-bottom: 18px;
+}
+
+.form-card__title {
+  font-size: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-4);
+}
+
+.form-grid .span-2 {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: var(--sp-2);
+}
+
+.form-actions .btn {
+  min-width: 128px;
+}
+
+.form-error-summary {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-danger);
+  background: var(--c-danger-soft);
+  border: 1px solid rgba(194, 86, 92, 0.3);
+}
+
+.form-error-summary.is-visible {
+  display: flex;
+  animation: riseIn 220ms var(--ease) both;
+}
+
+.form-error-summary svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+/* 侧栏提示列表 */
+.hint-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--c-ink-2);
+}
+
+.hint-list li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.hint-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-full);
+  background: var(--g-primary);
+}
+
+/* --------------------------------------------------------------------------
+   页面通用节奏
+   -------------------------------------------------------------------------- */
+.page-main {
+  min-height: calc(100vh - var(--nav-h) - 200px);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--c-ink-3);
+  padding: var(--sp-5) 0 0;
+}
+
+.breadcrumb a:hover {
+  color: var(--c-ink);
+}
+
+/* --------------------------------------------------------------------------
+   响应式
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .recipe-grid,
+  .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .carousel__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .carousel__overlay {
+    padding: 30px 30px 62px;
+  }
+
+  .detail-body,
+  .form-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detail-side,
+  .form-side {
+    position: static;
+  }
+
+  .detail-hero__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .site-nav__search {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --nav-h: 60px;
+    --sp-8: 44px;
+  }
+
+  .container {
+    padding: 0 var(--sp-4);
+  }
+
+  .recipe-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .brand__sub {
+    display: none;
+  }
+
+  .home-section__title {
+    font-size: 19px;
+  }
+
+  .carousel__viewport {
+    border-radius: var(--r-lg);
+  }
+
+  .carousel__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .carousel__overlay {
+    gap: 6px;
+    padding: 20px 18px 58px;
+  }
+
+  .carousel__desc {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .carousel__nav {
+    display: none;
+  }
+
+  .carousel__progress {
+    top: 12px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .carousel__dots {
+    gap: 7px;
+    bottom: 20px;
+  }
+
+  .carousel__toggle {
+    right: 14px;
+    bottom: 15px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .category-card {
+    gap: 12px;
+    padding: 15px 16px;
+  }
+
+  .category-card__icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .category-card__icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .meta-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .detail-hero {
+    border-radius: var(--r-lg);
+  }
+
+  .detail-hero__content {
+    padding: 20px;
+  }
+
+  .detail-block,
+  .form-card {
+    padding: 20px 18px 22px;
+    border-radius: var(--r-lg);
+  }
+
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ingredient-row {
+    grid-template-columns: 1fr 1fr 42px;
+  }
+
+  .step-card {
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+  }
+
+  .step-card__dot {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .step-row .uploader--mini {
+    max-width: 100%;
+  }
+
+  .form-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 60;
+    padding: 12px 0;
+    background: linear-gradient(to top, rgba(255, 251, 245, 0.98) 62%, rgba(255, 251, 245, 0));
+  }
+
+  .form-actions .btn {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 420px) {
+  .ingredient-row {
+    grid-template-columns: 1fr 42px;
+  }
+}
+
+  </style>
 </head>
 <body>
   <a class="sr-only" href="#recipeGrid">跳到菜谱列表</a>
@@ -138,9 +2846,1880 @@
     </div>
   </footer>
 
-  <script src="js/data/recipes.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/list.js"></script>
+
+
+
+
+  <!-- 内联脚本，顺序：data/recipes.js → utils.js → storage.js → list.js -->
+  <script>
+// ===== js/data/recipes.js =====
+/* ==========================================================================
+   食谱集 · js/data/recipes.js
+   内置示例菜谱数据（扮演 "JSON mock 数据" 的角色）。
+
+   说明：本应用需要支持「双击 index.html 直接打开」，即运行在 file:// 协议下。
+   浏览器会拦截 file:// 下的 fetch() 请求，因此这里不使用 fetch 读取 .json 文件，
+   而是把数据写成普通 JS 常量，通过 <script> 标签加载，结构上与 JSON 完全一致。
+
+   数据结构：
+   {
+     id, title, emoji, cover, category, tags[], difficulty,
+     timeMinutes, servings, description,
+     ingredients: [{ name, amount }],
+     steps: [{ text, image }],
+     tips, createdAt, isCustom
+   }
+   ========================================================================== */
+
+(function (window) {
+  'use strict';
+
+  /** 菜谱分类（同时作为列表页的筛选项） */
+  var SEED_CATEGORIES = ['川菜', '粤菜', '家常菜', '汤羹', '甜品', '素食'];
+
+  /** 难度档位 */
+  var DIFFICULTIES = ['简单', '中等', '困难'];
+
+  /** 内置数据的基准时间，用于保证内置菜谱的展示顺序稳定 */
+  var SEED_BASE_TIME = Date.UTC(2026, 0, 1);
+  var DAY = 24 * 60 * 60 * 1000;
+
+  /**
+   * 内置示例菜谱。
+   * cover 留空时会渲染内置的渐变占位封面；填入图片 URL 或 base64 即可替换为真实照片。
+   */
+  var SEED_RECIPES = [
+    {
+      id: 'seed-01',
+      title: '麻婆豆腐',
+      emoji: '🥘',
+      cover: '',
+      category: '川菜',
+      tags: ['下饭', '经典', '微辣'],
+      difficulty: '中等',
+      timeMinutes: 25,
+      servings: 2,
+      description: '一勺红油、一撮花椒，豆腐嫩到能抖，麻辣鲜香全在这一碗里。',
+      ingredients: [
+        { name: '嫩豆腐', amount: '400 克' },
+        { name: '牛肉末', amount: '100 克' },
+        { name: '郫县豆瓣酱', amount: '1.5 汤匙' },
+        { name: '豆豉', amount: '1 茶匙' },
+        { name: '花椒粉', amount: '1 茶匙' },
+        { name: '蒜末', amount: '2 瓣量' },
+        { name: '姜末', amount: '1 小块量' },
+        { name: '生抽', amount: '1 汤匙' },
+        { name: '水淀粉', amount: '3 汤匙' },
+        { name: '青蒜苗', amount: '2 根' },
+        { name: '食用油', amount: '3 汤匙' }
+      ],
+      steps: [
+        { text: '豆腐切 2 厘米见方的小块，放入淡盐水中浸泡 5 分钟后捞出沥干，这样煮的时候不容易碎。', image: '' },
+        { text: '郫县豆瓣酱与豆豉一起剁细；青蒜苗斜刀切段；蒜、姜切末备用。', image: '' },
+        { text: '热锅下 2 汤匙油，中火炒香牛肉末，炒到肉末松散、微微发干时先盛出。', image: '' },
+        { text: '锅内留底油，转小火下豆瓣酱和豆豉，慢慢炒出红油，大约需要 1 分钟。', image: '' },
+        { text: '加入蒜末、姜末炒香，倒入 250 毫升热水烧开，加生抽调味。', image: '' },
+        { text: '轻轻放入豆腐块和牛肉末，转中小火烧 3 分钟，期间用锅铲背部推动避免粘底。', image: '' },
+        { text: '分两次淋入水淀粉勾芡，每次都要等汤汁重新浓稠后再加下一次。', image: '' },
+        { text: '出锅装盘，撒上花椒粉和青蒜苗段，趁热上桌。', image: '' }
+      ],
+      tips: '花椒粉一定要最后撒，提前下锅香气会跑掉。',
+      createdAt: SEED_BASE_TIME - 0 * DAY,
+      isCustom: false
+    },
+    {
+      id: 'seed-02',
+      title: '红烧肉',
+      emoji: '🍖',
+      cover: '',
+      category: '家常菜',
+      tags: ['宴客', '下饭', '硬菜'],
+      difficulty: '中等',
+      timeMinutes: 90,
+      servings: 4,
+      description: '冰糖炒出琥珀色，五花肉炖到入口即化，浓油赤酱拌饭一绝。',
+      ingredients: [
+        { name: '带皮五花肉', amount: '800 克' },
+        { name: '冰糖', amount: '40 克' },
+        { name: '生抽', amount: '3 汤匙' },
+        { name: '老抽', amount: '1 汤匙' },
+        { name: '花雕酒', amount: '3 汤匙' },
+        { name: '生姜', amount: '5 片' },
+        { name: '大葱', amount: '1 段' },
+        { name: '八角', amount: '2 颗' },
+        { name: '桂皮', amount: '1 小段' },
+        { name: '香叶', amount: '2 片' },
+        { name: '食用油', amount: '1 汤匙' },
+        { name: '盐', amount: '适量' }
+      ],
+      steps: [
+        { text: '五花肉切成 3 厘米见方的块，冷水下锅加 2 片姜，煮开后撇净浮沫，捞出用温水冲洗干净并擦干水分。', image: '' },
+        { text: '锅中放 1 汤匙油，下冰糖小火慢炒，糖融化后变成琥珀色并冒小泡时立刻下肉。', image: '' },
+        { text: '转中火快速翻炒，让每一块肉都均匀裹上糖色。', image: '' },
+        { text: '加入姜片、葱段、八角、桂皮、香叶炒香，沿锅边淋入花雕酒去腥。', image: '' },
+        { text: '加入生抽、老抽翻炒上色，倒入没过肉面的热水，大火烧开。', image: '' },
+        { text: '转小火加盖炖 60 分钟，中途翻动两次防止粘底。', image: '' },
+        { text: '开盖转中大火收汁，汤汁变得浓稠发亮时尝味补盐。', image: '' },
+        { text: '收至酱汁能挂住勺背即可关火，静置 5 分钟再装盘更入味。', image: '' }
+      ],
+      tips: '中途补水一定要加热水，冷水会让肉质紧缩变柴。',
+      createdAt: SEED_BASE_TIME - 1 * DAY,
+      isCustom: false
+    },
+    {
+      id: 'seed-03',
+      title: '宫保鸡丁',
+      emoji: '🍗',
+      cover: '',
+      category: '川菜',
+      tags: ['下饭', '快手', '酸甜'],
+      difficulty: '简单',
+      timeMinutes: 30,
+      servings: 3,
+      description: '荔枝口的酸甜，干辣椒与花椒爆香，鸡丁滑嫩、花生米脆得响。',
+      ingredients: [
+        { name: '鸡腿肉', amount: '400 克' },
+        { name: '油炸花生米', amount: '80 克' },
+        { name: '干辣椒', amount: '10 个' },
+        { name: '花椒', amount: '1 茶匙' },
+        { name: '大葱', amount: '1 段' },
+        { name: '蒜末', amount: '3 瓣量' },
+        { name: '生抽', amount: '2 汤匙' },
+        { name: '香醋', amount: '2 汤匙' },
+        { name: '白糖', amount: '1.5 汤匙' },
+        { name: '淀粉', amount: '1 汤匙 + 1 茶匙' },
+        { name: '料酒', amount: '1 汤匙' },
+        { name: '食用油', amount: '3 汤匙' }
+      ],
+      steps: [
+        { text: '鸡腿肉去骨切成 1.5 厘米的丁，加料酒、1 茶匙淀粉和少许盐抓匀，腌制 15 分钟。', image: '' },
+        { text: '调碗汁：生抽、香醋、白糖、1 汤匙淀粉加 3 汤匙清水搅匀备用，糖醋比例约 1:1 才是荔枝口。', image: '' },
+        { text: '干辣椒剪成小段并抖掉大部分辣椒籽，大葱切丁。', image: '' },
+        { text: '锅烧热放油，油温五成热下鸡丁，煎到微微金黄后盛出。', image: '' },
+        { text: '锅中留底油，小火下花椒和干辣椒段，炒到辣椒变成枣红色、香气明显。', image: '' },
+        { text: '下蒜末和葱丁爆香，倒回鸡丁转大火翻炒 30 秒。', image: '' },
+        { text: '淋入碗汁快速翻炒，汤汁变稠并裹住鸡丁后立刻关火。', image: '' },
+        { text: '撒入花生米拌匀出锅，花生米最后放才能保持酥脆。', image: '' }
+      ],
+      tips: '碗汁要一次性淋入并快速翻炒，否则淀粉容易结块。',
+      createdAt: SEED_BASE_TIME - 2 * DAY,
+      isCustom: false
+    },
+    {
+      id: 'seed-04',
+      title: '番茄炒蛋',
+      emoji: '🍅',
+      cover: '',
+      category: '家常菜',
+      tags: ['快手', '新手友好', '下饭'],
+      difficulty: '简单',
+      timeMinutes: 15,
+      servings: 2,
+      description: '酸甜多汁的番茄裹着嫩滑蛋块，十五分钟搞定的国民快手菜。',
+      ingredients: [
+        { name: '番茄', amount: '3 个（约 500 克）' },
+        { name: '鸡蛋', amount: '4 个' },
+        { name: '白糖', amount: '2 茶匙' },
+        { name: '盐', amount: '1 茶匙' },
+        { name: '小葱', amount: '2 根' },
+        { name: '食用油', amount: '3 汤匙' }
+      ],
+      steps: [
+        { text: '番茄顶部划十字，用开水烫 20 秒后去皮，切成滚刀块。', image: '' },
+        { text: '鸡蛋打散，加 1 汤匙清水和少许盐搅匀，加水会让蛋液更嫩。', image: '' },
+        { text: '热锅下 2 汤匙油，油温六成热倒入蛋液，待边缘凝固后轻轻推动成大块，八成熟时盛出。', image: '' },
+        { text: '锅中补 1 汤匙油，下番茄块中火翻炒，炒到番茄变软出汁。', image: '' },
+        { text: '加白糖和盐调味，继续翻炒 1 分钟让番茄出更多汁水。', image: '' },
+        { text: '倒回鸡蛋块，快速翻拌让蛋吸满汤汁，撒葱花出锅。', image: '' }
+      ],
+      tips: '番茄加糖不只是调味，还能中和酸味、让汤汁更亮。',
+      createdAt: SEED_BASE_TIME - 3 * DAY,
+      isCustom: false
+    },
+    {
+      id: 'seed-05',
+      title: '白灼基围虾',
+      emoji: '🦐',
+      cover: '',
+      category: '粤菜',
+      tags: ['鲜味', '低脂', '快手'],
+      difficulty: '简单',
+      timeMinutes: 15,
+      servings: 3,
+      description: '只用清水和姜葱，最大程度留住虾的鲜甜，配一碟蘸汁就够。',
+      ingredients: [
+        { name: '基围虾', amount: '500 克' },
+        { name: '生姜', amount: '4 片' },
+        { name: '小葱', amount: '3 根' },
+        { name: '料酒', amount: '1 汤匙' },
+        { name: '生抽', amount: '2 汤匙' },
+        { name: '香醋', amount: '1 茶匙' },
+        { name: '小米辣', amount: '1 个（可选）' },
+        { name: '香油', amount: '几滴' }
+      ],
+      steps: [
+        { text: '虾剪去长须、挑出虾线，用清水反复冲洗干净。', image: '' },
+        { text: '锅中加足量水，放入姜片、葱段和料酒，大火烧到完全沸腾。', image: '' },
+        { text: '水滚后一次下入全部虾，保持大火不要加盖。', image: '' },
+        { text: '煮到虾身蜷曲变红、全部浮起，大约 2 分钟，立刻捞出。', image: '' },
+        { text: '捞出的虾马上放入冰水中浸 30 秒，虾肉会更紧实弹牙。', image: '' },
+        { text: '调蘸汁：生抽、香醋、姜末、小米辣、香油混合均匀即可。', image: '' },
+        { text: '虾沥干水分装盘，配蘸汁趁热食用。', image: '' }
+      ],
+      tips: '煮虾时间宁短勿长，虾壳一变色就说明已经熟了。',
+      createdAt: SEED_BASE_TIME - 4 * DAY,
+      isCustom: false
+    },
+    {
+      id: 'seed-06',
+      title: '清蒸鲈鱼',
+      emoji: '🐟',
+      cover: '',
+      category: '粤菜',
+      tags: ['宴客', '清淡', '高蛋白'],
+      difficulty: '中等',
+      timeMinutes: 25,
+      servings: 3,
+      description: '蒸 8 分钟、淋一勺热油，鱼肉雪白细嫩，鲜得不需要多余调味。',
+      ingredients: [
+        { name: '鲈鱼', amount: '1 条（约 600 克）' },
+        { name: '生姜', amount: '1 大块' },
+        { name: '小葱', amount: '4 根' },
+        { name: '蒸鱼豉油', amount: '3 汤匙' },
+        { name: '料酒', amount: '1 汤匙' },
+        { name: '盐', amount: '少许' },
+        { name: '食用油', amount: '3 汤匙' }
+      ],
+      steps: [
+        { text: '鲈鱼处理干净，两面各划两刀，用料酒和少许盐抹匀内外，腌制 10 分钟。', image: '' },
+        { text: '盘底铺姜片和葱段，把鱼架在上面，让蒸汽能从鱼身下方通过。', image: '' },
+        { text: '鱼身刀口处塞几片姜，鱼腹内放几根葱段进一步去腥。', image: '' },
+        { text: '蒸锅加水大火烧开，水完全沸腾后再放鱼，加盖大火蒸 8 分钟。', image: '' },
+        { text: '关火后不要立刻开盖，虚蒸 2 分钟，鱼肉会更嫩且熟得均匀。', image: '' },
+        { text: '取出蒸盘，倒掉盘中的腥水，拣掉姜葱，重新铺上新鲜的葱丝和姜丝。', image: '' },
+        { text: '沿盘边均匀淋入蒸鱼豉油，不要直接浇在鱼身上，避免冲淡鱼味。', image: '' },
+        { text: '另起锅把 3 汤匙油烧到微微冒烟，直接淋在葱姜丝上激出香味即可。', image: '' }
+      ],
+      tips: '一定要水开后再上锅，冷锅上锅鱼肉容易发柴。',
+      createdAt: SEED_BASE_TIME - 5 * DAY,
+      isCustom: false
+    },
+    {
+      id: 'seed-07',
+      title: '番茄牛腩汤',
+      emoji: '🍲',
+      cover: '',
+      category: '汤羹',
+      tags: ['滋补', '暖胃', '慢炖'],
+      difficulty: '中等',
+      timeMinutes: 120,
+      servings: 4,
+      description: '小火慢炖两小时，牛腩软烂脱骨，汤头浓红酸甜，暖胃又滋补。',
+      ingredients: [
+        { name: '牛腩', amount: '700 克' },
+        { name: '番茄', amount: '4 个' },
+        { name: '洋葱', amount: '1 个' },
+        { name: '胡萝卜', amount: '1 根' },
+        { name: '生姜', amount: '4 片' },
+        { name: '番茄膏', amount: '2 汤匙' },
+        { name: '香叶', amount: '2 片' },
+        { name: '冰糖', amount: '10 克' },
+        { name: '盐', amount: '适量' },
+        { name: '食用油', amount: '2 汤匙' }
+      ],
+      steps: [
+        { text: '牛腩切大块，冷水下锅加姜片焯水，水开后煮 3 分钟捞出，用温水冲洗干净。', image: '' },
+        { text: '两个番茄切块用于炖煮，另外两个切大块最后放；洋葱切丁，胡萝卜切滚刀块。', image: '' },
+        { text: '锅中放油，下洋葱丁炒到透明，加番茄膏小火炒出红油。', image: '' },
+        { text: '放入两个番茄块炒到软烂出汁，加冰糖炒匀。', image: '' },
+        { text: '倒入牛腩块翻炒上色，加入足量热水没过食材，放入香叶。', image: '' },
+        { text: '大火烧开后转小火加盖炖 90 分钟，牛腩能用筷子轻松插入即可。', image: '' },
+        { text: '加入胡萝卜块和剩下的番茄块，继续炖 20 分钟。', image: '' },
+        { text: '挑出香叶，加盐调味；喜欢浓稠口感可以开盖再收汁 5 分钟。', image: '' }
+      ],
+      tips: '番茄分两次放：前一批出汤底，后一批保留果肉颗粒感。',
+      createdAt: SEED_BASE_TIME - 6 * DAY,
+      isCustom: false
+    },
+    {
+      id: 'seed-08',
+      title: '冰糖银耳莲子羹',
+      emoji: '🍮',
+      cover: '',
+      category: '甜品',
+      tags: ['润燥', '甜汤', '冷热皆宜'],
+      difficulty: '简单',
+      timeMinutes: 60,
+      servings: 4,
+      description: '胶质浓稠、甜而不腻，冷热皆宜的温润甜汤。',
+      ingredients: [
+        { name: '干银耳', amount: '1 朵（约 30 克）' },
+        { name: '干莲子', amount: '40 克' },
+        { name: '红枣', amount: '8 颗' },
+        { name: '枸杞', amount: '15 克' },
+        { name: '冰糖', amount: '50 克' },
+        { name: '清水', amount: '1500 毫升' }
+      ],
+      steps: [
+        { text: '银耳用冷水泡发 1 小时，泡到完全舒展变软。', image: '' },
+        { text: '剪掉银耳根部的黄色硬蒂，撕成小朵，撕得越碎越容易出胶。', image: '' },
+        { text: '莲子用温水泡 30 分钟并去掉莲心以减少苦味，红枣去核备用。', image: '' },
+        { text: '锅中加 1500 毫升水，放入银耳和莲子，大火烧开。', image: '' },
+        { text: '转小火加盖慢炖 40 分钟，中途搅动两次防止粘底。', image: '' },
+        { text: '加入红枣和冰糖继续炖 10 分钟，直到汤汁明显变稠。', image: '' },
+        { text: '关火前 3 分钟放入枸杞，枸杞久煮会发酸。', image: '' },
+        { text: '关火后加盖焖 5 分钟，胶质会更浓稠，温热或冷藏后食用均可。', image: '' }
+      ],
+      tips: '银耳撕得越碎出胶越快；用高压锅可缩短到 20 分钟。',
+      createdAt: SEED_BASE_TIME - 7 * DAY,
+      isCustom: false
+    },
+    {
+      id: 'seed-09',
+      title: '蒜蓉西兰花',
+      emoji: '🥦',
+      cover: '',
+      category: '素食',
+      tags: ['低脂', '快手', '素食'],
+      difficulty: '简单',
+      timeMinutes: 12,
+      servings: 2,
+      description: '焯水不过 90 秒，蒜香浓郁、颜色翠绿、口感脆嫩的低脂小炒。',
+      ingredients: [
+        { name: '西兰花', amount: '1 颗（约 400 克）' },
+        { name: '大蒜', amount: '5 瓣' },
+        { name: '生抽', amount: '1 汤匙' },
+        { name: '蚝油', amount: '1 茶匙' },
+        { name: '盐', amount: '1/2 茶匙' },
+        { name: '食用油', amount: '2 汤匙' },
+        { name: '白胡椒粉', amount: '少许' }
+      ],
+      steps: [
+        { text: '西兰花切成小朵，用淡盐水浸泡 10 分钟后冲洗干净。', image: '' },
+        { text: '大锅中烧开水，加 1 茶匙盐和几滴油，这样焯出来的颜色更翠绿。', image: '' },
+        { text: '西兰花下锅焯 90 秒，立刻捞出浸入冰水，锁住脆度。', image: '' },
+        { text: '大蒜切末，一半用于爆香，另一半最后放以保留生蒜香。', image: '' },
+        { text: '热锅下油，小火爆香一半蒜末至微微金黄。', image: '' },
+        { text: '沥干的西兰花下锅转大火快速翻炒 1 分钟。', image: '' },
+        { text: '加生抽、蚝油、盐和白胡椒粉炒匀，关火后撒入剩余蒜末拌匀即可。', image: '' }
+      ],
+      tips: '焯水后一定要彻底沥干，否则下锅会出水变软。',
+      createdAt: SEED_BASE_TIME - 8 * DAY,
+      isCustom: false
+    },
+    {
+      id: 'seed-10',
+      title: '杨枝甘露',
+      emoji: '🥭',
+      cover: '',
+      category: '甜品',
+      tags: ['港式', '夏日', '冰爽'],
+      difficulty: '简单',
+      timeMinutes: 25,
+      servings: 2,
+      description: '芒果、西柚与椰浆的组合，冰凉顺滑，是夏天的第一口甜。',
+      ingredients: [
+        { name: '大芒果', amount: '2 个' },
+        { name: '西柚', amount: '半个' },
+        { name: '椰浆', amount: '200 毫升' },
+        { name: '淡奶油', amount: '80 毫升' },
+        { name: '牛奶', amount: '120 毫升' },
+        { name: '细砂糖', amount: '25 克' },
+        { name: '西米', amount: '50 克' }
+      ],
+      steps: [
+        { text: '锅中烧开足量水，下西米中火煮 12 分钟，边煮边搅防止粘底。', image: '' },
+        { text: '煮到西米中心还剩小白点时关火，加盖焖 8 分钟至完全透明。', image: '' },
+        { text: '西米捞出过冷水，沥干后加少许糖拌匀备用。', image: '' },
+        { text: '芒果去皮，一半打成泥，另一半切成 1 厘米见方的小丁。', image: '' },
+        { text: '西柚剥出果粒，仔细撕去白膜以免发苦。', image: '' },
+        { text: '将芒果泥、椰浆、牛奶、淡奶油和细砂糖混合搅匀成底汤。', image: '' },
+        { text: '杯中先放西米，倒入底汤，再放上芒果丁和西柚粒。', image: '' },
+        { text: '冷藏 30 分钟风味更佳，食用前可再淋少许椰浆。', image: '' }
+      ],
+      tips: '西柚粒一定要撕净白膜，否则整杯都会带苦味。',
+      createdAt: SEED_BASE_TIME - 9 * DAY,
+      isCustom: false
+    }
+  ];
+
+  window.SEED_RECIPES = SEED_RECIPES;
+  window.SEED_CATEGORIES = SEED_CATEGORIES;
+  window.DIFFICULTIES = DIFFICULTIES;
+})(window);
+
+</script>
+<script>
+// ===== js/utils.js =====
+/* ==========================================================================
+   食谱集 · js/utils.js
+   通用工具：转义、格式化、防抖、URL 参数、DOM 简写、图标、封面渲染、Toast
+   ========================================================================== */
+
+(function (window, document) {
+  'use strict';
+
+  var App = window.App || (window.App = {});
+
+  /* ------------------------------------------------------------------------
+     HTML 转义：所有用户可输入内容在插入 DOM 前都必须经过这里
+     ------------------------------------------------------------------------ */
+  var ESCAPE_MAP = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  };
+
+  function escapeHtml(value) {
+    if (value === null || value === undefined) return '';
+    return String(value).replace(/[&<>"']/g, function (ch) {
+      return ESCAPE_MAP[ch];
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     格式化
+     ------------------------------------------------------------------------ */
+
+  /** 分钟 → 「45 分钟」/「1 小时」/「1 小时 30 分钟」 */
+  function formatTime(minutes) {
+    var m = Number(minutes);
+    if (!isFinite(m) || m <= 0) return '—';
+    if (m < 60) return m + ' 分钟';
+    var h = Math.floor(m / 60);
+    var rest = m % 60;
+    return rest === 0 ? h + ' 小时' : h + ' 小时 ' + rest + ' 分钟';
+  }
+
+  /** 时间戳 → 「今天」/「3 天前」/「2026-01-08」 */
+  function formatDate(timestamp) {
+    var ts = Number(timestamp);
+    if (!isFinite(ts) || ts <= 0) return '';
+    var now = Date.now();
+    var diff = now - ts;
+    if (diff < 60 * 1000) return '刚刚';
+    if (diff < 60 * 60 * 1000) return Math.floor(diff / 60000) + ' 分钟前';
+    if (diff < 24 * 60 * 60 * 1000) return Math.floor(diff / 3600000) + ' 小时前';
+    if (diff < 7 * 24 * 60 * 60 * 1000) return Math.floor(diff / 86400000) + ' 天前';
+    var d = new Date(ts);
+    var pad = function (n) {
+      return n < 10 ? '0' + n : String(n);
+    };
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+
+  /** 难度 → 徽章样式类 */
+  function difficultyClass(level) {
+    if (level === '简单') return 'badge--easy';
+    if (level === '困难') return 'badge--hard';
+    return 'badge--medium';
+  }
+
+  /* ------------------------------------------------------------------------
+     函数工具
+     ------------------------------------------------------------------------ */
+  function debounce(fn, wait) {
+    var timer = null;
+    return function () {
+      var context = this;
+      var args = arguments;
+      if (timer) window.clearTimeout(timer);
+      timer = window.setTimeout(function () {
+        timer = null;
+        fn.apply(context, args);
+      }, wait || 200);
+    };
+  }
+
+  /** 生成唯一 id */
+  function uid(prefix) {
+    return (
+      (prefix || 'usr-') +
+      Date.now().toString(36) +
+      '-' +
+      Math.random().toString(36).slice(2, 7)
+    );
+  }
+
+  /** 读取 URL 查询参数（file:// 下 location.search 同样可用） */
+  function getQueryParam(name, fallback) {
+    var search = window.location.search || '';
+    if (search.charAt(0) === '?') search = search.slice(1);
+    if (!search) return fallback === undefined ? null : fallback;
+    var pairs = search.split('&');
+    for (var i = 0; i < pairs.length; i++) {
+      var idx = pairs[i].indexOf('=');
+      var key = idx === -1 ? pairs[i] : pairs[i].slice(0, idx);
+      if (decodeURIComponent(key.replace(/\+/g, ' ')) === name) {
+        var raw = idx === -1 ? '' : pairs[i].slice(idx + 1);
+        return decodeURIComponent(raw.replace(/\+/g, ' '));
+      }
+    }
+    return fallback === undefined ? null : fallback;
+  }
+
+  /* ------------------------------------------------------------------------
+     DOM 简写
+     ------------------------------------------------------------------------ */
+  function $(selector, root) {
+    return (root || document).querySelector(selector);
+  }
+
+  function $$(selector, root) {
+    return Array.prototype.slice.call((root || document).querySelectorAll(selector));
+  }
+
+  function on(el, type, handler, options) {
+    if (el) el.addEventListener(type, handler, options);
+    return el;
+  }
+
+  /** 平滑滚动到元素并聚焦第一个可输入控件 */
+  function scrollToEl(el) {
+    if (!el) return;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - 110;
+    window.scrollTo({ top: top < 0 ? 0 : top, behavior: 'smooth' });
+  }
+
+  /* ------------------------------------------------------------------------
+     内联图标（避免依赖外部图标库，保证离线可用）
+     ------------------------------------------------------------------------ */
+  var ICON_PATHS = {
+    search:
+      '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    edit:
+      '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4z"/>',
+    trash:
+      '<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>',
+    back: '<path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>',
+    close: '<path d="M18 6L6 18M6 6l12 12"/>',
+    camera:
+      '<path d="M3 8a2 2 0 012-2h2.5l1.2-2h6.6L16.5 6H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="12.5" r="3.5"/>',
+    image:
+      '<rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="M20 16l-4.5-4.5L7 20"/>',
+    alert:
+      '<path d="M12 3.5l9.5 16.5H2.5z"/><path d="M12 9.5v4.5"/><circle cx="12" cy="17" r="0.6" fill="currentColor"/>',
+    sparkle:
+      '<path d="M12 3l1.8 4.9L18.7 9.7l-4.9 1.8L12 16.4l-1.8-4.9L5.3 9.7l4.9-1.8z"/><path d="M18.5 15.5l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z"/>',
+    users:
+      '<circle cx="9" cy="8" r="3.4"/><path d="M2.8 20c0-3.4 2.8-5.6 6.2-5.6s6.2 2.2 6.2 5.6"/><path d="M17 5.2a3.4 3.4 0 010 6.6"/><path d="M18.5 14.8c2.2.5 3.7 2.1 3.7 4.4"/>',
+    flame:
+      '<path d="M12 2.8s5 4.4 5 9a5 5 0 01-10 0c0-1.9.9-3.4 1.9-4.4.3 1.2 1 1.9 1.8 2.1-.4-2.3 1.3-6.7 1.3-6.7z"/><path d="M12 21.2a5 5 0 005-5c0-.7-.1-1.3-.3-1.9"/>',
+    book:
+      '<path d="M4 4.5A2.5 2.5 0 016.5 2H20v18H6.5A2.5 2.5 0 004 22z"/><path d="M4 17.5A2.5 2.5 0 016.5 15H20"/>',
+    refresh:
+      '<path d="M20.5 11a8.5 8.5 0 10-2.6 6.1"/><path d="M20.5 5v6h-6"/>',
+    check: '<path d="M20 6.5L9.5 17 4 11.5"/>',
+    arrowUp: '<path d="M12 19V5"/><path d="M5 12l7-7 7 7"/>',
+    arrowDown: '<path d="M12 5v14"/><path d="M19 12l-7 7-7-7"/>',
+    chef:
+      '<path d="M6 21h12"/><path d="M6 17.5h12V21H6z"/><path d="M18 17.5a4.5 4.5 0 001.2-8.8A5.5 5.5 0 0013.6 4a5.5 5.5 0 00-8.6 3.6"/><path d="M18 17.5H6a4.5 4.5 0 010-9"/>',
+    /* 轮播控制 */
+    chevronLeft: '<path d="M15 18l-6-6 6-6"/>',
+    chevronRight: '<path d="M9 18l6-6-6-6"/>',
+    pause: '<path d="M9.5 4.5v15"/><path d="M14.5 4.5v15"/>',
+    play: '<path d="M7.5 4.8 19 12 7.5 19.2z"/>',
+    /* 菜谱分类 */
+    fish:
+      '<path d="M3 12C6 8.2 14 8.2 18 12 14 15.8 6 15.8 3 12Z"/><path d="M18 12l3.2-2.6v5.2z"/><circle cx="8" cy="11.2" r=".9" fill="currentColor" stroke="none"/>',
+    soup:
+      '<path d="M3.5 11.5h17"/><path d="M5 11.5v.5a7 7 0 0 1 14 0v-.5"/><path d="M9 3.6c-.7 1.3.7 1.9 0 3.2"/><path d="M14 3.6c-.7 1.3.7 1.9 0 3.2"/>',
+    cake:
+      '<path d="M4 12.5h16V20H4z"/><path d="M4 15.6c1.3 1.1 2.7-1.1 4 0s2.7 1.1 4 0 2.7-1.1 4 0 2.7 1.1 4 0"/><path d="M4 12.5c0-2.2 3.6-4 8-4s8 1.8 8 4"/><path d="M12 8.5v-2"/><path d="M12 3.3c.9.9 1.4 1.6 1.4 2.3a1.4 1.4 0 0 1-2.8 0c0-.7.5-1.4 1.4-2.3Z"/>',
+    leaf: '<path d="M4 20c0-9 5-16 16-16 0 11-7 16-16 16Z"/><path d="M4 20C8 14 12 10.5 17 8"/>'
+  };
+
+  /** 生成一个内联 SVG 图标 */
+  function icon(name, extraClass) {
+    var inner = ICON_PATHS[name] || ICON_PATHS.sparkle;
+    return (
+      '<svg class="' +
+      (extraClass ? escapeHtml(extraClass) : '') +
+      '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+      inner +
+      '</svg>'
+    );
+  }
+
+  /* ------------------------------------------------------------------------
+     封面图渲染
+     统一规则：占位层始终存在，图片加载成功后再淡入覆盖。
+     这样即使没有图片、断网或链接失效，也永远不会出现破图。
+     ------------------------------------------------------------------------ */
+  function fallbackHtml(recipe, size) {
+    return (
+      '<div class="media-fallback' +
+      (size === 'sm' ? ' media-fallback--sm' : size === 'lg' ? ' media-fallback--lg' : '') +
+      '">' +
+      '<span class="media-fallback__emoji">' +
+      escapeHtml(recipe && recipe.emoji ? recipe.emoji : '🍽️') +
+      '</span>' +
+      '<span class="media-fallback__text">' +
+      escapeHtml(recipe && recipe.title ? recipe.title : '美味') +
+      '</span>' +
+      '</div>'
+    );
+  }
+
+  /**
+   * 生成封面容器 HTML。
+   * @param {object} recipe 菜谱对象
+   * @param {object} [options] { extraClass, size, alt, overlay }
+   *   overlay：需要叠在封面上层的 HTML 片段（例如卡片右下角的时长标签）
+   */
+  function coverHtml(recipe, options) {
+    var opts = options || {};
+    var title = (recipe && recipe.title) || '菜谱图片';
+    var html =
+      '<div class="media ' +
+      escapeHtml(opts.extraClass || '') +
+      '">' +
+      fallbackHtml(recipe, opts.size);
+
+    if (recipe && recipe.cover) {
+      html +=
+        '<img src="' +
+        escapeHtml(recipe.cover) +
+        '" alt="' +
+        escapeHtml(opts.alt || title) +
+        '" loading="lazy" onload="App.Utils.onImgLoad(this)" ' +
+        'onerror="App.Utils.onImgError(this)">';
+    }
+
+    if (opts.overlay) html += opts.overlay;
+
+    return html + '</div>';
+  }
+
+  /** 图片加载成功 → 淡入 */
+  function onImgLoad(img) {
+    var parent = img.parentNode;
+    if (parent && parent.classList) parent.classList.add('is-loaded');
+  }
+
+  /** 图片加载失败 → 移除图片节点，露出下层占位图 */
+  function onImgError(img) {
+    var parent = img.parentNode;
+    if (parent && parent.classList) parent.classList.remove('is-loaded');
+    console.warn('[image] 图片加载失败，已回退占位图：' + (img.getAttribute('src') || '').slice(0, 60));
+
+    // 步骤图等没有占位层的位置，直接移除整个容器，避免留下空框
+    var removeSelector = img.getAttribute('data-error-remove');
+    var target = img;
+    if (removeSelector && img.closest) {
+      var host = img.closest(removeSelector);
+      if (host) target = host;
+    }
+    if (target.parentNode) target.parentNode.removeChild(target);
+  }
+
+  /* ------------------------------------------------------------------------
+     Toast
+     ------------------------------------------------------------------------ */
+  var toastHost = null;
+
+  function ensureToastHost() {
+    if (toastHost && document.body.contains(toastHost)) return toastHost;
+    toastHost = document.getElementById('toastHost');
+    if (!toastHost) {
+      toastHost = document.createElement('div');
+      toastHost.id = 'toastHost';
+      toastHost.className = 'toast-host';
+      toastHost.setAttribute('role', 'status');
+      toastHost.setAttribute('aria-live', 'polite');
+      document.body.appendChild(toastHost);
+    }
+    return toastHost;
+  }
+
+  function toast(message, type, duration) {
+    var host = ensureToastHost();
+    var node = document.createElement('div');
+    var kind = type === 'success' ? 'toast--success' : type === 'error' ? 'toast--error' : '';
+    node.className = 'toast ' + kind;
+    node.innerHTML =
+      (type === 'success' ? icon('check') : type === 'error' ? icon('alert') : '') +
+      '<span>' +
+      escapeHtml(message) +
+      '</span>';
+    host.appendChild(node);
+
+    var life = duration || (type === 'error' ? 3600 : 2200);
+    window.setTimeout(function () {
+      node.classList.add('is-leaving');
+      window.setTimeout(function () {
+        if (node.parentNode) node.parentNode.removeChild(node);
+      }, 220);
+    }, life);
+  }
+
+  /* ------------------------------------------------------------------------
+     确认对话框
+     ------------------------------------------------------------------------ */
+  function confirmDialog(options) {
+    var opts = options || {};
+    return new Promise(function (resolve) {
+      var overlay = document.createElement('div');
+      overlay.className = 'overlay';
+      overlay.innerHTML =
+        '<div class="dialog" role="dialog" aria-modal="true">' +
+        '<div class="dialog__icon">' +
+        icon('alert') +
+        '</div>' +
+        '<h3 class="dialog__title">' +
+        escapeHtml(opts.title || '确认操作') +
+        '</h3>' +
+        '<p class="dialog__text">' +
+        escapeHtml(opts.text || '该操作不可撤销，确定要继续吗？') +
+        '</p>' +
+        '<div class="dialog__actions">' +
+        '<button type="button" class="btn btn--ghost" data-act="cancel">' +
+        escapeHtml(opts.cancelText || '取消') +
+        '</button>' +
+        '<button type="button" class="btn ' +
+        (opts.danger ? 'btn--danger' : 'btn--primary') +
+        '" data-act="ok">' +
+        escapeHtml(opts.okText || '确定') +
+        '</button>' +
+        '</div></div>';
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = 'hidden';
+
+      var finish = function (result) {
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', onKey);
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        resolve(result);
+      };
+
+      var onKey = function (event) {
+        if (event.key === 'Escape') finish(false);
+      };
+
+      overlay.addEventListener('click', function (event) {
+        var act = event.target.getAttribute && event.target.getAttribute('data-act');
+        if (act === 'ok') finish(true);
+        else if (act === 'cancel' || event.target === overlay) finish(false);
+      });
+
+      document.addEventListener('keydown', onKey);
+
+      window.requestAnimationFrame(function () {
+        overlay.classList.add('is-open');
+        var okBtn = overlay.querySelector('[data-act="ok"]');
+        if (okBtn) okBtn.focus();
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     灯箱（点击放大图片）
+     ------------------------------------------------------------------------ */
+  function ensureLightbox() {
+    var box = document.getElementById('lightbox');
+    if (box) return box;
+
+    box = document.createElement('div');
+    box.id = 'lightbox';
+    box.className = 'lightbox';
+    box.innerHTML =
+      '<button type="button" class="lightbox__close" aria-label="关闭">' +
+      icon('close') +
+      '</button><img alt="" />';
+    document.body.appendChild(box);
+
+    var close = function () {
+      box.classList.remove('is-open');
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onEsc);
+    };
+    var onEsc = function (event) {
+      if (event.key === 'Escape' && box.classList.contains('is-open')) close();
+    };
+
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', onEsc);
+    box._close = close;
+
+    return box;
+  }
+
+  function openLightbox(src, alt) {
+    if (!src) return;
+    var box = ensureLightbox();
+    var img = box.querySelector('img');
+    img.setAttribute('src', src);
+    img.setAttribute('alt', alt || '');
+    document.body.style.overflow = 'hidden';
+    box.classList.add('is-open');
+  }
+
+  /* ------------------------------------------------------------------------
+     导航栏滚动状态
+     ------------------------------------------------------------------------ */
+  function bindNavScroll() {
+    var nav = document.querySelector('.site-nav');
+    if (!nav) return;
+    var apply = function () {
+      if (window.pageYOffset > 8) nav.classList.add('is-scrolled');
+      else nav.classList.remove('is-scrolled');
+    };
+    apply();
+    window.addEventListener('scroll', apply, { passive: true });
+  }
+
+  App.Utils = {
+    escapeHtml: escapeHtml,
+    formatTime: formatTime,
+    formatDate: formatDate,
+    difficultyClass: difficultyClass,
+    debounce: debounce,
+    uid: uid,
+    getQueryParam: getQueryParam,
+    $: $,
+    $$: $$,
+    on: on,
+    scrollToEl: scrollToEl,
+    icon: icon,
+    coverHtml: coverHtml,
+    fallbackHtml: fallbackHtml,
+    onImgLoad: onImgLoad,
+    onImgError: onImgError,
+    toast: toast,
+    confirmDialog: confirmDialog,
+    openLightbox: openLightbox,
+    bindNavScroll: bindNavScroll
+  };
+})(window, document);
+
+</script>
+<script>
+// ===== js/storage.js =====
+/* ==========================================================================
+   食谱集 · js/storage.js
+   存储层：内置数据 + 用户自建数据（localStorage）的合并、读写、删除与配额处理
+   ========================================================================== */
+
+(function (window) {
+  'use strict';
+
+  var App = window.App;
+
+  var STORAGE_KEY = 'minicrm.recipes.custom.v1';
+
+  /** 用户自建数据的缓存（失效后重新读取） */
+  var cache = null;
+  /** 读取失败时的提示信息，供页面消费一次 */
+  var readErrorMessage = '';
+
+  /* ------------------------------------------------------------------------
+     校验与规范化：外部写入的数据可能被手工改坏，这里做一次兜底
+     ------------------------------------------------------------------------ */
+  function isValidRecipe(raw) {
+    return (
+      raw &&
+      typeof raw === 'object' &&
+      typeof raw.id === 'string' &&
+      raw.id.length > 0 &&
+      typeof raw.title === 'string'
+    );
+  }
+
+  function toStringArray(value) {
+    if (!Array.isArray(value)) return [];
+    var result = [];
+    value.forEach(function (item) {
+      if (typeof item !== 'string') return;
+      var text = item.trim();
+      if (text === '' || result.indexOf(text) !== -1) return;
+      result.push(text);
+    });
+    return result;
+  }
+
+  function normalizeIngredients(value) {
+    if (!Array.isArray(value)) return [];
+    return value
+      .map(function (item) {
+        return {
+          name: String((item && item.name) || '').trim(),
+          amount: String((item && item.amount) || '').trim()
+        };
+      })
+      .filter(function (item) {
+        return item.name !== '';
+      });
+  }
+
+  function normalizeSteps(value) {
+    if (!Array.isArray(value)) return [];
+    return value
+      .map(function (item) {
+        if (typeof item === 'string') return { text: item.trim(), image: '' };
+        return {
+          text: String((item && item.text) || '').trim(),
+          image: String((item && item.image) || '')
+        };
+      })
+      .filter(function (item) {
+        return item.text !== '';
+      });
+  }
+
+  function normalize(raw) {
+    var time = Number(raw.timeMinutes);
+    var servings = Number(raw.servings);
+    return {
+      id: String(raw.id),
+      title: String(raw.title || '').trim(),
+      emoji: typeof raw.emoji === 'string' && raw.emoji ? raw.emoji : '🍽️',
+      cover: typeof raw.cover === 'string' ? raw.cover : '',
+      category: typeof raw.category === 'string' && raw.category ? raw.category : '家常菜',
+      tags: toStringArray(raw.tags),
+      difficulty:
+        raw.difficulty === '简单' || raw.difficulty === '困难' ? raw.difficulty : '中等',
+      timeMinutes: isFinite(time) && time > 0 ? Math.round(time) : 0,
+      servings: isFinite(servings) && servings > 0 ? Math.round(servings) : 1,
+      description: String(raw.description || '').trim(),
+      ingredients: normalizeIngredients(raw.ingredients),
+      steps: normalizeSteps(raw.steps),
+      tips: String(raw.tips || '').trim(),
+      createdAt: isFinite(Number(raw.createdAt)) && Number(raw.createdAt) > 0
+        ? Number(raw.createdAt)
+        : Date.now(),
+      isCustom: raw.isCustom === true
+    };
+  }
+
+  /* ------------------------------------------------------------------------
+     底层读写
+     ------------------------------------------------------------------------ */
+  function getSeeds() {
+    return Array.isArray(window.SEED_RECIPES) ? window.SEED_RECIPES : [];
+  }
+
+  function findSeed(id) {
+    var seeds = getSeeds();
+    for (var i = 0; i < seeds.length; i++) {
+      if (seeds[i].id === id) return seeds[i];
+    }
+    return null;
+  }
+
+  function readCustom() {
+    if (cache) return cache;
+    try {
+      var raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        cache = [];
+        return cache;
+      }
+      var parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) throw new Error('数据结构不是数组');
+      cache = parsed.filter(isValidRecipe).map(normalize);
+      return cache;
+    } catch (err) {
+      console.warn('[storage] 读取本地菜谱失败，已回退为仅内置数据：', err && err.message);
+      readErrorMessage = '本地保存的数据无法解析，已临时回退为内置菜谱。';
+      cache = [];
+      return cache;
+    }
+  }
+
+  /** 写入 localStorage，并把配额错误转换成可展示的提示 */
+  function writeCustom(list) {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      cache = list;
+    } catch (err) {
+      var isQuota =
+        err &&
+        (err.name === 'QuotaExceededError' ||
+          err.name === 'NS_ERROR_DOM_QUOTA_REACHED' ||
+          err.code === 22 ||
+          err.code === 1014);
+      console.warn('[storage] 写入本地菜谱失败：', err && err.name, err && err.message);
+      if (isQuota) {
+        throw new Error('本地存储空间已满，请删除部分自建菜谱或使用更小的图片。');
+      }
+      throw new Error('保存失败，浏览器本地存储不可用（是否处于隐私模式？）。');
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     对外接口
+     ------------------------------------------------------------------------ */
+
+  /**
+   * 全部菜谱：内置 + 用户自建。
+   * 同 id 时用户数据覆盖内置数据（用于「编辑内置菜谱生成覆盖记录」）。
+   * 排序：创建时间由新到旧。
+   */
+  function getAll() {
+    var map = {};
+    var order = [];
+
+    getSeeds().forEach(function (seed) {
+      var recipe = normalize(seed);
+      map[recipe.id] = recipe;
+      order.push(recipe.id);
+    });
+
+    readCustom().forEach(function (recipe) {
+      if (!Object.prototype.hasOwnProperty.call(map, recipe.id)) order.push(recipe.id);
+      map[recipe.id] = recipe;
+    });
+
+    return order
+      .map(function (id) {
+        return map[id];
+      })
+      .sort(function (a, b) {
+        return b.createdAt - a.createdAt;
+      });
+  }
+
+  function getById(id) {
+    if (!id) return null;
+    var custom = readCustom();
+    for (var i = 0; i < custom.length; i++) {
+      if (custom[i].id === id) return custom[i];
+    }
+    var seed = findSeed(id);
+    return seed ? normalize(seed) : null;
+  }
+
+  /** 该 id 是否被用户数据覆盖（内置菜谱被编辑过 / 用户自建） */
+  function isOverridden(id) {
+    if (!id) return false;
+    return readCustom().some(function (item) {
+      return item.id === id;
+    });
+  }
+
+  /**
+   * 新增或更新一条菜谱。
+   * - 没有 id：创建用户自建菜谱
+   * - id 命中用户数据：覆盖更新
+   * - id 命中内置数据：写入一条覆盖记录（内置菜谱得以"被编辑"）
+   * @returns {object} 落库后的完整菜谱对象
+   */
+  function save(input) {
+    if (!input || typeof input !== 'object') {
+      throw new Error('没有可保存的菜谱数据。');
+    }
+    if (!String(input.title || '').trim()) {
+      throw new Error('菜谱名称不能为空。');
+    }
+
+    var list = readCustom().slice();
+    var id = String(input.id || '').trim();
+    var seed = id ? findSeed(id) : null;
+    var isNew = id === '';
+
+    var record = normalize(
+      Object.assign({}, input, {
+        id: id || App.Utils.uid('usr-'),
+        isCustom: seed ? false : isNew ? true : input.isCustom === true,
+        createdAt: seed
+          ? normalize(seed).createdAt
+          : isFinite(Number(input.createdAt)) && Number(input.createdAt) > 0
+          ? Number(input.createdAt)
+          : Date.now()
+      })
+    );
+
+    var replaced = false;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === record.id) {
+        list[i] = record;
+        replaced = true;
+        break;
+      }
+    }
+    if (!replaced) list.push(record);
+
+    writeCustom(list);
+    return record;
+  }
+
+  /**
+   * 删除菜谱。仅允许删除用户自建数据；内置菜谱未被编辑过时不可删除。
+   * @returns {boolean} 是否删除成功
+   */
+  function remove(id) {
+    var list = readCustom();
+    var next = list.filter(function (item) {
+      return item.id !== id;
+    });
+    if (next.length === list.length) return false;
+    writeCustom(next);
+    return true;
+  }
+
+  /** 清空全部用户数据，恢复到初始的内置示例状态 */
+  function clearCustom() {
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch (err) {
+      console.warn('[storage] 清空本地数据失败：', err && err.message);
+      throw new Error('清空失败，浏览器本地存储不可用。');
+    }
+    cache = [];
+  }
+
+  function customCount() {
+    return readCustom().length;
+  }
+
+  function seedCount() {
+    return getSeeds().length;
+  }
+
+  /** 当前占用的存储字节数（近似值，用于容量提示） */
+  function getUsageBytes() {
+    try {
+      var raw = window.localStorage.getItem(STORAGE_KEY);
+      return raw ? raw.length : 0;
+    } catch (err) {
+      return 0;
+    }
+  }
+
+  /** 取走一次读取错误提示（取走后清空，避免重复弹出） */
+  function consumeReadError() {
+    var message = readErrorMessage;
+    readErrorMessage = '';
+    return message;
+  }
+
+  App.Storage = {
+    STORAGE_KEY: STORAGE_KEY,
+    getAll: getAll,
+    getById: getById,
+    save: save,
+    remove: remove,
+    clearCustom: clearCustom,
+    isOverridden: isOverridden,
+    customCount: customCount,
+    seedCount: seedCount,
+    getUsageBytes: getUsageBytes,
+    consumeReadError: consumeReadError
+  };
+})(window);
+
+</script>
+<script>
+// ===== js/list.js =====
+/* ==========================================================================
+   食谱集 · js/list.js
+   首页逻辑：精选轮播图 / 菜谱分类 / 热门菜谱 / 关键词筛选 / 空状态 / 数据重置
+   ========================================================================== */
+
+(function (window, document) {
+  'use strict';
+
+  var App = window.App;
+  var U = App.Utils;
+  var S = App.Storage;
+
+  var ALL = '全部';
+
+  /* 首页各区块的展示条数 */
+  var CAROUSEL_SIZE = 4; // 轮播图取热度前 4 道
+  var HOT_SIZE = 8; // 热门榜取热度前 8 道
+  var AUTOPLAY_MS = 5200; // 轮播自动播放间隔
+
+  /* ------------------------------------------------------------------------
+     页面元素（不存在则直接退出，保证任何页面单独打开都不报错）
+     ------------------------------------------------------------------------ */
+  var grid = U.$('#recipeGrid');
+  if (!grid) return;
+
+  var navInput = U.$('#navSearchInput');
+  var navBox = U.$('#navSearchBox');
+
+  var carouselEl = U.$('#carousel');
+  var carouselTrack = U.$('#carouselTrack');
+  var carouselPrev = U.$('#carouselPrev');
+  var carouselNext = U.$('#carouselNext');
+  var carouselToggle = U.$('#carouselToggle');
+  var carouselDots = U.$('#carouselDots');
+  var carouselProgress = U.$('#carouselProgress');
+
+  var categoryGrid = U.$('#categoryGrid');
+  var categoryTotal = U.$('#categoryTotal');
+
+  var recipeSection = U.$('.home-section--recipes');
+  var sectionTitle = U.$('#recipeSectionTitle');
+  var sectionSub = U.$('#recipeSectionSub');
+  var countEl = U.$('#resultCount');
+  var resetFiltersBtn = U.$('#resetFilters');
+  var emptyEl = U.$('#emptyState');
+  var emptyResetBtn = U.$('#emptyReset');
+
+  var footerSummary = U.$('#footerSummary');
+  var resetDataBtn = U.$('#resetData');
+
+  /* ------------------------------------------------------------------------
+     状态
+     ------------------------------------------------------------------------ */
+  var state = { category: ALL, keyword: '' };
+  var allRecipes = [];
+  var hotRanked = [];
+  var carouselItems = [];
+
+  /* ------------------------------------------------------------------------
+     分类元信息：内联图标 + 水印菜品 + 一句话说明
+     （图标取自 js/utils.js 的 ICON_PATHS，不使用外部图标库）
+     ------------------------------------------------------------------------ */
+  var CATEGORY_META = {
+    川菜: { icon: 'flame', emoji: '🥘', desc: '麻辣鲜香' },
+    粤菜: { icon: 'fish', emoji: '🐟', desc: '清鲜本味' },
+    家常菜: { icon: 'chef', emoji: '🍖', desc: '下饭硬菜' },
+    汤羹: { icon: 'soup', emoji: '🍲', desc: '慢炖暖胃' },
+    甜品: { icon: 'cake', emoji: '🍮', desc: '甜汤点心' },
+    素食: { icon: 'leaf', emoji: '🥦', desc: '清爽低脂' }
+  };
+  var DEFAULT_META = { icon: 'sparkle', emoji: '🍽️', desc: '更多风味' };
+
+  /* ------------------------------------------------------------------------
+     热度启发式
+     数据里没有浏览量字段，因此用「标签权重 + 步骤/用料丰富度 + 是否本人创建」
+     综合打分；同分时按创建时间由新到旧。规则写在这里，避免凭空排序。
+     ------------------------------------------------------------------------ */
+  var HOT_TAGS = {
+    经典: 3,
+    宴客: 3,
+    硬菜: 3,
+    滋补: 3,
+    下饭: 2,
+    快手: 2,
+    鲜味: 2,
+    高蛋白: 2,
+    港式: 2,
+    暖胃: 2,
+    新手友好: 1,
+    低脂: 1,
+    清淡: 1,
+    酸甜: 1,
+    微辣: 1,
+    慢炖: 1,
+    润燥: 1,
+    甜汤: 1,
+    冷热皆宜: 1,
+    夏日: 1,
+    冰爽: 1,
+    素食: 1
+  };
+
+  function heatScore(recipe) {
+    var score = 0;
+    (recipe.tags || []).forEach(function (tag) {
+      if (HOT_TAGS[tag]) score += HOT_TAGS[tag];
+    });
+    // 步骤多于 4 步的，说明做法更值得细看，最多再加 3 分
+    score += Math.min(Math.max(recipe.steps.length - 4, 0), 3);
+    // 用料齐全（6 种以上）再加 1 分
+    if (recipe.ingredients.length >= 6) score += 1;
+    // 用户自己创建的菜谱优先展示
+    if (recipe.isCustom) score += 2;
+    return score;
+  }
+
+  function rankByHeat(list) {
+    return list.slice().sort(function (a, b) {
+      var diff = heatScore(b) - heatScore(a);
+      if (diff !== 0) return diff;
+      return b.createdAt - a.createdAt;
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     数据读取
+     ------------------------------------------------------------------------ */
+  function loadData() {
+    allRecipes = S.getAll();
+    var readError = S.consumeReadError();
+    if (readError) U.toast(readError, 'error', 4200);
+  }
+
+  /* ------------------------------------------------------------------------
+     关键词匹配：菜名、简介、分类、标签、食材名、小贴士
+     ------------------------------------------------------------------------ */
+  function normalize(text) {
+    return String(text || '').toLowerCase();
+  }
+
+  function matchesKeyword(recipe, keyword) {
+    if (!keyword) return true;
+    if (recipe._haystack === undefined) {
+      var parts = [recipe.title, recipe.category, recipe.description, recipe.tips]
+        .concat(recipe.tags)
+        .concat(
+          recipe.ingredients.map(function (item) {
+            return item.name;
+          })
+        );
+      recipe._haystack = normalize(parts.join(' '));
+    }
+    return recipe._haystack.indexOf(keyword) !== -1;
+  }
+
+  /* ------------------------------------------------------------------------
+     轮播图
+     ------------------------------------------------------------------------ */
+  var slideIndex = 0;
+  var slideTimer = null;
+  var userPaused = false; // 用户点了暂停
+  var interactionPaused = false; // 悬停 / 聚焦 / 页面不可见
+  var canAutoPlay = false; // 是否允许自动播放（多于一张且未开启减弱动效）
+
+  function prefersReducedMotion() {
+    return !!(
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
+  }
+
+  function carouselMetaItem(iconName, text) {
+    return (
+      '<span class="carousel__meta-item">' +
+      U.icon(iconName) +
+      U.escapeHtml(text) +
+      '</span>'
+    );
+  }
+
+  function slideHtml(recipe, index, total) {
+    var overlay =
+      '<div class="carousel__overlay">' +
+      '<span class="badge badge--category carousel__badge">' +
+      U.escapeHtml(recipe.category) +
+      '</span>' +
+      '<h3 class="carousel__title">' +
+      U.escapeHtml(recipe.title) +
+      '</h3>' +
+      '<p class="carousel__desc">' +
+      U.escapeHtml(recipe.description || '这道菜还没有写简介，点开看看做法吧。') +
+      '</p>' +
+      '<div class="carousel__meta">' +
+      carouselMetaItem('clock', U.formatTime(recipe.timeMinutes)) +
+      carouselMetaItem('chef', recipe.difficulty) +
+      carouselMetaItem(
+        'book',
+        recipe.steps.length ? recipe.steps.length + ' 个步骤' : '步骤待补充'
+      ) +
+      '</div>' +
+      '<span class="btn btn--primary carousel__cta">查看做法' +
+      U.icon('chevronRight') +
+      '</span>' +
+      '</div>';
+
+    return (
+      '<article class="carousel__slide" role="group" aria-roledescription="幻灯片" aria-label="' +
+      (index + 1) +
+      ' / ' +
+      total +
+      '">' +
+      '<a class="carousel__link" href="detail.html?id=' +
+      encodeURIComponent(recipe.id) +
+      '">' +
+      U.coverHtml(recipe, { extraClass: 'carousel__media', size: 'lg', overlay: overlay }) +
+      '</a></article>'
+    );
+  }
+
+  function renderDots() {
+    if (!carouselDots) return;
+    carouselDots.innerHTML = carouselItems
+      .map(function (recipe, index) {
+        var active = index === slideIndex;
+        return (
+          '<button type="button" class="carousel__dot' +
+          (active ? ' is-active' : '') +
+          '" data-index="' +
+          index +
+          '" aria-label="查看第 ' +
+          (index + 1) +
+          ' 张：' +
+          U.escapeHtml(recipe.title) +
+          '" aria-current="' +
+          (active ? 'true' : 'false') +
+          '"></button>'
+        );
+      })
+      .join('');
+  }
+
+  function updateToggle() {
+    if (!carouselToggle) return;
+    carouselToggle.innerHTML = U.icon(userPaused ? 'play' : 'pause');
+    carouselToggle.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+    carouselToggle.setAttribute(
+      'aria-label',
+      userPaused ? '继续自动播放精选菜谱' : '暂停自动播放精选菜谱'
+    );
+  }
+
+  function clearSlideTimer() {
+    if (slideTimer) {
+      window.clearTimeout(slideTimer);
+      slideTimer = null;
+    }
+  }
+
+  /** 让进度条动画从头开始（改一次 inline 样式以强制重启动画） */
+  function restartProgress() {
+    if (!carouselProgress) return;
+    carouselProgress.style.animation = 'none';
+    // 读取一次布局属性，强制浏览器重排后动画才会重新播放
+    void carouselProgress.offsetWidth;
+    carouselProgress.style.animation = '';
+  }
+
+  function isAutoPlaying() {
+    return canAutoPlay && !userPaused;
+  }
+
+  /** 同步播放状态与计时器：暂停时冻结进度条，播放时从头计时 */
+  function syncCarousel() {
+    if (!carouselEl) return;
+
+    var playing = isAutoPlaying();
+    carouselEl.classList.toggle('is-playing', playing);
+    carouselEl.classList.toggle('is-paused', playing && interactionPaused);
+
+    clearSlideTimer();
+    updateToggle();
+
+    if (!playing || interactionPaused) return;
+
+    restartProgress();
+    slideTimer = window.setTimeout(function () {
+      goTo(slideIndex + 1);
+    }, AUTOPLAY_MS);
+  }
+
+  function goTo(next) {
+    var total = carouselItems.length;
+    if (!carouselEl || total === 0) return;
+
+    slideIndex = ((next % total) + total) % total;
+    if (carouselTrack) {
+      carouselTrack.style.transform = 'translateX(' + -slideIndex * 100 + '%)';
+    }
+    renderDots();
+    syncCarousel();
+  }
+
+  function buildCarousel(items) {
+    carouselItems = items;
+    slideIndex = 0;
+    clearSlideTimer();
+
+    if (!carouselEl || !carouselTrack) return;
+
+    if (items.length === 0) {
+      carouselTrack.innerHTML = '';
+      carouselEl.classList.add('is-single', 'hidden');
+      return;
+    }
+
+    carouselEl.classList.remove('hidden');
+    carouselEl.classList.toggle('is-single', items.length < 2);
+    carouselTrack.style.transform = 'translateX(0%)';
+    carouselTrack.innerHTML = items
+      .map(function (recipe, index) {
+        return slideHtml(recipe, index, items.length);
+      })
+      .join('');
+
+    if (carouselProgress) {
+      carouselProgress.style.setProperty('--carousel-duration', AUTOPLAY_MS + 'ms');
+    }
+
+    renderDots();
+    syncCarousel();
+  }
+
+  function bindCarousel() {
+    if (!carouselEl) return;
+
+    U.on(carouselPrev, 'click', function () {
+      goTo(slideIndex - 1);
+    });
+
+    U.on(carouselNext, 'click', function () {
+      goTo(slideIndex + 1);
+    });
+
+    U.on(carouselDots, 'click', function (event) {
+      var dot = event.target.closest ? event.target.closest('.carousel__dot') : null;
+      if (!dot) return;
+      goTo(Number(dot.getAttribute('data-index')) || 0);
+    });
+
+    U.on(carouselToggle, 'click', function () {
+      userPaused = !userPaused;
+      syncCarousel();
+    });
+
+    // 悬停或焦点进入时暂停，离开后恢复
+    U.on(carouselEl, 'mouseenter', function () {
+      interactionPaused = true;
+      syncCarousel();
+    });
+    U.on(carouselEl, 'mouseleave', function () {
+      interactionPaused = false;
+      syncCarousel();
+    });
+    U.on(carouselEl, 'focusin', function () {
+      interactionPaused = true;
+      syncCarousel();
+    });
+    U.on(carouselEl, 'focusout', function () {
+      interactionPaused = false;
+      syncCarousel();
+    });
+
+    // 键盘左右键（事件从内部的按钮 / 链接冒泡上来）
+    U.on(carouselEl, 'keydown', function (event) {
+      if (event.key === 'ArrowLeft') {
+        goTo(slideIndex - 1);
+        event.preventDefault();
+      } else if (event.key === 'ArrowRight') {
+        goTo(slideIndex + 1);
+        event.preventDefault();
+      }
+    });
+
+    // 触摸滑动
+    var touchStartX = null;
+    U.on(
+      carouselEl,
+      'touchstart',
+      function (event) {
+        touchStartX = event.touches && event.touches[0] ? event.touches[0].clientX : null;
+      },
+      { passive: true }
+    );
+    U.on(
+      carouselEl,
+      'touchend',
+      function (event) {
+        if (touchStartX === null) return;
+        var endX =
+          event.changedTouches && event.changedTouches[0]
+            ? event.changedTouches[0].clientX
+            : null;
+        if (endX !== null) {
+          var delta = endX - touchStartX;
+          if (Math.abs(delta) > 40) {
+            goTo(delta < 0 ? slideIndex + 1 : slideIndex - 1);
+          }
+        }
+        touchStartX = null;
+      },
+      { passive: true }
+    );
+
+    // 页面切到后台时暂停，回来再继续
+    U.on(document, 'visibilitychange', function () {
+      interactionPaused = !!document.hidden;
+      syncCarousel();
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     菜谱分类卡片
+     ------------------------------------------------------------------------ */
+  function categoryList() {
+    var order = (window.SEED_CATEGORIES || []).slice();
+    allRecipes.forEach(function (recipe) {
+      if (recipe.category && order.indexOf(recipe.category) === -1) order.push(recipe.category);
+    });
+    return order;
+  }
+
+  function countByCategory(category) {
+    return allRecipes.filter(function (recipe) {
+      return recipe.category === category;
+    }).length;
+  }
+
+  function renderCategories() {
+    if (!categoryGrid) return;
+
+    var list = categoryList();
+
+    categoryGrid.innerHTML = list
+      .map(function (category) {
+        var meta = CATEGORY_META[category] || DEFAULT_META;
+        var active = state.category === category;
+        return (
+          '<button type="button" class="category-card' +
+          (active ? ' is-active' : '') +
+          '" data-category="' +
+          U.escapeHtml(category) +
+          '" aria-pressed="' +
+          (active ? 'true' : 'false') +
+          '">' +
+          '<span class="category-card__icon">' +
+          U.icon(meta.icon) +
+          '</span>' +
+          '<span class="category-card__body">' +
+          '<span class="category-card__name">' +
+          U.escapeHtml(category) +
+          '</span>' +
+          '<span class="category-card__count">' +
+          countByCategory(category) +
+          ' 道 · ' +
+          U.escapeHtml(meta.desc) +
+          '</span>' +
+          '</span>' +
+          '<span class="category-card__watermark" aria-hidden="true">' +
+          U.escapeHtml(meta.emoji) +
+          '</span>' +
+          '</button>'
+        );
+      })
+      .join('');
+
+    if (categoryTotal) categoryTotal.textContent = list.length + ' 个分类';
+  }
+
+  /* ------------------------------------------------------------------------
+     菜谱卡片
+     ------------------------------------------------------------------------ */
+  function cardHtml(recipe, index) {
+    var stepsText = recipe.steps.length ? recipe.steps.length + ' 步' : '步骤待补充';
+    var desc = recipe.description || '这道菜还没有写简介，点开看看做法吧。';
+
+    var overlay =
+      '<span class="recipe-card__time">' +
+      U.icon('clock') +
+      U.escapeHtml(U.formatTime(recipe.timeMinutes)) +
+      '</span>';
+
+    return (
+      '<article class="recipe-card" style="animation-delay:' +
+      Math.min(index, 8) * 40 +
+      'ms">' +
+      '<a class="recipe-card__link" href="detail.html?id=' +
+      encodeURIComponent(recipe.id) +
+      '">' +
+      U.coverHtml(recipe, { extraClass: 'recipe-card__media', overlay: overlay }) +
+      '<div class="recipe-card__body">' +
+      '<h3 class="recipe-card__title">' +
+      U.escapeHtml(recipe.title) +
+      '</h3>' +
+      '<p class="recipe-card__desc">' +
+      U.escapeHtml(desc) +
+      '</p>' +
+      '<div class="recipe-card__meta">' +
+      '<span class="badge ' +
+      U.difficultyClass(recipe.difficulty) +
+      '">' +
+      U.escapeHtml(recipe.difficulty) +
+      '</span>' +
+      '<span class="badge badge--category">' +
+      U.escapeHtml(recipe.category) +
+      '</span>' +
+      (recipe.isCustom ? '<span class="badge badge--custom">我的</span>' : '') +
+      '<span class="recipe-card__steps-hint">' +
+      U.escapeHtml(stepsText) +
+      '</span>' +
+      '</div></div></a></article>'
+    );
+  }
+
+  /* ------------------------------------------------------------------------
+     菜谱列表
+     ------------------------------------------------------------------------ */
+  /** 当前该展示哪些菜谱：关键词 > 分类 > 热门榜默认视图 */
+  function visibleList() {
+    var keyword = normalize(state.keyword).trim();
+    var inCategory =
+      state.category === ALL
+        ? allRecipes
+        : allRecipes.filter(function (recipe) {
+            return recipe.category === state.category;
+          });
+
+    if (keyword) {
+      return inCategory.filter(function (recipe) {
+        return matchesKeyword(recipe, keyword);
+      });
+    }
+    if (state.category === ALL) return hotRanked.slice(0, HOT_SIZE);
+    return inCategory;
+  }
+
+  function render() {
+    var list = visibleList();
+    var keyword = state.keyword.trim();
+
+    grid.innerHTML = list.map(cardHtml).join('');
+    grid.classList.toggle('hidden', list.length === 0);
+
+    if (emptyEl) emptyEl.classList.toggle('hidden', list.length !== 0);
+
+    if (sectionTitle) {
+      sectionTitle.textContent = keyword
+        ? '搜索结果'
+        : state.category === ALL
+        ? '热门菜谱'
+        : state.category;
+    }
+
+    if (sectionSub) {
+      if (keyword) {
+        sectionSub.textContent = '包含「' + keyword + '」的菜谱，共 ' + list.length + ' 道。';
+      } else if (state.category === ALL) {
+        sectionSub.textContent = '大家都在做的高人气菜谱，跟着步骤来不容易失手。';
+      } else {
+        sectionSub.textContent = '「' + state.category + '」分类下的菜谱，点开就能看分步做法。';
+      }
+    }
+
+    if (countEl) countEl.textContent = '共 ' + list.length + ' 道菜谱';
+
+    if (resetFiltersBtn) {
+      resetFiltersBtn.classList.toggle('hidden', state.category === ALL && !keyword);
+    }
+  }
+
+  function renderFooter() {
+    var totalSteps = allRecipes.reduce(function (sum, recipe) {
+      return sum + recipe.steps.length;
+    }, 0);
+    if (footerSummary) {
+      footerSummary.textContent =
+        '共 ' + allRecipes.length + ' 道菜谱、' + totalSteps + ' 个做菜步骤，数据保存在本机浏览器中。';
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     筛选
+     ------------------------------------------------------------------------ */
+  function setKeyword(value) {
+    state.keyword = value;
+    if (navInput && navInput.value !== value) navInput.value = value;
+    syncSearchBox();
+  }
+
+  function syncSearchBox() {
+    if (!navBox) return;
+    navBox.classList.toggle('is-filled', !!(navInput && navInput.value));
+  }
+
+  function resetFilters(scroll) {
+    state.category = ALL;
+    setKeyword('');
+    renderCategories();
+    render();
+    if (scroll) U.scrollToEl(recipeSection);
+  }
+
+  var applyKeyword = U.debounce(function () {
+    render();
+  }, 200);
+
+  function bindEvents() {
+    // 分类卡片：再次点击当前分类可取消筛选
+    U.on(categoryGrid, 'click', function (event) {
+      var card = event.target.closest ? event.target.closest('.category-card') : null;
+      if (!card) return;
+
+      var category = card.getAttribute('data-category') || ALL;
+      state.category = state.category === category ? ALL : category;
+      setKeyword('');
+      renderCategories();
+      render();
+      U.scrollToEl(recipeSection);
+    });
+
+    U.on(resetFiltersBtn, 'click', function () {
+      resetFilters(true);
+    });
+
+    U.on(emptyResetBtn, 'click', function () {
+      resetFilters(false);
+    });
+
+    // 搜索
+    U.on(navInput, 'input', function () {
+      setKeyword(navInput.value);
+      applyKeyword();
+    });
+    U.on(navInput, 'keydown', function (event) {
+      if (event.key === 'Enter') render();
+    });
+    U.$$('.search-box__clear').forEach(function (btn) {
+      U.on(btn, 'click', function () {
+        setKeyword('');
+        render();
+        var target = document.getElementById(btn.getAttribute('data-clear'));
+        if (target) target.focus();
+      });
+    });
+
+    // 恢复初始数据
+    U.on(resetDataBtn, 'click', function () {
+      var custom = S.customCount();
+      if (custom === 0) {
+        U.toast('当前没有需要清空的本地数据', 'success');
+        return;
+      }
+      U.confirmDialog({
+        title: '恢复初始数据？',
+        text:
+          '将删除你创建或编辑过的 ' +
+          custom +
+          ' 条菜谱记录，内置示例菜谱会恢复原样，该操作不可撤销。',
+        okText: '确认恢复',
+        danger: true
+      }).then(function (ok) {
+        if (!ok) return;
+        try {
+          S.clearCustom();
+          refresh();
+          U.toast('已恢复到初始数据', 'success');
+        } catch (err) {
+          U.toast((err && err.message) || '操作失败', 'error');
+        }
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     启动
+     ------------------------------------------------------------------------ */
+  function refresh() {
+    loadData();
+    hotRanked = rankByHeat(allRecipes);
+    buildCarousel(hotRanked.slice(0, CAROUSEL_SIZE));
+    renderCategories();
+    render();
+    renderFooter();
+  }
+
+  canAutoPlay = !prefersReducedMotion();
+
+  U.bindNavScroll();
+  updateToggle();
+  bindCarousel();
+  bindEvents();
+  refresh();
+  syncSearchBox();
+})(window, document);
+
+</script>
 </body>
 </html>

@@ -26,7 +26,7 @@
 
 手机浏览器直接打开上面的网址即可，也可以扫描仓库根目录的 `phone-qr.svg` 二维码。该地址由 **GitHub Pages** 托管，长期有效，在任意网络下都能访问（校园 WiFi / 家用宽带 / 移动数据），不要求电脑开机，也不要求和电脑处于同一局域网。
 
-- 已验证：三个入口 `index.html`、`detail.html?id=seed-03`、`edit.html` 以及全部 `css/`、`js/` 资源在 Chromium 中均正常加载
+- 已验证：三个入口 `index.html`、`detail.html?id=seed-01`、`edit.html` 在 Chromium 中均正常渲染（菜谱、用料、步骤齐全）
 - 页面按屏幕宽度自动切换为手机布局：单列网格、轮播 4:3、隐藏左右箭头、操作栏吸底
 - iOS Safari / 安卓 Chrome 可用「添加到主屏幕」，之后以独立 App 形式全屏打开
 - 数据依旧保存在当前浏览器本地（`localStorage`），手机与电脑各自独立
@@ -36,15 +36,16 @@
 仓库里已经准备好了发布包，直接在网页上操作即可，不需要安装 Git：
 
 1. 打开 <https://github.com/new>，仓库名填 `recipe-journal`，可见性选 **Public**，点 **Create repository**
-2. 在空仓库页点 **Add file → Upload files**，把 `site-deploy/` 目录下的全部内容（3 个 HTML、`css/`、`js/`、`README.md`、`phone-qr.svg`、`.nojekyll`）拖进上传区，点 **Commit changes**
-   - 也可以解压根目录的 `recipe-site-deploy.zip` 后上传
+2. 在空仓库页点 **Add file → Upload files**，把 `site-deploy/` 下的 **3 个 HTML 文件** 拖进上传区，点 **Commit changes**
 3. 进入 **Settings → Pages**，Source 选 **Deploy from a branch**，Branch 选 `main`、文件夹选 `/ (root)`，点 **Save**
 
 约 1 分钟后即可通过 `https://<用户名>.github.io/recipe-journal/` 访问。
 
-> `.nojekyll` 用于让 GitHub Pages 跳过 Jekyll 构建，静态文件原样发布；项目全部使用相对路径，放在子路径下无需改动任何代码。
+> **为什么只需要 3 个文件？** GitHub 网页上传拖拽文件夹经常失败（文件会被静默丢弃，页面打开后 0 道菜谱）。所以 `site-deploy/` 里的 HTML 已经把 CSS 与 JS 全部内联，**没有 `css/`、`js/` 子目录**，上传时不可能丢结构。
 >
-> 之后改了代码，重新生成 `site-deploy/` 内容并重复第 2 步即可，网址保持不变。
+> 仓库根目录的 `index.html` / `css/` / `js/` 是源码（本地双击用），`site-deploy/` 是发布版（上传用），两者内容一致。
+>
+> 之后改了代码：重新生成 `site-deploy/` 的 3 个 HTML，在仓库里逐个点开同名文件 → 右上角铅笔图标 **Edit** → 全选替换 → **Commit changes**，网址保持不变。
 
 ---
 
