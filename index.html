@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>食谱集 · 今天，做点好吃的</title>
+  <meta name="description" content="一个轻量的图文菜谱平台：按菜系挑选精选菜谱、查看分步做法、记录并上传自己的菜品图片。" />
+
+  <!-- 移动端与分享 -->
+  <meta name="theme-color" content="#fffbf5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="食谱集" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="食谱集" />
+  <meta property="og:title" content="食谱集 · 今天，做点好吃的" />
+  <meta property="og:description" content="按菜系挑选精选菜谱、查看分步做法、记录并上传自己的菜品图片。" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+</head>
+<body>
+  <a class="sr-only" href="#recipeGrid">跳到菜谱列表</a>
+
+  <!-- ================= 顶部导航 ================= -->
+  <header class="site-nav">
+    <div class="container site-nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__mark" aria-hidden="true">🍳</span>
+        <span class="brand__text">
+          <span class="brand__name">食谱集</span>
+          <span class="brand__sub">Recipe Journal</span>
+        </span>
+      </a>
+
+      <div class="site-nav__search">
+        <div class="search-box search-box--sm" id="navSearchBox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.6-3.6" /></svg>
+          <input class="input" id="navSearchInput" type="search" placeholder="搜索菜谱…" autocomplete="off" aria-label="搜索菜谱" />
+          <button class="search-box__clear" type="button" data-clear="navSearchInput" aria-label="清空搜索">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="site-nav__actions">
+        <a class="btn btn--primary" href="edit.html">
+          <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg></span>
+          新建菜谱
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <!-- ================= 1. 轮播图：精选菜谱 ================= -->
+    <section class="home-section home-section--carousel" aria-labelledby="carouselHeading">
+      <h2 class="sr-only" id="carouselHeading">精选菜谱</h2>
+
+      <div class="container">
+        <div class="carousel" id="carousel">
+          <div class="carousel__progress" aria-hidden="true">
+            <span class="carousel__progress-bar" id="carouselProgress"></span>
+          </div>
+
+          <div class="carousel__viewport">
+            <div class="carousel__track" id="carouselTrack"></div>
+          </div>
+
+          <button class="carousel__nav carousel__nav--prev" id="carouselPrev" type="button" aria-label="上一张精选菜谱">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+          <button class="carousel__nav carousel__nav--next" id="carouselNext" type="button" aria-label="下一张精选菜谱">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 18l6-6-6-6" /></svg>
+          </button>
+
+          <button class="carousel__toggle" id="carouselToggle" type="button" aria-label="暂停自动播放" aria-pressed="false"></button>
+
+          <div class="carousel__dots" id="carouselDots" role="group" aria-label="选择要查看的精选菜谱"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. 菜谱分类 ================= -->
+    <section class="home-section" aria-labelledby="categoryHeading">
+      <div class="container">
+        <div class="home-section__head">
+          <div class="home-section__head-left">
+            <span class="home-section__dot" aria-hidden="true"></span>
+            <h2 class="home-section__title" id="categoryHeading">菜谱分类</h2>
+            <span class="home-section__badge" id="categoryTotal">0 个分类</span>
+          </div>
+          <p class="home-section__sub">按菜系与口味挑一个方向，厨房里就有谱了。</p>
+        </div>
+
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= 3. 热门菜谱 ================= -->
+    <section class="home-section home-section--recipes" aria-labelledby="recipeSectionTitle">
+      <div class="container">
+        <div class="home-section__head">
+          <div class="home-section__head-left">
+            <span class="home-section__dot" aria-hidden="true"></span>
+            <h2 class="home-section__title" id="recipeSectionTitle">热门菜谱</h2>
+            <span class="home-section__badge" id="resultCount">共 0 道菜谱</span>
+          </div>
+          <button class="chip home-section__reset hidden" type="button" id="resetFilters">回到热门榜</button>
+        </div>
+        <p class="home-section__sub" id="recipeSectionSub">大家都在做的高人气菜谱，跟着步骤来不容易失手。</p>
+
+        <div class="recipe-grid" id="recipeGrid"></div>
+
+        <div class="empty-state hidden" id="emptyState">
+          <div class="empty-state__art" aria-hidden="true">🍽️</div>
+          <h3 class="empty-state__title">没有找到匹配的菜谱</h3>
+          <p class="empty-state__text">换个关键词试试，或者清空筛选条件回到热门榜单。</p>
+          <button class="btn btn--ghost" type="button" id="emptyReset">清空筛选条件</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= 页脚 ================= -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div>
+        <p class="site-footer__text" id="footerSummary">共 0 道菜谱，数据保存在本机浏览器中。</p>
+        <p class="site-footer__text text-faint">双击 index.html 即可离线使用，无需服务器与网络。</p>
+      </div>
+      <div class="site-footer__actions">
+        <button class="btn btn--ghost btn--sm" type="button" id="resetData">恢复初始数据</button>
+        <a class="btn btn--primary btn--sm" href="edit.html">新建菜谱</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data/recipes.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/list.js"></script>
+</body>
+</html>
