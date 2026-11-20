@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>食谱集 · 今天，做点好吃的</title>
-  <meta name="description" content="一个轻量的图文菜谱平台：按菜系挑选精选菜谱、查看分步做法、记录并上传自己的菜品图片。" />
+  <title>R · 景鑫如的个人网站</title>
+  <meta name="description" content="景鑫如，成都大学 2024 级工商管理在读。个人网站收录个人介绍、食谱集与团队项目。" />
 
   <!-- 移动端与分享 -->
   <meta name="theme-color" content="#fffbf5" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="食谱集" />
+  <meta name="apple-mobile-web-app-title" content="R · 景鑫如" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="食谱集" />
-  <meta property="og:title" content="食谱集 · 今天，做点好吃的" />
-  <meta property="og:description" content="按菜系挑选精选菜谱、查看分步做法、记录并上传自己的菜品图片。" />
+  <meta property="og:site_name" content="R · 景鑫如" />
+  <meta property="og:title" content="R · 景鑫如的个人网站" />
+  <meta property="og:description" content="成都大学 2024 级工商管理在读，个人介绍、食谱集与团队项目。" />
 
-  <style>
-/* ===== base.css ===== */
+<style>
 /* ==========================================================================
    食谱集 · base.css
    设计令牌 / Reset / 全局排版 / 工具类
@@ -368,9 +367,6 @@ table {
     scroll-behavior: auto !important;
   }
 }
-
-
-/* ===== components.css ===== */
 /* ==========================================================================
    食谱集 · components.css
    按钮 / 卡片 / 胶囊标签 / 徽章 / 表单 / 上传区 / 步骤时间轴 / Toast / 弹窗 / 灯箱
@@ -2045,9 +2041,6 @@ table {
 .category-card.is-active .category-card__watermark {
   opacity: 0.2;
 }
-
-
-/* ===== layout.css ===== */
 /* ==========================================================================
    食谱集 · layout.css
    导航 / 首页区块 / 网格 / 详情布局 / 表单布局 / 页脚 / 响应式
@@ -2726,107 +2719,688 @@ table {
     grid-template-columns: 1fr 42px;
   }
 }
+/* ==========================================================================
+   食谱集 · about.css
+   个人网站（首页介绍）与团队网站专用样式
+   依赖 base.css 中的设计令牌
+   ========================================================================== */
 
-  </style>
+/* ---------- 滚动进场动画 ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- 主导航链接 ---------- */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--r-sm);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--c-line);
+}
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--c-ink-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.nav-link:hover {
+  color: var(--c-ink);
+  background: rgba(255, 255, 255, 0.9);
+}
+.nav-link.is-active {
+  color: var(--c-ink);
+  background: var(--c-lavender);
+}
+@media (max-width: 767px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* ---------- Hero ---------- */
+.about-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(48px, 9vw, 104px) 0 clamp(40px, 7vw, 72px);
+  background: var(--g-warm);
+}
+.about-hero::before,
+.about-hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(8px);
+  pointer-events: none;
+}
+.about-hero::before {
+  width: 340px;
+  height: 340px;
+  top: -110px;
+  right: -60px;
+  background: radial-gradient(circle at 30% 30%, rgba(219, 196, 253, 0.85), rgba(219, 196, 253, 0) 70%);
+}
+.about-hero::after {
+  width: 300px;
+  height: 300px;
+  bottom: -120px;
+  left: -70px;
+  background: radial-gradient(circle at 60% 40%, rgba(153, 202, 240, 0.7), rgba(153, 202, 240, 0) 70%);
+}
+.about-hero__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 48px);
+}
+.about-avatar {
+  flex: 0 0 auto;
+  width: clamp(96px, 13vw, 148px);
+  height: clamp(96px, 13vw, 148px);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: clamp(44px, 6vw, 66px);
+  font-weight: 700;
+  color: var(--c-ink);
+  background: var(--g-primary);
+  box-shadow: 0 18px 40px -18px rgba(51, 40, 74, 0.45), 0 0 0 8px rgba(255, 255, 255, 0.6);
+  letter-spacing: -0.02em;
+}
+.about-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--c-ink-2);
+  margin-bottom: 14px;
+}
+.about-hero__eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-periwinkle);
+}
+.about-hero__title {
+  font-size: clamp(38px, 6vw, 58px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+.about-hero__sub {
+  font-size: clamp(16px, 2.2vw, 20px);
+  font-weight: 600;
+  color: var(--c-ink-2);
+  margin: 0 0 18px;
+}
+.about-hero__desc {
+  max-width: 620px;
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--c-ink-2);
+  margin: 0 0 26px;
+}
+.about-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+@media (max-width: 640px) {
+  .about-hero__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------- 区块 ---------- */
+.about-section {
+  padding: clamp(40px, 6vw, 72px) 0;
+}
+.about-section--alt {
+  background: var(--g-blush);
+}
+.about-section__head {
+  margin-bottom: 26px;
+}
+.about-section__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-ink-3);
+  margin: 0 0 8px;
+}
+.about-section__title {
+  font-size: clamp(24px, 3.4vw, 32px);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- 信息卡 ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+.about-card {
+  padding: 24px;
+  border-radius: var(--r-lg);
+  background: var(--c-surface-solid);
+  border: 1px solid var(--c-line);
+  box-shadow: 0 10px 30px -22px rgba(51, 40, 74, 0.5);
+}
+.about-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+.about-card p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--c-ink-2);
+}
+
+/* ---------- 事实清单 ---------- */
+.fact-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+}
+.fact-list > div {
+  padding: 16px 18px;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--c-line);
+}
+.fact-list dt {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-3);
+  margin: 0 0 6px;
+}
+.fact-list dd {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+
+/* ---------- 兴趣标签 ---------- */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip-row .chip {
+  cursor: default;
+}
+
+/* ---------- 时间线 ---------- */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--c-lavender), var(--c-sky));
+  border-radius: 2px;
+}
+.timeline li {
+  position: relative;
+  padding: 0 0 22px 40px;
+}
+.timeline li:last-child {
+  padding-bottom: 0;
+}
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c-bg);
+  border: 3px solid var(--c-periwinkle);
+}
+.timeline time {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-periwinkle);
+  margin-bottom: 4px;
+}
+.timeline p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--c-ink-2);
+}
+
+/* ---------- 入口卡片（个人网站 / 团队网站） ---------- */
+.entry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.entry-card {
+  position: relative;
+  display: block;
+  padding: 26px;
+  border-radius: var(--r-xl);
+  background: var(--c-surface-solid);
+  border: 1px solid var(--c-line);
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+  box-shadow: 0 12px 34px -26px rgba(51, 40, 74, 0.6);
+}
+.entry-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--g-primary);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.entry-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 44px -24px rgba(51, 40, 74, 0.55);
+}
+.entry-card:hover::after {
+  opacity: 0.1;
+}
+.entry-card__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  background: var(--g-primary);
+  margin-bottom: 16px;
+}
+.entry-card__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--c-ink-3);
+  margin: 0 0 6px;
+}
+.entry-card__title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.entry-card__desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--c-ink-2);
+  margin: 0 0 14px;
+}
+.entry-card__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+
+/* ---------- 团队成员 ---------- */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+.team-card {
+  padding: 24px;
+  border-radius: var(--r-lg);
+  background: var(--c-surface-solid);
+  border: 1px solid var(--c-line);
+  text-align: center;
+  box-shadow: 0 10px 30px -24px rgba(51, 40, 74, 0.5);
+}
+.team-card__avatar {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 700;
+  background: var(--g-primary);
+  color: var(--c-ink);
+}
+.team-card--placeholder .team-card__avatar {
+  background: var(--c-bg-lilac);
+  color: var(--c-ink-3);
+  border: 2px dashed var(--c-line-strong);
+}
+.team-card__name {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+.team-card__role {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-periwinkle);
+  margin: 0 0 10px;
+}
+.team-card__desc {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--c-ink-2);
+  margin: 0;
+}
+
+/* ---------- 项目卡片 ---------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+.project-card {
+  padding: 24px;
+  border-radius: var(--r-lg);
+  background: var(--c-surface-solid);
+  border: 1px solid var(--c-line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.project-card__tag {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--c-bg-lilac);
+  color: var(--c-ink-2);
+}
+.project-card h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.project-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--c-ink-2);
+  flex: 1;
+}
+.project-card--placeholder {
+  border-style: dashed;
+  background: rgba(255, 255, 255, 0.5);
+}
+.project-card--placeholder h3 {
+  color: var(--c-ink-3);
+}
+
+/* ---------- 联系方式 ---------- */
+.contact-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.contact-list li {
+  padding: 18px 20px;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--c-line);
+}
+.contact-list span {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-3);
+  margin-bottom: 6px;
+}
+.contact-list strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%8D%B3%3C%2Ftext%3E%3C%2Fsvg%3E" />
 </head>
-<body>
-  <a class="sr-only" href="#recipeGrid">跳到菜谱列表</a>
+<body data-nav="home">
+  <a class="sr-only" href="#main">跳到主要内容</a>
 
   <!-- ================= 顶部导航 ================= -->
   <header class="site-nav">
     <div class="container site-nav__inner">
       <a class="brand" href="index.html">
-        <span class="brand__mark" aria-hidden="true">🍳</span>
+        <span class="brand__mark" aria-hidden="true">R</span>
         <span class="brand__text">
-          <span class="brand__name">食谱集</span>
-          <span class="brand__sub">Recipe Journal</span>
+          <span class="brand__name">景鑫如</span>
+          <span class="brand__sub">个人网站</span>
         </span>
       </a>
 
-      <div class="site-nav__search">
-        <div class="search-box search-box--sm" id="navSearchBox">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.6-3.6" /></svg>
-          <input class="input" id="navSearchInput" type="search" placeholder="搜索菜谱…" autocomplete="off" aria-label="搜索菜谱" />
-          <button class="search-box__clear" type="button" data-clear="navSearchInput" aria-label="清空搜索">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
-          </button>
-        </div>
-      </div>
+      <nav class="nav-links" aria-label="站点导航">
+        <a class="nav-link" data-nav-key="home" href="index.html">首页</a>
+        <a class="nav-link" data-nav-key="personal" href="recipes.html">个人网站</a>
+        <a class="nav-link" data-nav-key="team" href="team.html">团队网站</a>
+      </nav>
 
       <div class="site-nav__actions">
-        <a class="btn btn--primary" href="edit.html">
-          <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg></span>
-          新建菜谱
+        <a class="btn btn--primary" href="recipes.html">
+          <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5" /><path d="M8 5h12" /><path d="M8 11h12" /><path d="M8 17h8" /></svg></span>
+          进入食谱集
         </a>
       </div>
     </div>
   </header>
 
-  <main class="page-main">
-    <!-- ================= 1. 轮播图：精选菜谱 ================= -->
-    <section class="home-section home-section--carousel" aria-labelledby="carouselHeading">
-      <h2 class="sr-only" id="carouselHeading">精选菜谱</h2>
-
-      <div class="container">
-        <div class="carousel" id="carousel">
-          <div class="carousel__progress" aria-hidden="true">
-            <span class="carousel__progress-bar" id="carouselProgress"></span>
+  <main class="page-main" id="main">
+    <!-- ================= Hero：个人介绍 ================= -->
+    <section class="about-hero">
+      <div class="container about-hero__inner">
+        <div class="about-avatar reveal" aria-hidden="true">R</div>
+        <div>
+          <p class="about-hero__eyebrow reveal">个人网站 · Personal Website</p>
+          <h1 class="about-hero__title reveal">你好，我是景鑫如</h1>
+          <p class="about-hero__sub reveal">成都大学 · 工商管理专业 · 2024 级在读</p>
+          <p class="about-hero__desc reveal">
+            我在成都大学读工商管理，喜欢把课堂上学到的管理思维放进真实的小项目里试一试——
+            比如眼前这个从零写出来的食谱集网站。比起空谈概念，我更相信把一件小事做完、做细的价值；
+            也相信好的想法需要被清楚地表达出来，才有人愿意一起把它做成。
+          </p>
+          <div class="about-hero__actions reveal">
+            <a class="btn btn--primary" href="recipes.html">
+              <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5" /><path d="M8 5h12" /><path d="M8 11h12" /><path d="M8 17h8" /></svg></span>
+              个人网站
+            </a>
+            <a class="btn btn--ghost" href="team.html">团队网站</a>
           </div>
-
-          <div class="carousel__viewport">
-            <div class="carousel__track" id="carouselTrack"></div>
-          </div>
-
-          <button class="carousel__nav carousel__nav--prev" id="carouselPrev" type="button" aria-label="上一张精选菜谱">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6" /></svg>
-          </button>
-          <button class="carousel__nav carousel__nav--next" id="carouselNext" type="button" aria-label="下一张精选菜谱">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 18l6-6-6-6" /></svg>
-          </button>
-
-          <button class="carousel__toggle" id="carouselToggle" type="button" aria-label="暂停自动播放" aria-pressed="false"></button>
-
-          <div class="carousel__dots" id="carouselDots" role="group" aria-label="选择要查看的精选菜谱"></div>
         </div>
       </div>
     </section>
 
-    <!-- ================= 2. 菜谱分类 ================= -->
-    <section class="home-section" aria-labelledby="categoryHeading">
+    <!-- ================= 基本信息与关于我 ================= -->
+    <section class="about-section" aria-labelledby="aboutHeading">
       <div class="container">
-        <div class="home-section__head">
-          <div class="home-section__head-left">
-            <span class="home-section__dot" aria-hidden="true"></span>
-            <h2 class="home-section__title" id="categoryHeading">菜谱分类</h2>
-            <span class="home-section__badge" id="categoryTotal">0 个分类</span>
-          </div>
-          <p class="home-section__sub">按菜系与口味挑一个方向，厨房里就有谱了。</p>
+        <div class="about-section__head reveal">
+          <p class="about-section__eyebrow">About</p>
+          <h2 class="about-section__title" id="aboutHeading">关于我</h2>
         </div>
 
-        <div class="category-grid" id="categoryGrid"></div>
+        <dl class="fact-list reveal">
+          <div>
+            <dt>姓名</dt>
+            <dd>景鑫如</dd>
+          </div>
+          <div>
+            <dt>学校</dt>
+            <dd>成都大学</dd>
+          </div>
+          <div>
+            <dt>专业</dt>
+            <dd>工商管理</dd>
+          </div>
+          <div>
+            <dt>年级</dt>
+            <dd>2024 级在读</dd>
+          </div>
+          <div>
+            <dt>坐标</dt>
+            <dd>四川 · 成都</dd>
+          </div>
+        </dl>
+
+        <div class="about-grid" style="margin-top:20px">
+          <article class="about-card reveal">
+            <h3>我在学什么</h3>
+            <p>
+              工商管理给了我一套看待组织与决策的方式：怎么把资源排到对的位置、怎么把一个目标拆成可执行的步骤、
+              怎么在信息不全的时候做出还算靠谱的判断。这些内容我在课程里学，也在小组作业和校园活动里反复练习。
+            </p>
+          </article>
+          <article class="about-card reveal">
+            <h3>我在做什么</h3>
+            <p>
+              我喜欢动手把想法做成能用的东西。这个网站就是一次练习——从页面结构、样式到数据存储全部自己完成，
+              一个人把一个完整的产品从想法推到上线。过程里踩过不少坑，也正因为这样才更清楚「做出来」和「想出来」的差距。
+            </p>
+          </article>
+          <article class="about-card reveal">
+            <h3>我的期待</h3>
+            <p>
+              希望在剩下的大学时间里，把管理学、数据分析与产品表达这三件事串起来，
+              多参与真实项目、多和不同背景的人合作，慢慢找到自己最愿意长期投入的方向。
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <!-- ================= 3. 热门菜谱 ================= -->
-    <section class="home-section home-section--recipes" aria-labelledby="recipeSectionTitle">
+    <!-- ================= 兴趣与方向 ================= -->
+    <section class="about-section about-section--alt" aria-labelledby="interestHeading">
       <div class="container">
-        <div class="home-section__head">
-          <div class="home-section__head-left">
-            <span class="home-section__dot" aria-hidden="true"></span>
-            <h2 class="home-section__title" id="recipeSectionTitle">热门菜谱</h2>
-            <span class="home-section__badge" id="resultCount">共 0 道菜谱</span>
-          </div>
-          <button class="chip home-section__reset hidden" type="button" id="resetFilters">回到热门榜</button>
+        <div class="about-section__head reveal">
+          <p class="about-section__eyebrow">Interests</p>
+          <h2 class="about-section__title" id="interestHeading">兴趣与方向</h2>
         </div>
-        <p class="home-section__sub" id="recipeSectionSub">大家都在做的高人气菜谱，跟着步骤来不容易失手。</p>
+        <div class="chip-row reveal">
+          <span class="chip">团队协作</span>
+          <span class="chip">活动策划与执行</span>
+          <span class="chip">商业案例分析</span>
+          <span class="chip">Office 与数据整理</span>
+          <span class="chip">内容与产品表达</span>
+          <span class="chip">做饭与记录生活</span>
+          <span class="chip">持续学习新工具</span>
+        </div>
+      </div>
+    </section>
 
-        <div class="recipe-grid" id="recipeGrid"></div>
+    <!-- ================= 足迹时间线 ================= -->
+    <section class="about-section" aria-labelledby="timelineHeading">
+      <div class="container">
+        <div class="about-section__head reveal">
+          <p class="about-section__eyebrow">Timeline</p>
+          <h2 class="about-section__title" id="timelineHeading">我的足迹</h2>
+        </div>
+        <ol class="timeline reveal">
+          <li>
+            <time>2024 年 9 月</time>
+            <p>进入成都大学，开始工商管理专业的学习。</p>
+          </li>
+          <li>
+            <time>在校期间</time>
+            <p>参与课程小组作业与校园活动，练习把一个目标拆解、分工并推进到落地。</p>
+          </li>
+          <li>
+            <time>现在</time>
+            <p>把自己的兴趣做成小项目，上线了这个个人网站，并继续在课程与实践中积累。</p>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-        <div class="empty-state hidden" id="emptyState">
-          <div class="empty-state__art" aria-hidden="true">🍽️</div>
-          <h3 class="empty-state__title">没有找到匹配的菜谱</h3>
-          <p class="empty-state__text">换个关键词试试，或者清空筛选条件回到热门榜单。</p>
-          <button class="btn btn--ghost" type="button" id="emptyReset">清空筛选条件</button>
+    <!-- ================= 两个界面入口 ================= -->
+    <section class="about-section about-section--alt" aria-labelledby="entryHeading">
+      <div class="container">
+        <div class="about-section__head reveal">
+          <p class="about-section__eyebrow">Explore</p>
+          <h2 class="about-section__title" id="entryHeading">网站的三个部分</h2>
+        </div>
+
+        <div class="entry-grid">
+          <a class="entry-card reveal" href="index.html">
+            <div class="entry-card__icon" aria-hidden="true">🏠</div>
+            <p class="entry-card__label">HOME</p>
+            <h3 class="entry-card__title">首页 · 关于我</h3>
+            <p class="entry-card__desc">你现在在这里。我的基本情况、兴趣方向和大学期间的足迹。</p>
+            <span class="entry-card__go">查看介绍
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
+            </span>
+          </a>
+
+          <a class="entry-card reveal" href="recipes.html">
+            <div class="entry-card__icon" aria-hidden="true">🍳</div>
+            <p class="entry-card__label">PERSONAL</p>
+            <h3 class="entry-card__title">个人网站 · 食谱集</h3>
+            <p class="entry-card__desc">一个图文菜谱平台：浏览示例菜谱、查看分步做法，也能录入自己的菜谱并上传图片。</p>
+            <span class="entry-card__go">进入食谱集
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
+            </span>
+          </a>
+
+          <a class="entry-card reveal" href="team.html">
+            <div class="entry-card__icon" aria-hidden="true">👥</div>
+            <p class="entry-card__label">TEAM</p>
+            <h3 class="entry-card__title">团队网站</h3>
+            <p class="entry-card__desc">我和伙伴们的小团队：成员介绍、正在推进的项目与联系方式。</p>
+            <span class="entry-card__go">了解团队
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -2836,1890 +3410,69 @@ table {
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <div>
-        <p class="site-footer__text" id="footerSummary">共 0 道菜谱，数据保存在本机浏览器中。</p>
-        <p class="site-footer__text text-faint">双击 index.html 即可离线使用，无需服务器与网络。</p>
+        <p class="site-footer__text">R · 景鑫如的个人网站 · 成都大学 工商管理 2024 级</p>
+        <p class="site-footer__text text-faint">纯静态页面，双击即可离线浏览，数据保存在本机浏览器中。</p>
       </div>
       <div class="site-footer__actions">
-        <button class="btn btn--ghost btn--sm" type="button" id="resetData">恢复初始数据</button>
-        <a class="btn btn--primary btn--sm" href="edit.html">新建菜谱</a>
+        <a class="btn btn--ghost btn--sm" href="team.html">团队网站</a>
+        <a class="btn btn--primary btn--sm" href="recipes.html">进入食谱集</a>
       </div>
     </div>
   </footer>
 
+  <p class="sr-only" id="footerYear" aria-hidden="true"></p>
 
-
-
-
-  <!-- 内联脚本，顺序：data/recipes.js → utils.js → storage.js → list.js -->
-  <script>
-// ===== js/data/recipes.js =====
-/* ==========================================================================
-   食谱集 · js/data/recipes.js
-   内置示例菜谱数据（扮演 "JSON mock 数据" 的角色）。
-
-   说明：本应用需要支持「双击 index.html 直接打开」，即运行在 file:// 协议下。
-   浏览器会拦截 file:// 下的 fetch() 请求，因此这里不使用 fetch 读取 .json 文件，
-   而是把数据写成普通 JS 常量，通过 <script> 标签加载，结构上与 JSON 完全一致。
-
-   数据结构：
-   {
-     id, title, emoji, cover, category, tags[], difficulty,
-     timeMinutes, servings, description,
-     ingredients: [{ name, amount }],
-     steps: [{ text, image }],
-     tips, createdAt, isCustom
-   }
-   ========================================================================== */
-
-(function (window) {
-  'use strict';
-
-  /** 菜谱分类（同时作为列表页的筛选项） */
-  var SEED_CATEGORIES = ['川菜', '粤菜', '家常菜', '汤羹', '甜品', '素食'];
-
-  /** 难度档位 */
-  var DIFFICULTIES = ['简单', '中等', '困难'];
-
-  /** 内置数据的基准时间，用于保证内置菜谱的展示顺序稳定 */
-  var SEED_BASE_TIME = Date.UTC(2026, 0, 1);
-  var DAY = 24 * 60 * 60 * 1000;
-
-  /**
-   * 内置示例菜谱。
-   * cover 留空时会渲染内置的渐变占位封面；填入图片 URL 或 base64 即可替换为真实照片。
-   */
-  var SEED_RECIPES = [
-    {
-      id: 'seed-01',
-      title: '麻婆豆腐',
-      emoji: '🥘',
-      cover: '',
-      category: '川菜',
-      tags: ['下饭', '经典', '微辣'],
-      difficulty: '中等',
-      timeMinutes: 25,
-      servings: 2,
-      description: '一勺红油、一撮花椒，豆腐嫩到能抖，麻辣鲜香全在这一碗里。',
-      ingredients: [
-        { name: '嫩豆腐', amount: '400 克' },
-        { name: '牛肉末', amount: '100 克' },
-        { name: '郫县豆瓣酱', amount: '1.5 汤匙' },
-        { name: '豆豉', amount: '1 茶匙' },
-        { name: '花椒粉', amount: '1 茶匙' },
-        { name: '蒜末', amount: '2 瓣量' },
-        { name: '姜末', amount: '1 小块量' },
-        { name: '生抽', amount: '1 汤匙' },
-        { name: '水淀粉', amount: '3 汤匙' },
-        { name: '青蒜苗', amount: '2 根' },
-        { name: '食用油', amount: '3 汤匙' }
-      ],
-      steps: [
-        { text: '豆腐切 2 厘米见方的小块，放入淡盐水中浸泡 5 分钟后捞出沥干，这样煮的时候不容易碎。', image: '' },
-        { text: '郫县豆瓣酱与豆豉一起剁细；青蒜苗斜刀切段；蒜、姜切末备用。', image: '' },
-        { text: '热锅下 2 汤匙油，中火炒香牛肉末，炒到肉末松散、微微发干时先盛出。', image: '' },
-        { text: '锅内留底油，转小火下豆瓣酱和豆豉，慢慢炒出红油，大约需要 1 分钟。', image: '' },
-        { text: '加入蒜末、姜末炒香，倒入 250 毫升热水烧开，加生抽调味。', image: '' },
-        { text: '轻轻放入豆腐块和牛肉末，转中小火烧 3 分钟，期间用锅铲背部推动避免粘底。', image: '' },
-        { text: '分两次淋入水淀粉勾芡，每次都要等汤汁重新浓稠后再加下一次。', image: '' },
-        { text: '出锅装盘，撒上花椒粉和青蒜苗段，趁热上桌。', image: '' }
-      ],
-      tips: '花椒粉一定要最后撒，提前下锅香气会跑掉。',
-      createdAt: SEED_BASE_TIME - 0 * DAY,
-      isCustom: false
-    },
-    {
-      id: 'seed-02',
-      title: '红烧肉',
-      emoji: '🍖',
-      cover: '',
-      category: '家常菜',
-      tags: ['宴客', '下饭', '硬菜'],
-      difficulty: '中等',
-      timeMinutes: 90,
-      servings: 4,
-      description: '冰糖炒出琥珀色，五花肉炖到入口即化，浓油赤酱拌饭一绝。',
-      ingredients: [
-        { name: '带皮五花肉', amount: '800 克' },
-        { name: '冰糖', amount: '40 克' },
-        { name: '生抽', amount: '3 汤匙' },
-        { name: '老抽', amount: '1 汤匙' },
-        { name: '花雕酒', amount: '3 汤匙' },
-        { name: '生姜', amount: '5 片' },
-        { name: '大葱', amount: '1 段' },
-        { name: '八角', amount: '2 颗' },
-        { name: '桂皮', amount: '1 小段' },
-        { name: '香叶', amount: '2 片' },
-        { name: '食用油', amount: '1 汤匙' },
-        { name: '盐', amount: '适量' }
-      ],
-      steps: [
-        { text: '五花肉切成 3 厘米见方的块，冷水下锅加 2 片姜，煮开后撇净浮沫，捞出用温水冲洗干净并擦干水分。', image: '' },
-        { text: '锅中放 1 汤匙油，下冰糖小火慢炒，糖融化后变成琥珀色并冒小泡时立刻下肉。', image: '' },
-        { text: '转中火快速翻炒，让每一块肉都均匀裹上糖色。', image: '' },
-        { text: '加入姜片、葱段、八角、桂皮、香叶炒香，沿锅边淋入花雕酒去腥。', image: '' },
-        { text: '加入生抽、老抽翻炒上色，倒入没过肉面的热水，大火烧开。', image: '' },
-        { text: '转小火加盖炖 60 分钟，中途翻动两次防止粘底。', image: '' },
-        { text: '开盖转中大火收汁，汤汁变得浓稠发亮时尝味补盐。', image: '' },
-        { text: '收至酱汁能挂住勺背即可关火，静置 5 分钟再装盘更入味。', image: '' }
-      ],
-      tips: '中途补水一定要加热水，冷水会让肉质紧缩变柴。',
-      createdAt: SEED_BASE_TIME - 1 * DAY,
-      isCustom: false
-    },
-    {
-      id: 'seed-03',
-      title: '宫保鸡丁',
-      emoji: '🍗',
-      cover: '',
-      category: '川菜',
-      tags: ['下饭', '快手', '酸甜'],
-      difficulty: '简单',
-      timeMinutes: 30,
-      servings: 3,
-      description: '荔枝口的酸甜，干辣椒与花椒爆香，鸡丁滑嫩、花生米脆得响。',
-      ingredients: [
-        { name: '鸡腿肉', amount: '400 克' },
-        { name: '油炸花生米', amount: '80 克' },
-        { name: '干辣椒', amount: '10 个' },
-        { name: '花椒', amount: '1 茶匙' },
-        { name: '大葱', amount: '1 段' },
-        { name: '蒜末', amount: '3 瓣量' },
-        { name: '生抽', amount: '2 汤匙' },
-        { name: '香醋', amount: '2 汤匙' },
-        { name: '白糖', amount: '1.5 汤匙' },
-        { name: '淀粉', amount: '1 汤匙 + 1 茶匙' },
-        { name: '料酒', amount: '1 汤匙' },
-        { name: '食用油', amount: '3 汤匙' }
-      ],
-      steps: [
-        { text: '鸡腿肉去骨切成 1.5 厘米的丁，加料酒、1 茶匙淀粉和少许盐抓匀，腌制 15 分钟。', image: '' },
-        { text: '调碗汁：生抽、香醋、白糖、1 汤匙淀粉加 3 汤匙清水搅匀备用，糖醋比例约 1:1 才是荔枝口。', image: '' },
-        { text: '干辣椒剪成小段并抖掉大部分辣椒籽，大葱切丁。', image: '' },
-        { text: '锅烧热放油，油温五成热下鸡丁，煎到微微金黄后盛出。', image: '' },
-        { text: '锅中留底油，小火下花椒和干辣椒段，炒到辣椒变成枣红色、香气明显。', image: '' },
-        { text: '下蒜末和葱丁爆香，倒回鸡丁转大火翻炒 30 秒。', image: '' },
-        { text: '淋入碗汁快速翻炒，汤汁变稠并裹住鸡丁后立刻关火。', image: '' },
-        { text: '撒入花生米拌匀出锅，花生米最后放才能保持酥脆。', image: '' }
-      ],
-      tips: '碗汁要一次性淋入并快速翻炒，否则淀粉容易结块。',
-      createdAt: SEED_BASE_TIME - 2 * DAY,
-      isCustom: false
-    },
-    {
-      id: 'seed-04',
-      title: '番茄炒蛋',
-      emoji: '🍅',
-      cover: '',
-      category: '家常菜',
-      tags: ['快手', '新手友好', '下饭'],
-      difficulty: '简单',
-      timeMinutes: 15,
-      servings: 2,
-      description: '酸甜多汁的番茄裹着嫩滑蛋块，十五分钟搞定的国民快手菜。',
-      ingredients: [
-        { name: '番茄', amount: '3 个（约 500 克）' },
-        { name: '鸡蛋', amount: '4 个' },
-        { name: '白糖', amount: '2 茶匙' },
-        { name: '盐', amount: '1 茶匙' },
-        { name: '小葱', amount: '2 根' },
-        { name: '食用油', amount: '3 汤匙' }
-      ],
-      steps: [
-        { text: '番茄顶部划十字，用开水烫 20 秒后去皮，切成滚刀块。', image: '' },
-        { text: '鸡蛋打散，加 1 汤匙清水和少许盐搅匀，加水会让蛋液更嫩。', image: '' },
-        { text: '热锅下 2 汤匙油，油温六成热倒入蛋液，待边缘凝固后轻轻推动成大块，八成熟时盛出。', image: '' },
-        { text: '锅中补 1 汤匙油，下番茄块中火翻炒，炒到番茄变软出汁。', image: '' },
-        { text: '加白糖和盐调味，继续翻炒 1 分钟让番茄出更多汁水。', image: '' },
-        { text: '倒回鸡蛋块，快速翻拌让蛋吸满汤汁，撒葱花出锅。', image: '' }
-      ],
-      tips: '番茄加糖不只是调味，还能中和酸味、让汤汁更亮。',
-      createdAt: SEED_BASE_TIME - 3 * DAY,
-      isCustom: false
-    },
-    {
-      id: 'seed-05',
-      title: '白灼基围虾',
-      emoji: '🦐',
-      cover: '',
-      category: '粤菜',
-      tags: ['鲜味', '低脂', '快手'],
-      difficulty: '简单',
-      timeMinutes: 15,
-      servings: 3,
-      description: '只用清水和姜葱，最大程度留住虾的鲜甜，配一碟蘸汁就够。',
-      ingredients: [
-        { name: '基围虾', amount: '500 克' },
-        { name: '生姜', amount: '4 片' },
-        { name: '小葱', amount: '3 根' },
-        { name: '料酒', amount: '1 汤匙' },
-        { name: '生抽', amount: '2 汤匙' },
-        { name: '香醋', amount: '1 茶匙' },
-        { name: '小米辣', amount: '1 个（可选）' },
-        { name: '香油', amount: '几滴' }
-      ],
-      steps: [
-        { text: '虾剪去长须、挑出虾线，用清水反复冲洗干净。', image: '' },
-        { text: '锅中加足量水，放入姜片、葱段和料酒，大火烧到完全沸腾。', image: '' },
-        { text: '水滚后一次下入全部虾，保持大火不要加盖。', image: '' },
-        { text: '煮到虾身蜷曲变红、全部浮起，大约 2 分钟，立刻捞出。', image: '' },
-        { text: '捞出的虾马上放入冰水中浸 30 秒，虾肉会更紧实弹牙。', image: '' },
-        { text: '调蘸汁：生抽、香醋、姜末、小米辣、香油混合均匀即可。', image: '' },
-        { text: '虾沥干水分装盘，配蘸汁趁热食用。', image: '' }
-      ],
-      tips: '煮虾时间宁短勿长，虾壳一变色就说明已经熟了。',
-      createdAt: SEED_BASE_TIME - 4 * DAY,
-      isCustom: false
-    },
-    {
-      id: 'seed-06',
-      title: '清蒸鲈鱼',
-      emoji: '🐟',
-      cover: '',
-      category: '粤菜',
-      tags: ['宴客', '清淡', '高蛋白'],
-      difficulty: '中等',
-      timeMinutes: 25,
-      servings: 3,
-      description: '蒸 8 分钟、淋一勺热油，鱼肉雪白细嫩，鲜得不需要多余调味。',
-      ingredients: [
-        { name: '鲈鱼', amount: '1 条（约 600 克）' },
-        { name: '生姜', amount: '1 大块' },
-        { name: '小葱', amount: '4 根' },
-        { name: '蒸鱼豉油', amount: '3 汤匙' },
-        { name: '料酒', amount: '1 汤匙' },
-        { name: '盐', amount: '少许' },
-        { name: '食用油', amount: '3 汤匙' }
-      ],
-      steps: [
-        { text: '鲈鱼处理干净，两面各划两刀，用料酒和少许盐抹匀内外，腌制 10 分钟。', image: '' },
-        { text: '盘底铺姜片和葱段，把鱼架在上面，让蒸汽能从鱼身下方通过。', image: '' },
-        { text: '鱼身刀口处塞几片姜，鱼腹内放几根葱段进一步去腥。', image: '' },
-        { text: '蒸锅加水大火烧开，水完全沸腾后再放鱼，加盖大火蒸 8 分钟。', image: '' },
-        { text: '关火后不要立刻开盖，虚蒸 2 分钟，鱼肉会更嫩且熟得均匀。', image: '' },
-        { text: '取出蒸盘，倒掉盘中的腥水，拣掉姜葱，重新铺上新鲜的葱丝和姜丝。', image: '' },
-        { text: '沿盘边均匀淋入蒸鱼豉油，不要直接浇在鱼身上，避免冲淡鱼味。', image: '' },
-        { text: '另起锅把 3 汤匙油烧到微微冒烟，直接淋在葱姜丝上激出香味即可。', image: '' }
-      ],
-      tips: '一定要水开后再上锅，冷锅上锅鱼肉容易发柴。',
-      createdAt: SEED_BASE_TIME - 5 * DAY,
-      isCustom: false
-    },
-    {
-      id: 'seed-07',
-      title: '番茄牛腩汤',
-      emoji: '🍲',
-      cover: '',
-      category: '汤羹',
-      tags: ['滋补', '暖胃', '慢炖'],
-      difficulty: '中等',
-      timeMinutes: 120,
-      servings: 4,
-      description: '小火慢炖两小时，牛腩软烂脱骨，汤头浓红酸甜，暖胃又滋补。',
-      ingredients: [
-        { name: '牛腩', amount: '700 克' },
-        { name: '番茄', amount: '4 个' },
-        { name: '洋葱', amount: '1 个' },
-        { name: '胡萝卜', amount: '1 根' },
-        { name: '生姜', amount: '4 片' },
-        { name: '番茄膏', amount: '2 汤匙' },
-        { name: '香叶', amount: '2 片' },
-        { name: '冰糖', amount: '10 克' },
-        { name: '盐', amount: '适量' },
-        { name: '食用油', amount: '2 汤匙' }
-      ],
-      steps: [
-        { text: '牛腩切大块，冷水下锅加姜片焯水，水开后煮 3 分钟捞出，用温水冲洗干净。', image: '' },
-        { text: '两个番茄切块用于炖煮，另外两个切大块最后放；洋葱切丁，胡萝卜切滚刀块。', image: '' },
-        { text: '锅中放油，下洋葱丁炒到透明，加番茄膏小火炒出红油。', image: '' },
-        { text: '放入两个番茄块炒到软烂出汁，加冰糖炒匀。', image: '' },
-        { text: '倒入牛腩块翻炒上色，加入足量热水没过食材，放入香叶。', image: '' },
-        { text: '大火烧开后转小火加盖炖 90 分钟，牛腩能用筷子轻松插入即可。', image: '' },
-        { text: '加入胡萝卜块和剩下的番茄块，继续炖 20 分钟。', image: '' },
-        { text: '挑出香叶，加盐调味；喜欢浓稠口感可以开盖再收汁 5 分钟。', image: '' }
-      ],
-      tips: '番茄分两次放：前一批出汤底，后一批保留果肉颗粒感。',
-      createdAt: SEED_BASE_TIME - 6 * DAY,
-      isCustom: false
-    },
-    {
-      id: 'seed-08',
-      title: '冰糖银耳莲子羹',
-      emoji: '🍮',
-      cover: '',
-      category: '甜品',
-      tags: ['润燥', '甜汤', '冷热皆宜'],
-      difficulty: '简单',
-      timeMinutes: 60,
-      servings: 4,
-      description: '胶质浓稠、甜而不腻，冷热皆宜的温润甜汤。',
-      ingredients: [
-        { name: '干银耳', amount: '1 朵（约 30 克）' },
-        { name: '干莲子', amount: '40 克' },
-        { name: '红枣', amount: '8 颗' },
-        { name: '枸杞', amount: '15 克' },
-        { name: '冰糖', amount: '50 克' },
-        { name: '清水', amount: '1500 毫升' }
-      ],
-      steps: [
-        { text: '银耳用冷水泡发 1 小时，泡到完全舒展变软。', image: '' },
-        { text: '剪掉银耳根部的黄色硬蒂，撕成小朵，撕得越碎越容易出胶。', image: '' },
-        { text: '莲子用温水泡 30 分钟并去掉莲心以减少苦味，红枣去核备用。', image: '' },
-        { text: '锅中加 1500 毫升水，放入银耳和莲子，大火烧开。', image: '' },
-        { text: '转小火加盖慢炖 40 分钟，中途搅动两次防止粘底。', image: '' },
-        { text: '加入红枣和冰糖继续炖 10 分钟，直到汤汁明显变稠。', image: '' },
-        { text: '关火前 3 分钟放入枸杞，枸杞久煮会发酸。', image: '' },
-        { text: '关火后加盖焖 5 分钟，胶质会更浓稠，温热或冷藏后食用均可。', image: '' }
-      ],
-      tips: '银耳撕得越碎出胶越快；用高压锅可缩短到 20 分钟。',
-      createdAt: SEED_BASE_TIME - 7 * DAY,
-      isCustom: false
-    },
-    {
-      id: 'seed-09',
-      title: '蒜蓉西兰花',
-      emoji: '🥦',
-      cover: '',
-      category: '素食',
-      tags: ['低脂', '快手', '素食'],
-      difficulty: '简单',
-      timeMinutes: 12,
-      servings: 2,
-      description: '焯水不过 90 秒，蒜香浓郁、颜色翠绿、口感脆嫩的低脂小炒。',
-      ingredients: [
-        { name: '西兰花', amount: '1 颗（约 400 克）' },
-        { name: '大蒜', amount: '5 瓣' },
-        { name: '生抽', amount: '1 汤匙' },
-        { name: '蚝油', amount: '1 茶匙' },
-        { name: '盐', amount: '1/2 茶匙' },
-        { name: '食用油', amount: '2 汤匙' },
-        { name: '白胡椒粉', amount: '少许' }
-      ],
-      steps: [
-        { text: '西兰花切成小朵，用淡盐水浸泡 10 分钟后冲洗干净。', image: '' },
-        { text: '大锅中烧开水，加 1 茶匙盐和几滴油，这样焯出来的颜色更翠绿。', image: '' },
-        { text: '西兰花下锅焯 90 秒，立刻捞出浸入冰水，锁住脆度。', image: '' },
-        { text: '大蒜切末，一半用于爆香，另一半最后放以保留生蒜香。', image: '' },
-        { text: '热锅下油，小火爆香一半蒜末至微微金黄。', image: '' },
-        { text: '沥干的西兰花下锅转大火快速翻炒 1 分钟。', image: '' },
-        { text: '加生抽、蚝油、盐和白胡椒粉炒匀，关火后撒入剩余蒜末拌匀即可。', image: '' }
-      ],
-      tips: '焯水后一定要彻底沥干，否则下锅会出水变软。',
-      createdAt: SEED_BASE_TIME - 8 * DAY,
-      isCustom: false
-    },
-    {
-      id: 'seed-10',
-      title: '杨枝甘露',
-      emoji: '🥭',
-      cover: '',
-      category: '甜品',
-      tags: ['港式', '夏日', '冰爽'],
-      difficulty: '简单',
-      timeMinutes: 25,
-      servings: 2,
-      description: '芒果、西柚与椰浆的组合，冰凉顺滑，是夏天的第一口甜。',
-      ingredients: [
-        { name: '大芒果', amount: '2 个' },
-        { name: '西柚', amount: '半个' },
-        { name: '椰浆', amount: '200 毫升' },
-        { name: '淡奶油', amount: '80 毫升' },
-        { name: '牛奶', amount: '120 毫升' },
-        { name: '细砂糖', amount: '25 克' },
-        { name: '西米', amount: '50 克' }
-      ],
-      steps: [
-        { text: '锅中烧开足量水，下西米中火煮 12 分钟，边煮边搅防止粘底。', image: '' },
-        { text: '煮到西米中心还剩小白点时关火，加盖焖 8 分钟至完全透明。', image: '' },
-        { text: '西米捞出过冷水，沥干后加少许糖拌匀备用。', image: '' },
-        { text: '芒果去皮，一半打成泥，另一半切成 1 厘米见方的小丁。', image: '' },
-        { text: '西柚剥出果粒，仔细撕去白膜以免发苦。', image: '' },
-        { text: '将芒果泥、椰浆、牛奶、淡奶油和细砂糖混合搅匀成底汤。', image: '' },
-        { text: '杯中先放西米，倒入底汤，再放上芒果丁和西柚粒。', image: '' },
-        { text: '冷藏 30 分钟风味更佳，食用前可再淋少许椰浆。', image: '' }
-      ],
-      tips: '西柚粒一定要撕净白膜，否则整杯都会带苦味。',
-      createdAt: SEED_BASE_TIME - 9 * DAY,
-      isCustom: false
-    }
-  ];
-
-  window.SEED_RECIPES = SEED_RECIPES;
-  window.SEED_CATEGORIES = SEED_CATEGORIES;
-  window.DIFFICULTIES = DIFFICULTIES;
-})(window);
-
-</script>
 <script>
-// ===== js/utils.js =====
 /* ==========================================================================
-   食谱集 · js/utils.js
-   通用工具：转义、格式化、防抖、URL 参数、DOM 简写、图标、封面渲染、Toast
+   食谱集 · js/about.js
+   个人网站 / 团队网站的轻量交互：滚动进场动画、导航高亮
+   独立运行，不依赖其它脚本
    ========================================================================== */
 
 (function (window, document) {
   'use strict';
 
-  var App = window.App || (window.App = {});
-
-  /* ------------------------------------------------------------------------
-     HTML 转义：所有用户可输入内容在插入 DOM 前都必须经过这里
-     ------------------------------------------------------------------------ */
-  var ESCAPE_MAP = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  };
-
-  function escapeHtml(value) {
-    if (value === null || value === undefined) return '';
-    return String(value).replace(/[&<>"']/g, function (ch) {
-      return ESCAPE_MAP[ch];
-    });
-  }
-
-  /* ------------------------------------------------------------------------
-     格式化
-     ------------------------------------------------------------------------ */
-
-  /** 分钟 → 「45 分钟」/「1 小时」/「1 小时 30 分钟」 */
-  function formatTime(minutes) {
-    var m = Number(minutes);
-    if (!isFinite(m) || m <= 0) return '—';
-    if (m < 60) return m + ' 分钟';
-    var h = Math.floor(m / 60);
-    var rest = m % 60;
-    return rest === 0 ? h + ' 小时' : h + ' 小时 ' + rest + ' 分钟';
-  }
-
-  /** 时间戳 → 「今天」/「3 天前」/「2026-01-08」 */
-  function formatDate(timestamp) {
-    var ts = Number(timestamp);
-    if (!isFinite(ts) || ts <= 0) return '';
-    var now = Date.now();
-    var diff = now - ts;
-    if (diff < 60 * 1000) return '刚刚';
-    if (diff < 60 * 60 * 1000) return Math.floor(diff / 60000) + ' 分钟前';
-    if (diff < 24 * 60 * 60 * 1000) return Math.floor(diff / 3600000) + ' 小时前';
-    if (diff < 7 * 24 * 60 * 60 * 1000) return Math.floor(diff / 86400000) + ' 天前';
-    var d = new Date(ts);
-    var pad = function (n) {
-      return n < 10 ? '0' + n : String(n);
-    };
-    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
-  }
-
-  /** 难度 → 徽章样式类 */
-  function difficultyClass(level) {
-    if (level === '简单') return 'badge--easy';
-    if (level === '困难') return 'badge--hard';
-    return 'badge--medium';
-  }
-
-  /* ------------------------------------------------------------------------
-     函数工具
-     ------------------------------------------------------------------------ */
-  function debounce(fn, wait) {
-    var timer = null;
-    return function () {
-      var context = this;
-      var args = arguments;
-      if (timer) window.clearTimeout(timer);
-      timer = window.setTimeout(function () {
-        timer = null;
-        fn.apply(context, args);
-      }, wait || 200);
-    };
-  }
-
-  /** 生成唯一 id */
-  function uid(prefix) {
-    return (
-      (prefix || 'usr-') +
-      Date.now().toString(36) +
-      '-' +
-      Math.random().toString(36).slice(2, 7)
-    );
-  }
-
-  /** 读取 URL 查询参数（file:// 下 location.search 同样可用） */
-  function getQueryParam(name, fallback) {
-    var search = window.location.search || '';
-    if (search.charAt(0) === '?') search = search.slice(1);
-    if (!search) return fallback === undefined ? null : fallback;
-    var pairs = search.split('&');
-    for (var i = 0; i < pairs.length; i++) {
-      var idx = pairs[i].indexOf('=');
-      var key = idx === -1 ? pairs[i] : pairs[i].slice(0, idx);
-      if (decodeURIComponent(key.replace(/\+/g, ' ')) === name) {
-        var raw = idx === -1 ? '' : pairs[i].slice(idx + 1);
-        return decodeURIComponent(raw.replace(/\+/g, ' '));
-      }
-    }
-    return fallback === undefined ? null : fallback;
-  }
-
-  /* ------------------------------------------------------------------------
-     DOM 简写
-     ------------------------------------------------------------------------ */
-  function $(selector, root) {
-    return (root || document).querySelector(selector);
-  }
-
-  function $$(selector, root) {
-    return Array.prototype.slice.call((root || document).querySelectorAll(selector));
-  }
-
-  function on(el, type, handler, options) {
-    if (el) el.addEventListener(type, handler, options);
-    return el;
-  }
-
-  /** 平滑滚动到元素并聚焦第一个可输入控件 */
-  function scrollToEl(el) {
-    if (!el) return;
-    var top = el.getBoundingClientRect().top + window.pageYOffset - 110;
-    window.scrollTo({ top: top < 0 ? 0 : top, behavior: 'smooth' });
-  }
-
-  /* ------------------------------------------------------------------------
-     内联图标（避免依赖外部图标库，保证离线可用）
-     ------------------------------------------------------------------------ */
-  var ICON_PATHS = {
-    search:
-      '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>',
-    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/>',
-    plus: '<path d="M12 5v14M5 12h14"/>',
-    edit:
-      '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4z"/>',
-    trash:
-      '<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>',
-    back: '<path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>',
-    close: '<path d="M18 6L6 18M6 6l12 12"/>',
-    camera:
-      '<path d="M3 8a2 2 0 012-2h2.5l1.2-2h6.6L16.5 6H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="12.5" r="3.5"/>',
-    image:
-      '<rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="M20 16l-4.5-4.5L7 20"/>',
-    alert:
-      '<path d="M12 3.5l9.5 16.5H2.5z"/><path d="M12 9.5v4.5"/><circle cx="12" cy="17" r="0.6" fill="currentColor"/>',
-    sparkle:
-      '<path d="M12 3l1.8 4.9L18.7 9.7l-4.9 1.8L12 16.4l-1.8-4.9L5.3 9.7l4.9-1.8z"/><path d="M18.5 15.5l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z"/>',
-    users:
-      '<circle cx="9" cy="8" r="3.4"/><path d="M2.8 20c0-3.4 2.8-5.6 6.2-5.6s6.2 2.2 6.2 5.6"/><path d="M17 5.2a3.4 3.4 0 010 6.6"/><path d="M18.5 14.8c2.2.5 3.7 2.1 3.7 4.4"/>',
-    flame:
-      '<path d="M12 2.8s5 4.4 5 9a5 5 0 01-10 0c0-1.9.9-3.4 1.9-4.4.3 1.2 1 1.9 1.8 2.1-.4-2.3 1.3-6.7 1.3-6.7z"/><path d="M12 21.2a5 5 0 005-5c0-.7-.1-1.3-.3-1.9"/>',
-    book:
-      '<path d="M4 4.5A2.5 2.5 0 016.5 2H20v18H6.5A2.5 2.5 0 004 22z"/><path d="M4 17.5A2.5 2.5 0 016.5 15H20"/>',
-    refresh:
-      '<path d="M20.5 11a8.5 8.5 0 10-2.6 6.1"/><path d="M20.5 5v6h-6"/>',
-    check: '<path d="M20 6.5L9.5 17 4 11.5"/>',
-    arrowUp: '<path d="M12 19V5"/><path d="M5 12l7-7 7 7"/>',
-    arrowDown: '<path d="M12 5v14"/><path d="M19 12l-7 7-7-7"/>',
-    chef:
-      '<path d="M6 21h12"/><path d="M6 17.5h12V21H6z"/><path d="M18 17.5a4.5 4.5 0 001.2-8.8A5.5 5.5 0 0013.6 4a5.5 5.5 0 00-8.6 3.6"/><path d="M18 17.5H6a4.5 4.5 0 010-9"/>',
-    /* 轮播控制 */
-    chevronLeft: '<path d="M15 18l-6-6 6-6"/>',
-    chevronRight: '<path d="M9 18l6-6-6-6"/>',
-    pause: '<path d="M9.5 4.5v15"/><path d="M14.5 4.5v15"/>',
-    play: '<path d="M7.5 4.8 19 12 7.5 19.2z"/>',
-    /* 菜谱分类 */
-    fish:
-      '<path d="M3 12C6 8.2 14 8.2 18 12 14 15.8 6 15.8 3 12Z"/><path d="M18 12l3.2-2.6v5.2z"/><circle cx="8" cy="11.2" r=".9" fill="currentColor" stroke="none"/>',
-    soup:
-      '<path d="M3.5 11.5h17"/><path d="M5 11.5v.5a7 7 0 0 1 14 0v-.5"/><path d="M9 3.6c-.7 1.3.7 1.9 0 3.2"/><path d="M14 3.6c-.7 1.3.7 1.9 0 3.2"/>',
-    cake:
-      '<path d="M4 12.5h16V20H4z"/><path d="M4 15.6c1.3 1.1 2.7-1.1 4 0s2.7 1.1 4 0 2.7-1.1 4 0 2.7 1.1 4 0"/><path d="M4 12.5c0-2.2 3.6-4 8-4s8 1.8 8 4"/><path d="M12 8.5v-2"/><path d="M12 3.3c.9.9 1.4 1.6 1.4 2.3a1.4 1.4 0 0 1-2.8 0c0-.7.5-1.4 1.4-2.3Z"/>',
-    leaf: '<path d="M4 20c0-9 5-16 16-16 0 11-7 16-16 16Z"/><path d="M4 20C8 14 12 10.5 17 8"/>'
-  };
-
-  /** 生成一个内联 SVG 图标 */
-  function icon(name, extraClass) {
-    var inner = ICON_PATHS[name] || ICON_PATHS.sparkle;
-    return (
-      '<svg class="' +
-      (extraClass ? escapeHtml(extraClass) : '') +
-      '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
-      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
-      inner +
-      '</svg>'
-    );
-  }
-
-  /* ------------------------------------------------------------------------
-     封面图渲染
-     统一规则：占位层始终存在，图片加载成功后再淡入覆盖。
-     这样即使没有图片、断网或链接失效，也永远不会出现破图。
-     ------------------------------------------------------------------------ */
-  function fallbackHtml(recipe, size) {
-    return (
-      '<div class="media-fallback' +
-      (size === 'sm' ? ' media-fallback--sm' : size === 'lg' ? ' media-fallback--lg' : '') +
-      '">' +
-      '<span class="media-fallback__emoji">' +
-      escapeHtml(recipe && recipe.emoji ? recipe.emoji : '🍽️') +
-      '</span>' +
-      '<span class="media-fallback__text">' +
-      escapeHtml(recipe && recipe.title ? recipe.title : '美味') +
-      '</span>' +
-      '</div>'
-    );
-  }
-
-  /**
-   * 生成封面容器 HTML。
-   * @param {object} recipe 菜谱对象
-   * @param {object} [options] { extraClass, size, alt, overlay }
-   *   overlay：需要叠在封面上层的 HTML 片段（例如卡片右下角的时长标签）
-   */
-  function coverHtml(recipe, options) {
-    var opts = options || {};
-    var title = (recipe && recipe.title) || '菜谱图片';
-    var html =
-      '<div class="media ' +
-      escapeHtml(opts.extraClass || '') +
-      '">' +
-      fallbackHtml(recipe, opts.size);
-
-    if (recipe && recipe.cover) {
-      html +=
-        '<img src="' +
-        escapeHtml(recipe.cover) +
-        '" alt="' +
-        escapeHtml(opts.alt || title) +
-        '" loading="lazy" onload="App.Utils.onImgLoad(this)" ' +
-        'onerror="App.Utils.onImgError(this)">';
-    }
-
-    if (opts.overlay) html += opts.overlay;
-
-    return html + '</div>';
-  }
-
-  /** 图片加载成功 → 淡入 */
-  function onImgLoad(img) {
-    var parent = img.parentNode;
-    if (parent && parent.classList) parent.classList.add('is-loaded');
-  }
-
-  /** 图片加载失败 → 移除图片节点，露出下层占位图 */
-  function onImgError(img) {
-    var parent = img.parentNode;
-    if (parent && parent.classList) parent.classList.remove('is-loaded');
-    console.warn('[image] 图片加载失败，已回退占位图：' + (img.getAttribute('src') || '').slice(0, 60));
-
-    // 步骤图等没有占位层的位置，直接移除整个容器，避免留下空框
-    var removeSelector = img.getAttribute('data-error-remove');
-    var target = img;
-    if (removeSelector && img.closest) {
-      var host = img.closest(removeSelector);
-      if (host) target = host;
-    }
-    if (target.parentNode) target.parentNode.removeChild(target);
-  }
-
-  /* ------------------------------------------------------------------------
-     Toast
-     ------------------------------------------------------------------------ */
-  var toastHost = null;
-
-  function ensureToastHost() {
-    if (toastHost && document.body.contains(toastHost)) return toastHost;
-    toastHost = document.getElementById('toastHost');
-    if (!toastHost) {
-      toastHost = document.createElement('div');
-      toastHost.id = 'toastHost';
-      toastHost.className = 'toast-host';
-      toastHost.setAttribute('role', 'status');
-      toastHost.setAttribute('aria-live', 'polite');
-      document.body.appendChild(toastHost);
-    }
-    return toastHost;
-  }
-
-  function toast(message, type, duration) {
-    var host = ensureToastHost();
-    var node = document.createElement('div');
-    var kind = type === 'success' ? 'toast--success' : type === 'error' ? 'toast--error' : '';
-    node.className = 'toast ' + kind;
-    node.innerHTML =
-      (type === 'success' ? icon('check') : type === 'error' ? icon('alert') : '') +
-      '<span>' +
-      escapeHtml(message) +
-      '</span>';
-    host.appendChild(node);
-
-    var life = duration || (type === 'error' ? 3600 : 2200);
-    window.setTimeout(function () {
-      node.classList.add('is-leaving');
-      window.setTimeout(function () {
-        if (node.parentNode) node.parentNode.removeChild(node);
-      }, 220);
-    }, life);
-  }
-
-  /* ------------------------------------------------------------------------
-     确认对话框
-     ------------------------------------------------------------------------ */
-  function confirmDialog(options) {
-    var opts = options || {};
-    return new Promise(function (resolve) {
-      var overlay = document.createElement('div');
-      overlay.className = 'overlay';
-      overlay.innerHTML =
-        '<div class="dialog" role="dialog" aria-modal="true">' +
-        '<div class="dialog__icon">' +
-        icon('alert') +
-        '</div>' +
-        '<h3 class="dialog__title">' +
-        escapeHtml(opts.title || '确认操作') +
-        '</h3>' +
-        '<p class="dialog__text">' +
-        escapeHtml(opts.text || '该操作不可撤销，确定要继续吗？') +
-        '</p>' +
-        '<div class="dialog__actions">' +
-        '<button type="button" class="btn btn--ghost" data-act="cancel">' +
-        escapeHtml(opts.cancelText || '取消') +
-        '</button>' +
-        '<button type="button" class="btn ' +
-        (opts.danger ? 'btn--danger' : 'btn--primary') +
-        '" data-act="ok">' +
-        escapeHtml(opts.okText || '确定') +
-        '</button>' +
-        '</div></div>';
-
-      document.body.appendChild(overlay);
-      document.body.style.overflow = 'hidden';
-
-      var finish = function (result) {
-        document.body.style.overflow = '';
-        document.removeEventListener('keydown', onKey);
-        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-        resolve(result);
-      };
-
-      var onKey = function (event) {
-        if (event.key === 'Escape') finish(false);
-      };
-
-      overlay.addEventListener('click', function (event) {
-        var act = event.target.getAttribute && event.target.getAttribute('data-act');
-        if (act === 'ok') finish(true);
-        else if (act === 'cancel' || event.target === overlay) finish(false);
-      });
-
-      document.addEventListener('keydown', onKey);
-
-      window.requestAnimationFrame(function () {
-        overlay.classList.add('is-open');
-        var okBtn = overlay.querySelector('[data-act="ok"]');
-        if (okBtn) okBtn.focus();
-      });
-    });
-  }
-
-  /* ------------------------------------------------------------------------
-     灯箱（点击放大图片）
-     ------------------------------------------------------------------------ */
-  function ensureLightbox() {
-    var box = document.getElementById('lightbox');
-    if (box) return box;
-
-    box = document.createElement('div');
-    box.id = 'lightbox';
-    box.className = 'lightbox';
-    box.innerHTML =
-      '<button type="button" class="lightbox__close" aria-label="关闭">' +
-      icon('close') +
-      '</button><img alt="" />';
-    document.body.appendChild(box);
-
-    var close = function () {
-      box.classList.remove('is-open');
-      document.body.style.overflow = '';
-      document.removeEventListener('keydown', onEsc);
-    };
-    var onEsc = function (event) {
-      if (event.key === 'Escape' && box.classList.contains('is-open')) close();
-    };
-
-    box.addEventListener('click', close);
-    document.addEventListener('keydown', onEsc);
-    box._close = close;
-
-    return box;
-  }
-
-  function openLightbox(src, alt) {
-    if (!src) return;
-    var box = ensureLightbox();
-    var img = box.querySelector('img');
-    img.setAttribute('src', src);
-    img.setAttribute('alt', alt || '');
-    document.body.style.overflow = 'hidden';
-    box.classList.add('is-open');
-  }
-
-  /* ------------------------------------------------------------------------
-     导航栏滚动状态
-     ------------------------------------------------------------------------ */
-  function bindNavScroll() {
-    var nav = document.querySelector('.site-nav');
-    if (!nav) return;
-    var apply = function () {
-      if (window.pageYOffset > 8) nav.classList.add('is-scrolled');
-      else nav.classList.remove('is-scrolled');
-    };
-    apply();
-    window.addEventListener('scroll', apply, { passive: true });
-  }
-
-  App.Utils = {
-    escapeHtml: escapeHtml,
-    formatTime: formatTime,
-    formatDate: formatDate,
-    difficultyClass: difficultyClass,
-    debounce: debounce,
-    uid: uid,
-    getQueryParam: getQueryParam,
-    $: $,
-    $$: $$,
-    on: on,
-    scrollToEl: scrollToEl,
-    icon: icon,
-    coverHtml: coverHtml,
-    fallbackHtml: fallbackHtml,
-    onImgLoad: onImgLoad,
-    onImgError: onImgError,
-    toast: toast,
-    confirmDialog: confirmDialog,
-    openLightbox: openLightbox,
-    bindNavScroll: bindNavScroll
-  };
-})(window, document);
-
-</script>
-<script>
-// ===== js/storage.js =====
-/* ==========================================================================
-   食谱集 · js/storage.js
-   存储层：内置数据 + 用户自建数据（localStorage）的合并、读写、删除与配额处理
-   ========================================================================== */
-
-(function (window) {
-  'use strict';
-
-  var App = window.App;
-
-  var STORAGE_KEY = 'minicrm.recipes.custom.v1';
-
-  /** 用户自建数据的缓存（失效后重新读取） */
-  var cache = null;
-  /** 读取失败时的提示信息，供页面消费一次 */
-  var readErrorMessage = '';
-
-  /* ------------------------------------------------------------------------
-     校验与规范化：外部写入的数据可能被手工改坏，这里做一次兜底
-     ------------------------------------------------------------------------ */
-  function isValidRecipe(raw) {
-    return (
-      raw &&
-      typeof raw === 'object' &&
-      typeof raw.id === 'string' &&
-      raw.id.length > 0 &&
-      typeof raw.title === 'string'
-    );
-  }
-
-  function toStringArray(value) {
-    if (!Array.isArray(value)) return [];
-    var result = [];
-    value.forEach(function (item) {
-      if (typeof item !== 'string') return;
-      var text = item.trim();
-      if (text === '' || result.indexOf(text) !== -1) return;
-      result.push(text);
-    });
-    return result;
-  }
-
-  function normalizeIngredients(value) {
-    if (!Array.isArray(value)) return [];
-    return value
-      .map(function (item) {
-        return {
-          name: String((item && item.name) || '').trim(),
-          amount: String((item && item.amount) || '').trim()
-        };
-      })
-      .filter(function (item) {
-        return item.name !== '';
-      });
-  }
-
-  function normalizeSteps(value) {
-    if (!Array.isArray(value)) return [];
-    return value
-      .map(function (item) {
-        if (typeof item === 'string') return { text: item.trim(), image: '' };
-        return {
-          text: String((item && item.text) || '').trim(),
-          image: String((item && item.image) || '')
-        };
-      })
-      .filter(function (item) {
-        return item.text !== '';
-      });
-  }
-
-  function normalize(raw) {
-    var time = Number(raw.timeMinutes);
-    var servings = Number(raw.servings);
-    return {
-      id: String(raw.id),
-      title: String(raw.title || '').trim(),
-      emoji: typeof raw.emoji === 'string' && raw.emoji ? raw.emoji : '🍽️',
-      cover: typeof raw.cover === 'string' ? raw.cover : '',
-      category: typeof raw.category === 'string' && raw.category ? raw.category : '家常菜',
-      tags: toStringArray(raw.tags),
-      difficulty:
-        raw.difficulty === '简单' || raw.difficulty === '困难' ? raw.difficulty : '中等',
-      timeMinutes: isFinite(time) && time > 0 ? Math.round(time) : 0,
-      servings: isFinite(servings) && servings > 0 ? Math.round(servings) : 1,
-      description: String(raw.description || '').trim(),
-      ingredients: normalizeIngredients(raw.ingredients),
-      steps: normalizeSteps(raw.steps),
-      tips: String(raw.tips || '').trim(),
-      createdAt: isFinite(Number(raw.createdAt)) && Number(raw.createdAt) > 0
-        ? Number(raw.createdAt)
-        : Date.now(),
-      isCustom: raw.isCustom === true
-    };
-  }
-
-  /* ------------------------------------------------------------------------
-     底层读写
-     ------------------------------------------------------------------------ */
-  function getSeeds() {
-    return Array.isArray(window.SEED_RECIPES) ? window.SEED_RECIPES : [];
-  }
-
-  function findSeed(id) {
-    var seeds = getSeeds();
-    for (var i = 0; i < seeds.length; i++) {
-      if (seeds[i].id === id) return seeds[i];
-    }
-    return null;
-  }
-
-  function readCustom() {
-    if (cache) return cache;
-    try {
-      var raw = window.localStorage.getItem(STORAGE_KEY);
-      if (!raw) {
-        cache = [];
-        return cache;
-      }
-      var parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed)) throw new Error('数据结构不是数组');
-      cache = parsed.filter(isValidRecipe).map(normalize);
-      return cache;
-    } catch (err) {
-      console.warn('[storage] 读取本地菜谱失败，已回退为仅内置数据：', err && err.message);
-      readErrorMessage = '本地保存的数据无法解析，已临时回退为内置菜谱。';
-      cache = [];
-      return cache;
-    }
-  }
-
-  /** 写入 localStorage，并把配额错误转换成可展示的提示 */
-  function writeCustom(list) {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-      cache = list;
-    } catch (err) {
-      var isQuota =
-        err &&
-        (err.name === 'QuotaExceededError' ||
-          err.name === 'NS_ERROR_DOM_QUOTA_REACHED' ||
-          err.code === 22 ||
-          err.code === 1014);
-      console.warn('[storage] 写入本地菜谱失败：', err && err.name, err && err.message);
-      if (isQuota) {
-        throw new Error('本地存储空间已满，请删除部分自建菜谱或使用更小的图片。');
-      }
-      throw new Error('保存失败，浏览器本地存储不可用（是否处于隐私模式？）。');
-    }
-  }
-
-  /* ------------------------------------------------------------------------
-     对外接口
-     ------------------------------------------------------------------------ */
-
-  /**
-   * 全部菜谱：内置 + 用户自建。
-   * 同 id 时用户数据覆盖内置数据（用于「编辑内置菜谱生成覆盖记录」）。
-   * 排序：创建时间由新到旧。
-   */
-  function getAll() {
-    var map = {};
-    var order = [];
-
-    getSeeds().forEach(function (seed) {
-      var recipe = normalize(seed);
-      map[recipe.id] = recipe;
-      order.push(recipe.id);
-    });
-
-    readCustom().forEach(function (recipe) {
-      if (!Object.prototype.hasOwnProperty.call(map, recipe.id)) order.push(recipe.id);
-      map[recipe.id] = recipe;
-    });
-
-    return order
-      .map(function (id) {
-        return map[id];
-      })
-      .sort(function (a, b) {
-        return b.createdAt - a.createdAt;
-      });
-  }
-
-  function getById(id) {
-    if (!id) return null;
-    var custom = readCustom();
-    for (var i = 0; i < custom.length; i++) {
-      if (custom[i].id === id) return custom[i];
-    }
-    var seed = findSeed(id);
-    return seed ? normalize(seed) : null;
-  }
-
-  /** 该 id 是否被用户数据覆盖（内置菜谱被编辑过 / 用户自建） */
-  function isOverridden(id) {
-    if (!id) return false;
-    return readCustom().some(function (item) {
-      return item.id === id;
-    });
-  }
-
-  /**
-   * 新增或更新一条菜谱。
-   * - 没有 id：创建用户自建菜谱
-   * - id 命中用户数据：覆盖更新
-   * - id 命中内置数据：写入一条覆盖记录（内置菜谱得以"被编辑"）
-   * @returns {object} 落库后的完整菜谱对象
-   */
-  function save(input) {
-    if (!input || typeof input !== 'object') {
-      throw new Error('没有可保存的菜谱数据。');
-    }
-    if (!String(input.title || '').trim()) {
-      throw new Error('菜谱名称不能为空。');
-    }
-
-    var list = readCustom().slice();
-    var id = String(input.id || '').trim();
-    var seed = id ? findSeed(id) : null;
-    var isNew = id === '';
-
-    var record = normalize(
-      Object.assign({}, input, {
-        id: id || App.Utils.uid('usr-'),
-        isCustom: seed ? false : isNew ? true : input.isCustom === true,
-        createdAt: seed
-          ? normalize(seed).createdAt
-          : isFinite(Number(input.createdAt)) && Number(input.createdAt) > 0
-          ? Number(input.createdAt)
-          : Date.now()
-      })
-    );
-
-    var replaced = false;
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].id === record.id) {
-        list[i] = record;
-        replaced = true;
-        break;
-      }
-    }
-    if (!replaced) list.push(record);
-
-    writeCustom(list);
-    return record;
-  }
-
-  /**
-   * 删除菜谱。仅允许删除用户自建数据；内置菜谱未被编辑过时不可删除。
-   * @returns {boolean} 是否删除成功
-   */
-  function remove(id) {
-    var list = readCustom();
-    var next = list.filter(function (item) {
-      return item.id !== id;
-    });
-    if (next.length === list.length) return false;
-    writeCustom(next);
-    return true;
-  }
-
-  /** 清空全部用户数据，恢复到初始的内置示例状态 */
-  function clearCustom() {
-    try {
-      window.localStorage.removeItem(STORAGE_KEY);
-    } catch (err) {
-      console.warn('[storage] 清空本地数据失败：', err && err.message);
-      throw new Error('清空失败，浏览器本地存储不可用。');
-    }
-    cache = [];
-  }
-
-  function customCount() {
-    return readCustom().length;
-  }
-
-  function seedCount() {
-    return getSeeds().length;
-  }
-
-  /** 当前占用的存储字节数（近似值，用于容量提示） */
-  function getUsageBytes() {
-    try {
-      var raw = window.localStorage.getItem(STORAGE_KEY);
-      return raw ? raw.length : 0;
-    } catch (err) {
-      return 0;
-    }
-  }
-
-  /** 取走一次读取错误提示（取走后清空，避免重复弹出） */
-  function consumeReadError() {
-    var message = readErrorMessage;
-    readErrorMessage = '';
-    return message;
-  }
-
-  App.Storage = {
-    STORAGE_KEY: STORAGE_KEY,
-    getAll: getAll,
-    getById: getById,
-    save: save,
-    remove: remove,
-    clearCustom: clearCustom,
-    isOverridden: isOverridden,
-    customCount: customCount,
-    seedCount: seedCount,
-    getUsageBytes: getUsageBytes,
-    consumeReadError: consumeReadError
-  };
-})(window);
-
-</script>
-<script>
-// ===== js/list.js =====
-/* ==========================================================================
-   食谱集 · js/list.js
-   首页逻辑：精选轮播图 / 菜谱分类 / 热门菜谱 / 关键词筛选 / 空状态 / 数据重置
-   ========================================================================== */
-
-(function (window, document) {
-  'use strict';
-
-  var App = window.App;
-  var U = App.Utils;
-  var S = App.Storage;
-
-  var ALL = '全部';
-
-  /* 首页各区块的展示条数 */
-  var CAROUSEL_SIZE = 4; // 轮播图取热度前 4 道
-  var HOT_SIZE = 8; // 热门榜取热度前 8 道
-  var AUTOPLAY_MS = 5200; // 轮播自动播放间隔
-
-  /* ------------------------------------------------------------------------
-     页面元素（不存在则直接退出，保证任何页面单独打开都不报错）
-     ------------------------------------------------------------------------ */
-  var grid = U.$('#recipeGrid');
-  if (!grid) return;
-
-  var navInput = U.$('#navSearchInput');
-  var navBox = U.$('#navSearchBox');
-
-  var carouselEl = U.$('#carousel');
-  var carouselTrack = U.$('#carouselTrack');
-  var carouselPrev = U.$('#carouselPrev');
-  var carouselNext = U.$('#carouselNext');
-  var carouselToggle = U.$('#carouselToggle');
-  var carouselDots = U.$('#carouselDots');
-  var carouselProgress = U.$('#carouselProgress');
-
-  var categoryGrid = U.$('#categoryGrid');
-  var categoryTotal = U.$('#categoryTotal');
-
-  var recipeSection = U.$('.home-section--recipes');
-  var sectionTitle = U.$('#recipeSectionTitle');
-  var sectionSub = U.$('#recipeSectionSub');
-  var countEl = U.$('#resultCount');
-  var resetFiltersBtn = U.$('#resetFilters');
-  var emptyEl = U.$('#emptyState');
-  var emptyResetBtn = U.$('#emptyReset');
-
-  var footerSummary = U.$('#footerSummary');
-  var resetDataBtn = U.$('#resetData');
-
-  /* ------------------------------------------------------------------------
-     状态
-     ------------------------------------------------------------------------ */
-  var state = { category: ALL, keyword: '' };
-  var allRecipes = [];
-  var hotRanked = [];
-  var carouselItems = [];
-
-  /* ------------------------------------------------------------------------
-     分类元信息：内联图标 + 水印菜品 + 一句话说明
-     （图标取自 js/utils.js 的 ICON_PATHS，不使用外部图标库）
-     ------------------------------------------------------------------------ */
-  var CATEGORY_META = {
-    川菜: { icon: 'flame', emoji: '🥘', desc: '麻辣鲜香' },
-    粤菜: { icon: 'fish', emoji: '🐟', desc: '清鲜本味' },
-    家常菜: { icon: 'chef', emoji: '🍖', desc: '下饭硬菜' },
-    汤羹: { icon: 'soup', emoji: '🍲', desc: '慢炖暖胃' },
-    甜品: { icon: 'cake', emoji: '🍮', desc: '甜汤点心' },
-    素食: { icon: 'leaf', emoji: '🥦', desc: '清爽低脂' }
-  };
-  var DEFAULT_META = { icon: 'sparkle', emoji: '🍽️', desc: '更多风味' };
-
-  /* ------------------------------------------------------------------------
-     热度启发式
-     数据里没有浏览量字段，因此用「标签权重 + 步骤/用料丰富度 + 是否本人创建」
-     综合打分；同分时按创建时间由新到旧。规则写在这里，避免凭空排序。
-     ------------------------------------------------------------------------ */
-  var HOT_TAGS = {
-    经典: 3,
-    宴客: 3,
-    硬菜: 3,
-    滋补: 3,
-    下饭: 2,
-    快手: 2,
-    鲜味: 2,
-    高蛋白: 2,
-    港式: 2,
-    暖胃: 2,
-    新手友好: 1,
-    低脂: 1,
-    清淡: 1,
-    酸甜: 1,
-    微辣: 1,
-    慢炖: 1,
-    润燥: 1,
-    甜汤: 1,
-    冷热皆宜: 1,
-    夏日: 1,
-    冰爽: 1,
-    素食: 1
-  };
-
-  function heatScore(recipe) {
-    var score = 0;
-    (recipe.tags || []).forEach(function (tag) {
-      if (HOT_TAGS[tag]) score += HOT_TAGS[tag];
-    });
-    // 步骤多于 4 步的，说明做法更值得细看，最多再加 3 分
-    score += Math.min(Math.max(recipe.steps.length - 4, 0), 3);
-    // 用料齐全（6 种以上）再加 1 分
-    if (recipe.ingredients.length >= 6) score += 1;
-    // 用户自己创建的菜谱优先展示
-    if (recipe.isCustom) score += 2;
-    return score;
-  }
-
-  function rankByHeat(list) {
-    return list.slice().sort(function (a, b) {
-      var diff = heatScore(b) - heatScore(a);
-      if (diff !== 0) return diff;
-      return b.createdAt - a.createdAt;
-    });
-  }
-
-  /* ------------------------------------------------------------------------
-     数据读取
-     ------------------------------------------------------------------------ */
-  function loadData() {
-    allRecipes = S.getAll();
-    var readError = S.consumeReadError();
-    if (readError) U.toast(readError, 'error', 4200);
-  }
-
-  /* ------------------------------------------------------------------------
-     关键词匹配：菜名、简介、分类、标签、食材名、小贴士
-     ------------------------------------------------------------------------ */
-  function normalize(text) {
-    return String(text || '').toLowerCase();
-  }
-
-  function matchesKeyword(recipe, keyword) {
-    if (!keyword) return true;
-    if (recipe._haystack === undefined) {
-      var parts = [recipe.title, recipe.category, recipe.description, recipe.tips]
-        .concat(recipe.tags)
-        .concat(
-          recipe.ingredients.map(function (item) {
-            return item.name;
-          })
-        );
-      recipe._haystack = normalize(parts.join(' '));
-    }
-    return recipe._haystack.indexOf(keyword) !== -1;
-  }
-
-  /* ------------------------------------------------------------------------
-     轮播图
-     ------------------------------------------------------------------------ */
-  var slideIndex = 0;
-  var slideTimer = null;
-  var userPaused = false; // 用户点了暂停
-  var interactionPaused = false; // 悬停 / 聚焦 / 页面不可见
-  var canAutoPlay = false; // 是否允许自动播放（多于一张且未开启减弱动效）
-
-  function prefersReducedMotion() {
-    return !!(
-      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    );
-  }
-
-  function carouselMetaItem(iconName, text) {
-    return (
-      '<span class="carousel__meta-item">' +
-      U.icon(iconName) +
-      U.escapeHtml(text) +
-      '</span>'
-    );
-  }
-
-  function slideHtml(recipe, index, total) {
-    var overlay =
-      '<div class="carousel__overlay">' +
-      '<span class="badge badge--category carousel__badge">' +
-      U.escapeHtml(recipe.category) +
-      '</span>' +
-      '<h3 class="carousel__title">' +
-      U.escapeHtml(recipe.title) +
-      '</h3>' +
-      '<p class="carousel__desc">' +
-      U.escapeHtml(recipe.description || '这道菜还没有写简介，点开看看做法吧。') +
-      '</p>' +
-      '<div class="carousel__meta">' +
-      carouselMetaItem('clock', U.formatTime(recipe.timeMinutes)) +
-      carouselMetaItem('chef', recipe.difficulty) +
-      carouselMetaItem(
-        'book',
-        recipe.steps.length ? recipe.steps.length + ' 个步骤' : '步骤待补充'
-      ) +
-      '</div>' +
-      '<span class="btn btn--primary carousel__cta">查看做法' +
-      U.icon('chevronRight') +
-      '</span>' +
-      '</div>';
-
-    return (
-      '<article class="carousel__slide" role="group" aria-roledescription="幻灯片" aria-label="' +
-      (index + 1) +
-      ' / ' +
-      total +
-      '">' +
-      '<a class="carousel__link" href="detail.html?id=' +
-      encodeURIComponent(recipe.id) +
-      '">' +
-      U.coverHtml(recipe, { extraClass: 'carousel__media', size: 'lg', overlay: overlay }) +
-      '</a></article>'
-    );
-  }
-
-  function renderDots() {
-    if (!carouselDots) return;
-    carouselDots.innerHTML = carouselItems
-      .map(function (recipe, index) {
-        var active = index === slideIndex;
-        return (
-          '<button type="button" class="carousel__dot' +
-          (active ? ' is-active' : '') +
-          '" data-index="' +
-          index +
-          '" aria-label="查看第 ' +
-          (index + 1) +
-          ' 张：' +
-          U.escapeHtml(recipe.title) +
-          '" aria-current="' +
-          (active ? 'true' : 'false') +
-          '"></button>'
-        );
-      })
-      .join('');
-  }
-
-  function updateToggle() {
-    if (!carouselToggle) return;
-    carouselToggle.innerHTML = U.icon(userPaused ? 'play' : 'pause');
-    carouselToggle.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
-    carouselToggle.setAttribute(
-      'aria-label',
-      userPaused ? '继续自动播放精选菜谱' : '暂停自动播放精选菜谱'
-    );
-  }
-
-  function clearSlideTimer() {
-    if (slideTimer) {
-      window.clearTimeout(slideTimer);
-      slideTimer = null;
-    }
-  }
-
-  /** 让进度条动画从头开始（改一次 inline 样式以强制重启动画） */
-  function restartProgress() {
-    if (!carouselProgress) return;
-    carouselProgress.style.animation = 'none';
-    // 读取一次布局属性，强制浏览器重排后动画才会重新播放
-    void carouselProgress.offsetWidth;
-    carouselProgress.style.animation = '';
-  }
-
-  function isAutoPlaying() {
-    return canAutoPlay && !userPaused;
-  }
-
-  /** 同步播放状态与计时器：暂停时冻结进度条，播放时从头计时 */
-  function syncCarousel() {
-    if (!carouselEl) return;
-
-    var playing = isAutoPlaying();
-    carouselEl.classList.toggle('is-playing', playing);
-    carouselEl.classList.toggle('is-paused', playing && interactionPaused);
-
-    clearSlideTimer();
-    updateToggle();
-
-    if (!playing || interactionPaused) return;
-
-    restartProgress();
-    slideTimer = window.setTimeout(function () {
-      goTo(slideIndex + 1);
-    }, AUTOPLAY_MS);
-  }
-
-  function goTo(next) {
-    var total = carouselItems.length;
-    if (!carouselEl || total === 0) return;
-
-    slideIndex = ((next % total) + total) % total;
-    if (carouselTrack) {
-      carouselTrack.style.transform = 'translateX(' + -slideIndex * 100 + '%)';
-    }
-    renderDots();
-    syncCarousel();
-  }
-
-  function buildCarousel(items) {
-    carouselItems = items;
-    slideIndex = 0;
-    clearSlideTimer();
-
-    if (!carouselEl || !carouselTrack) return;
-
-    if (items.length === 0) {
-      carouselTrack.innerHTML = '';
-      carouselEl.classList.add('is-single', 'hidden');
-      return;
-    }
-
-    carouselEl.classList.remove('hidden');
-    carouselEl.classList.toggle('is-single', items.length < 2);
-    carouselTrack.style.transform = 'translateX(0%)';
-    carouselTrack.innerHTML = items
-      .map(function (recipe, index) {
-        return slideHtml(recipe, index, items.length);
-      })
-      .join('');
-
-    if (carouselProgress) {
-      carouselProgress.style.setProperty('--carousel-duration', AUTOPLAY_MS + 'ms');
-    }
-
-    renderDots();
-    syncCarousel();
-  }
-
-  function bindCarousel() {
-    if (!carouselEl) return;
-
-    U.on(carouselPrev, 'click', function () {
-      goTo(slideIndex - 1);
-    });
-
-    U.on(carouselNext, 'click', function () {
-      goTo(slideIndex + 1);
-    });
-
-    U.on(carouselDots, 'click', function (event) {
-      var dot = event.target.closest ? event.target.closest('.carousel__dot') : null;
-      if (!dot) return;
-      goTo(Number(dot.getAttribute('data-index')) || 0);
-    });
-
-    U.on(carouselToggle, 'click', function () {
-      userPaused = !userPaused;
-      syncCarousel();
-    });
-
-    // 悬停或焦点进入时暂停，离开后恢复
-    U.on(carouselEl, 'mouseenter', function () {
-      interactionPaused = true;
-      syncCarousel();
-    });
-    U.on(carouselEl, 'mouseleave', function () {
-      interactionPaused = false;
-      syncCarousel();
-    });
-    U.on(carouselEl, 'focusin', function () {
-      interactionPaused = true;
-      syncCarousel();
-    });
-    U.on(carouselEl, 'focusout', function () {
-      interactionPaused = false;
-      syncCarousel();
-    });
-
-    // 键盘左右键（事件从内部的按钮 / 链接冒泡上来）
-    U.on(carouselEl, 'keydown', function (event) {
-      if (event.key === 'ArrowLeft') {
-        goTo(slideIndex - 1);
-        event.preventDefault();
-      } else if (event.key === 'ArrowRight') {
-        goTo(slideIndex + 1);
-        event.preventDefault();
-      }
-    });
-
-    // 触摸滑动
-    var touchStartX = null;
-    U.on(
-      carouselEl,
-      'touchstart',
-      function (event) {
-        touchStartX = event.touches && event.touches[0] ? event.touches[0].clientX : null;
-      },
-      { passive: true }
-    );
-    U.on(
-      carouselEl,
-      'touchend',
-      function (event) {
-        if (touchStartX === null) return;
-        var endX =
-          event.changedTouches && event.changedTouches[0]
-            ? event.changedTouches[0].clientX
-            : null;
-        if (endX !== null) {
-          var delta = endX - touchStartX;
-          if (Math.abs(delta) > 40) {
-            goTo(delta < 0 ? slideIndex + 1 : slideIndex - 1);
-          }
-        }
-        touchStartX = null;
-      },
-      { passive: true }
-    );
-
-    // 页面切到后台时暂停，回来再继续
-    U.on(document, 'visibilitychange', function () {
-      interactionPaused = !!document.hidden;
-      syncCarousel();
-    });
-  }
-
-  /* ------------------------------------------------------------------------
-     菜谱分类卡片
-     ------------------------------------------------------------------------ */
-  function categoryList() {
-    var order = (window.SEED_CATEGORIES || []).slice();
-    allRecipes.forEach(function (recipe) {
-      if (recipe.category && order.indexOf(recipe.category) === -1) order.push(recipe.category);
-    });
-    return order;
-  }
-
-  function countByCategory(category) {
-    return allRecipes.filter(function (recipe) {
-      return recipe.category === category;
-    }).length;
-  }
-
-  function renderCategories() {
-    if (!categoryGrid) return;
-
-    var list = categoryList();
-
-    categoryGrid.innerHTML = list
-      .map(function (category) {
-        var meta = CATEGORY_META[category] || DEFAULT_META;
-        var active = state.category === category;
-        return (
-          '<button type="button" class="category-card' +
-          (active ? ' is-active' : '') +
-          '" data-category="' +
-          U.escapeHtml(category) +
-          '" aria-pressed="' +
-          (active ? 'true' : 'false') +
-          '">' +
-          '<span class="category-card__icon">' +
-          U.icon(meta.icon) +
-          '</span>' +
-          '<span class="category-card__body">' +
-          '<span class="category-card__name">' +
-          U.escapeHtml(category) +
-          '</span>' +
-          '<span class="category-card__count">' +
-          countByCategory(category) +
-          ' 道 · ' +
-          U.escapeHtml(meta.desc) +
-          '</span>' +
-          '</span>' +
-          '<span class="category-card__watermark" aria-hidden="true">' +
-          U.escapeHtml(meta.emoji) +
-          '</span>' +
-          '</button>'
-        );
-      })
-      .join('');
-
-    if (categoryTotal) categoryTotal.textContent = list.length + ' 个分类';
-  }
-
-  /* ------------------------------------------------------------------------
-     菜谱卡片
-     ------------------------------------------------------------------------ */
-  function cardHtml(recipe, index) {
-    var stepsText = recipe.steps.length ? recipe.steps.length + ' 步' : '步骤待补充';
-    var desc = recipe.description || '这道菜还没有写简介，点开看看做法吧。';
-
-    var overlay =
-      '<span class="recipe-card__time">' +
-      U.icon('clock') +
-      U.escapeHtml(U.formatTime(recipe.timeMinutes)) +
-      '</span>';
-
-    return (
-      '<article class="recipe-card" style="animation-delay:' +
-      Math.min(index, 8) * 40 +
-      'ms">' +
-      '<a class="recipe-card__link" href="detail.html?id=' +
-      encodeURIComponent(recipe.id) +
-      '">' +
-      U.coverHtml(recipe, { extraClass: 'recipe-card__media', overlay: overlay }) +
-      '<div class="recipe-card__body">' +
-      '<h3 class="recipe-card__title">' +
-      U.escapeHtml(recipe.title) +
-      '</h3>' +
-      '<p class="recipe-card__desc">' +
-      U.escapeHtml(desc) +
-      '</p>' +
-      '<div class="recipe-card__meta">' +
-      '<span class="badge ' +
-      U.difficultyClass(recipe.difficulty) +
-      '">' +
-      U.escapeHtml(recipe.difficulty) +
-      '</span>' +
-      '<span class="badge badge--category">' +
-      U.escapeHtml(recipe.category) +
-      '</span>' +
-      (recipe.isCustom ? '<span class="badge badge--custom">我的</span>' : '') +
-      '<span class="recipe-card__steps-hint">' +
-      U.escapeHtml(stepsText) +
-      '</span>' +
-      '</div></div></a></article>'
-    );
-  }
-
-  /* ------------------------------------------------------------------------
-     菜谱列表
-     ------------------------------------------------------------------------ */
-  /** 当前该展示哪些菜谱：关键词 > 分类 > 热门榜默认视图 */
-  function visibleList() {
-    var keyword = normalize(state.keyword).trim();
-    var inCategory =
-      state.category === ALL
-        ? allRecipes
-        : allRecipes.filter(function (recipe) {
-            return recipe.category === state.category;
-          });
-
-    if (keyword) {
-      return inCategory.filter(function (recipe) {
-        return matchesKeyword(recipe, keyword);
-      });
-    }
-    if (state.category === ALL) return hotRanked.slice(0, HOT_SIZE);
-    return inCategory;
-  }
-
-  function render() {
-    var list = visibleList();
-    var keyword = state.keyword.trim();
-
-    grid.innerHTML = list.map(cardHtml).join('');
-    grid.classList.toggle('hidden', list.length === 0);
-
-    if (emptyEl) emptyEl.classList.toggle('hidden', list.length !== 0);
-
-    if (sectionTitle) {
-      sectionTitle.textContent = keyword
-        ? '搜索结果'
-        : state.category === ALL
-        ? '热门菜谱'
-        : state.category;
-    }
-
-    if (sectionSub) {
-      if (keyword) {
-        sectionSub.textContent = '包含「' + keyword + '」的菜谱，共 ' + list.length + ' 道。';
-      } else if (state.category === ALL) {
-        sectionSub.textContent = '大家都在做的高人气菜谱，跟着步骤来不容易失手。';
-      } else {
-        sectionSub.textContent = '「' + state.category + '」分类下的菜谱，点开就能看分步做法。';
-      }
-    }
-
-    if (countEl) countEl.textContent = '共 ' + list.length + ' 道菜谱';
-
-    if (resetFiltersBtn) {
-      resetFiltersBtn.classList.toggle('hidden', state.category === ALL && !keyword);
-    }
-  }
-
-  function renderFooter() {
-    var totalSteps = allRecipes.reduce(function (sum, recipe) {
-      return sum + recipe.steps.length;
-    }, 0);
-    if (footerSummary) {
-      footerSummary.textContent =
-        '共 ' + allRecipes.length + ' 道菜谱、' + totalSteps + ' 个做菜步骤，数据保存在本机浏览器中。';
-    }
-  }
-
-  /* ------------------------------------------------------------------------
-     筛选
-     ------------------------------------------------------------------------ */
-  function setKeyword(value) {
-    state.keyword = value;
-    if (navInput && navInput.value !== value) navInput.value = value;
-    syncSearchBox();
-  }
-
-  function syncSearchBox() {
-    if (!navBox) return;
-    navBox.classList.toggle('is-filled', !!(navInput && navInput.value));
-  }
-
-  function resetFilters(scroll) {
-    state.category = ALL;
-    setKeyword('');
-    renderCategories();
-    render();
-    if (scroll) U.scrollToEl(recipeSection);
-  }
-
-  var applyKeyword = U.debounce(function () {
-    render();
-  }, 200);
-
-  function bindEvents() {
-    // 分类卡片：再次点击当前分类可取消筛选
-    U.on(categoryGrid, 'click', function (event) {
-      var card = event.target.closest ? event.target.closest('.category-card') : null;
-      if (!card) return;
-
-      var category = card.getAttribute('data-category') || ALL;
-      state.category = state.category === category ? ALL : category;
-      setKeyword('');
-      renderCategories();
-      render();
-      U.scrollToEl(recipeSection);
-    });
-
-    U.on(resetFiltersBtn, 'click', function () {
-      resetFilters(true);
-    });
-
-    U.on(emptyResetBtn, 'click', function () {
-      resetFilters(false);
-    });
-
-    // 搜索
-    U.on(navInput, 'input', function () {
-      setKeyword(navInput.value);
-      applyKeyword();
-    });
-    U.on(navInput, 'keydown', function (event) {
-      if (event.key === 'Enter') render();
-    });
-    U.$$('.search-box__clear').forEach(function (btn) {
-      U.on(btn, 'click', function () {
-        setKeyword('');
-        render();
-        var target = document.getElementById(btn.getAttribute('data-clear'));
-        if (target) target.focus();
-      });
-    });
-
-    // 恢复初始数据
-    U.on(resetDataBtn, 'click', function () {
-      var custom = S.customCount();
-      if (custom === 0) {
-        U.toast('当前没有需要清空的本地数据', 'success');
-        return;
-      }
-      U.confirmDialog({
-        title: '恢复初始数据？',
-        text:
-          '将删除你创建或编辑过的 ' +
-          custom +
-          ' 条菜谱记录，内置示例菜谱会恢复原样，该操作不可撤销。',
-        okText: '确认恢复',
-        danger: true
-      }).then(function (ok) {
-        if (!ok) return;
-        try {
-          S.clearCustom();
-          refresh();
-          U.toast('已恢复到初始数据', 'success');
-        } catch (err) {
-          U.toast((err && err.message) || '操作失败', 'error');
+  /* ---- 滚动进场动画 ---- */
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+
+  function markAllIn() {
+    revealEls.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
         }
       });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+    revealEls.forEach(function (el) { io.observe(el); });
+    // 兜底：3 秒后仍未进入视口的元素直接显示，避免内容不可见
+    window.setTimeout(markAllIn, 3000);
+  } else {
+    markAllIn();
+  }
+
+  /* ---- 导航高亮：按 <body data-nav="..."> 标记 ---- */
+  var current = document.body.getAttribute('data-nav');
+  if (current) {
+    Array.prototype.forEach.call(document.querySelectorAll('.nav-link'), function (link) {
+      if (link.getAttribute('data-nav-key') === current) {
+        link.classList.add('is-active');
+        link.setAttribute('aria-current', 'page');
+      }
     });
   }
 
-  /* ------------------------------------------------------------------------
-     启动
-     ------------------------------------------------------------------------ */
-  function refresh() {
-    loadData();
-    hotRanked = rankByHeat(allRecipes);
-    buildCarousel(hotRanked.slice(0, CAROUSEL_SIZE));
-    renderCategories();
-    render();
-    renderFooter();
+  /* ---- 页脚年份 ---- */
+  var yearEl = document.getElementById('footerYear');
+  if (yearEl) {
+    yearEl.textContent = String(new Date().getFullYear());
   }
-
-  canAutoPlay = !prefersReducedMotion();
-
-  U.bindNavScroll();
-  updateToggle();
-  bindCarousel();
-  bindEvents();
-  refresh();
-  syncSearchBox();
 })(window, document);
-
 </script>
 </body>
 </html>

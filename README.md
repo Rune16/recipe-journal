@@ -1,6 +1,14 @@
-# 食谱集 · 菜谱平台
+# R · 景鑫如的个人网站
 
-一个零依赖的图文菜谱平台。**双击 `index.html` 即可打开使用**，不需要安装任何环境、不需要启动服务器、也不需要联网。
+一个零依赖的静态个人网站，包含三个部分，**双击 `index.html` 即可打开**，不需要安装任何环境、不需要启动服务器、也不需要联网。
+
+| 界面 | 文件 | 内容 |
+| --- | --- | --- |
+| 首页 · 关于我 | `index.html` | 个人介绍：景鑫如，成都大学 2024 级工商管理在读 |
+| 个人网站 | `recipes.html` | 图文菜谱平台「食谱集」 |
+| 团队网站 | `team.html` | 团队介绍、成员、项目与联系方式 |
+
+食谱集（个人网站）包含：
 
 - 首页精选：自动生成的轮播图（自动播放 / 悬停暂停 / 左右键 / 触摸滑动）
 - 按类型浏览：菜谱分类卡片（川菜 / 粤菜 / 家常菜 / 汤羹 / 甜品 / 素食），点击即筛选
@@ -13,10 +21,11 @@
 
 ## 快速开始
 
-1. 双击 `index.html`（或右键 →「用浏览器打开」）
-2. 首页顶部是精选轮播图，往下依次是菜谱分类卡片与热门菜谱（共 10 道内置示例）
-3. 点分类卡片可以只看某一类菜谱，点右上角搜索框可以搜菜名 / 食材 / 标签
-4. 点「新建菜谱」录入自己的菜谱，保存后自动跳转到详情页
+1. 双击 `index.html`（或右键 →「用浏览器打开」），看到的是个人介绍页
+2. 顶部导航可以在「首页 / 个人网站 / 团队网站」之间切换
+3. 进入「个人网站」后：精选轮播图 → 菜谱分类卡片 → 热门菜谱（共 10 道内置示例）
+4. 点分类卡片可以只看某一类菜谱，点右上角搜索框可以搜菜名 / 食材 / 标签
+5. 点「新建菜谱」录入自己的菜谱，保存后自动跳转到详情页
 
 > 推荐使用 Chrome / Edge / Firefox 等现代浏览器。
 
@@ -26,7 +35,8 @@
 
 手机浏览器直接打开上面的网址即可，也可以扫描仓库根目录的 `phone-qr.svg` 二维码。该地址由 **GitHub Pages** 托管，长期有效，在任意网络下都能访问（校园 WiFi / 家用宽带 / 移动数据），不要求电脑开机，也不要求和电脑处于同一局域网。
 
-- 已验证：三个入口 `index.html`、`detail.html?id=seed-01`、`edit.html` 在 Chromium 中均正常渲染（菜谱、用料、步骤齐全）
+- 已验证：5 个页面 `index.html`、`recipes.html`、`detail.html?id=seed-01`、`edit.html`、`team.html` 在 Chromium 中均正常渲染
+- 个人介绍与团队网站的内容是模板文案，直接改对应 HTML 里的文字即可（团队页的「待补充」占位需要自行填写）
 - 页面按屏幕宽度自动切换为手机布局：单列网格、轮播 4:3、隐藏左右箭头、操作栏吸底
 - iOS Safari / 安卓 Chrome 可用「添加到主屏幕」，之后以独立 App 形式全屏打开
 - 数据依旧保存在当前浏览器本地（`localStorage`），手机与电脑各自独立
@@ -36,16 +46,16 @@
 仓库里已经准备好了发布包，直接在网页上操作即可，不需要安装 Git：
 
 1. 打开 <https://github.com/new>，仓库名填 `recipe-journal`，可见性选 **Public**，点 **Create repository**
-2. 在空仓库页点 **Add file → Upload files**，把 `site-deploy/` 下的 **3 个 HTML 文件** 拖进上传区，点 **Commit changes**
+2. 在空仓库页点 **Add file → Upload files**，把 `site-deploy/` 下的 **5 个 HTML 文件** 拖进上传区，点 **Commit changes**
 3. 进入 **Settings → Pages**，Source 选 **Deploy from a branch**，Branch 选 `main`、文件夹选 `/ (root)`，点 **Save**
 
 约 1 分钟后即可通过 `https://<用户名>.github.io/recipe-journal/` 访问。
 
-> **为什么只需要 3 个文件？** GitHub 网页上传拖拽文件夹经常失败（文件会被静默丢弃，页面打开后 0 道菜谱）。所以 `site-deploy/` 里的 HTML 已经把 CSS 与 JS 全部内联，**没有 `css/`、`js/` 子目录**，上传时不可能丢结构。
+> **为什么只需要 5 个文件？** GitHub 网页上传拖拽文件夹经常失败（文件会被静默丢弃，页面打开后 0 道菜谱）。所以 `site-deploy/` 里的 HTML 已经把 CSS 与 JS 全部内联，**没有 `css/`、`js/` 子目录**，上传时不可能丢结构。
 >
 > 仓库根目录的 `index.html` / `css/` / `js/` 是源码（本地双击用），`site-deploy/` 是发布版（上传用），两者内容一致。
 >
-> 之后改了代码：重新生成 `site-deploy/` 的 3 个 HTML，在仓库里逐个点开同名文件 → 右上角铅笔图标 **Edit** → 全选替换 → **Commit changes**，网址保持不变。
+> 之后改了代码：运行 `python build_pages.py` 重新生成 `site-deploy/` 的 5 个 HTML，在仓库里逐个点开同名文件 → 右上角铅笔图标 **Edit** → 全选替换 → **Commit changes**，网址保持不变。
 
 ---
 
@@ -53,10 +63,12 @@
 
 | 页面 | 说明 |
 | --- | --- |
-| `index.html` | 首页：精选轮播图 → 菜谱分类卡片 → 热门菜谱网格，含空状态与数据重置 |
+| `index.html` | 首页：个人介绍 Hero、基本信息、兴趣方向、足迹时间线、三个界面的入口卡片 |
+| `recipes.html` | 个人网站（食谱集）：精选轮播图 → 菜谱分类卡片 → 热门菜谱网格，含空状态与数据重置 |
 | `detail.html?id=xxx` | 详情页：封面大图、元信息、用料清单、图文步骤、编辑与删除 |
 | `edit.html` | 新建菜谱表单 |
 | `edit.html?id=xxx` | 编辑指定菜谱 |
+| `team.html` | 团队网站：团队简介、成员卡片、项目与成果、联系方式 |
 
 页面之间通过 URL 查询参数传递菜谱 id，例如 `detail.html?id=seed-03`。
 
@@ -66,25 +78,30 @@
 
 ```
 miniCRM/
-├── index.html                # 首页：轮播图 / 菜谱分类 / 热门菜谱
+├── index.html                # 首页：个人介绍（标题 R · 景鑫如）
+├── recipes.html              # 个人网站：食谱集（轮播图 / 菜谱分类 / 热门菜谱）
+├── team.html                 # 团队网站：成员 / 项目 / 联系方式
 ├── detail.html               # 菜谱详情
 ├── edit.html                 # 新增 / 编辑菜谱
 ├── .nojekyll                 # 让 GitHub Pages 跳过 Jekyll 构建
 ├── phone-qr.svg              # 手机扫码访问用的二维码
-├── site-deploy/              # 发布目录：与根目录同构，直接上传到 GitHub
+├── build_pages.py            # 打包脚本：把 CSS/JS 内联，生成 site-deploy/
+├── site-deploy/              # 发布目录：5 个自包含 HTML，直接上传到 GitHub
 ├── recipe-site-deploy.zip    # site-deploy 的压缩包（备份用）
 ├── css/
 │   ├── base.css              # 设计令牌、Reset、全局排版、工具类
 │   ├── components.css        # 按钮、卡片、轮播图、分类卡片、胶囊标签、徽章、表单、上传区、时间轴、Toast、弹窗、灯箱
-│   └── layout.css            # 导航、首页区块、网格、详情/表单布局、响应式
+│   ├── layout.css            # 导航、首页区块、网格、详情/表单布局、响应式
+│   └── about.css             # 个人介绍 / 团队网站专用样式
 └── js/
     ├── data/recipes.js       # 内置示例菜谱数据
     ├── utils.js              # 转义、格式化、防抖、内联图标、封面渲染、Toast、弹窗、灯箱
     ├── storage.js            # 存储层（内置数据 + localStorage 合并读写）
     ├── image.js              # 图片校验、canvas 等比压缩、上传区绑定
-    ├── list.js               # 首页逻辑（轮播控制器 / 分类筛选 / 热度排序 / 搜索）
+    ├── list.js               # 食谱集首页逻辑（轮播控制器 / 分类筛选 / 热度排序 / 搜索）
     ├── detail.js             # 详情页逻辑
-    └── edit.js               # 表单页逻辑
+    ├── edit.js               # 表单页逻辑
+    └── about.js              # 个人 / 团队页交互（滚动进场、导航高亮）
 ```
 
 ---
