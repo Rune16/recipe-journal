@@ -2927,6 +2927,19 @@ table {
   line-height: 1.8;
   color: var(--c-ink-2);
 }
+.about-card p + p {
+  margin-top: 10px;
+}
+.about-card ul {
+  margin: 0 0 10px;
+  padding-left: 20px;
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--c-ink-2);
+}
+.about-card li + li {
+  margin-top: 4px;
+}
 
 /* ---------- 事实清单 ---------- */
 .fact-list {
@@ -3313,18 +3326,14 @@ table {
             </p>
           </article>
 
-          <article class="team-card team-card--placeholder reveal">
-            <div class="team-card__avatar" aria-hidden="true">＋</div>
-            <h3 class="team-card__name">待补充成员</h3>
-            <p class="team-card__role">岗位待定</p>
-            <p class="team-card__desc">这里留给下一位伙伴。确认加入后，替换姓名、分工与一句话介绍即可。</p>
-          </article>
-
-          <article class="team-card team-card--placeholder reveal">
-            <div class="team-card__avatar" aria-hidden="true">＋</div>
-            <h3 class="team-card__name">待补充成员</h3>
-            <p class="team-card__role">岗位待定</p>
-            <p class="team-card__desc">这里留给下一位伙伴。确认加入后，替换姓名、分工与一句话介绍即可。</p>
+          <article class="team-card reveal">
+            <div class="team-card__avatar" aria-hidden="true">C</div>
+            <h3 class="team-card__name">陈春婷</h3>
+            <p class="team-card__role">团队成员 · 交互与开发</p>
+            <p class="team-card__desc">
+              解压小游戏合集「今天，先歇一会儿」的作者，负责游戏的交互实现与移动端适配，
+              让放松这件事在手机上也能随手发生。
+            </p>
           </article>
 
           <article class="team-card team-card--placeholder reveal">
@@ -3371,6 +3380,71 @@ table {
             <p>
               希望在积累几个小项目之后，形成一个可复用的协作流程与作品集，
               方便后来的人快速接手。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 伙伴的作品 ================= -->
+    <section class="about-section" id="works" aria-labelledby="worksHeading">
+      <div class="container">
+        <div class="about-section__head reveal">
+          <p class="about-section__eyebrow">Team Works</p>
+          <h2 class="about-section__title" id="worksHeading">团队作品 · 解压小游戏合集</h2>
+        </div>
+
+        <div class="entry-grid">
+          <a class="entry-card reveal" href="https://chenchunting-portfolio.app.workbuddy.host/?sharecode=7I2RTA2XQD&amp;shareId=d630716327b54554b4aef1b042fa2047" target="_blank" rel="noopener">
+            <div class="entry-card__icon" aria-hidden="true">🎮</div>
+            <p class="entry-card__label">ONLINE · 点击即玩</p>
+            <h3 class="entry-card__title">「今天，先歇一会儿」解压小游戏合集</h3>
+            <p class="entry-card__desc">团队成员制作的在线解压小游戏：气球派对、果冻切切、涂鸦沙盘、音符风铃。无需登录、不收集数据，手机打开也能玩。</p>
+            <span class="entry-card__go">去玩一会儿
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><path d="M15 3h6v6" /><path d="M10 14L21 3" /></svg>
+            </span>
+          </a>
+        </div>
+
+        <div class="about-grid" style="margin-top:20px">
+          <article class="about-card reveal">
+            <h3>项目目的</h3>
+            <p>
+              这个项目做出来的初衷，是给日常积攒的紧绷感找一个零成本、零负担的出口。现代人的压力往往散落在通勤、课间、工作间隙这些碎片时间里，
+              而市面上很多解压产品要么需要下载注册，要么功能繁杂、广告干扰，把「放松」本身变成了一件有门槛的事。
+            </p>
+            <p>
+              我们想做的是反过来的东西：打开即玩，玩完即走，不记录、不追踪，也不要求你「玩得好」。
+              网站上的四个小游戏（如「气球派对」）共同遵循一个原则：没有通关目标，没有失败画面，没有倒计时。
+              你可以戳两下气球，可以捏一捏，可以随手画两笔，也可以两秒内关掉去做别的事——「想停就停」本身就是设计的一部分。
+            </p>
+            <p>
+              技术上，所有计数只存在用户自己的浏览器里，不上传、不追踪，也不设登录墙。
+              我们希望通过这种极轻的交互，把「放松」还原成一件没有心理负担的小事。
+            </p>
+          </article>
+
+          <article class="about-card reveal">
+            <h3>受众群体</h3>
+            <p>核心受众是有碎片化解压需求、但对「麻烦」高度敏感的年轻用户：</p>
+            <ul>
+              <li><strong>上班族 / 打工人</strong>：工作间隙需要几十秒到几分钟的快速抽离，没有精力去研究规则或完成新手引导。</li>
+              <li><strong>学生群体</strong>：课间、自习间隙想换换脑子，需要的是「随手点开就能玩」的轻量出口。</li>
+              <li><strong>通勤路上的碎片时间使用者</strong>：手机端直接可玩，不占用存储，不需要专门留出一段「放松时间」。</li>
+              <li><strong>对隐私敏感、反感被追踪的用户</strong>：项目明确不做数据上传，计数仅在本地，对在意「玩个小游戏还要被记录」的人比较友好。</li>
+            </ul>
+            <p>一句话概括：不是做给「游戏玩家」的，而是做给「任何此刻需要喘一口气的人」的。</p>
+          </article>
+
+          <article class="about-card reveal">
+            <h3>项目进展</h3>
+            <p>
+              目前项目已经完成了从概念到可上线版本的核心闭环：四个小游戏均可在桌面端和手机端直接运行，无需登录，音效可随时关闭，
+              「连戳」计数、金色气球彩蛋等交互细节也已落地。网站整体走完了「策划 → 交互实现 → 移动端适配 → 上线」的完整流程。
+            </p>
+            <p>
+              当前处于持续迭代阶段。页面上的支持入口写的是「让我有动力继续加新玩法」，
+              团队接下来会在现有框架上扩充游戏池、打磨交互手感，并可能在音效反馈、视觉微动效等体验层做进一步优化。
             </p>
           </article>
         </div>
